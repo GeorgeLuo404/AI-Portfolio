@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
 const geistSans = Geist({
@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "George Luo",
-  description: "George Luo's Portfolio",
+  title: "George AI Portfolio",
+  description: "George AI Portfolio",
 };
 
 export default function RootLayout({
