@@ -13,7 +13,6 @@ import siteSettings from "./siteSettings";
 import skill from "./skill";
 import testimonial from "./testimonial";
 
-
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     profile,
