@@ -7,7 +7,7 @@ Each task gets its own branch, merge commit, and checkpoint tag, so any step can
 | # | Task | Status | Branch | Checkpoint |
 |---|---|---|---|---|
 | T0 | Baseline and project docs | Merged | `chore/t0-baseline-docs` | `checkpoint/t0` |
-| T1 | Upgrade dependencies, remove Clerk and `/dashboard` | In review | `chore/t1-upgrade-deps` | |
+| T1 | Upgrade dependencies, remove Clerk and `/dashboard` | Merged | `chore/t1-upgrade-deps` | `checkpoint/t1` |
 | T2 | Lint, CI, Vercel deploy, mainland go/no-go test | Not started | | |
 | T3 | Layout: theme, dock, sidebar, metadata | Not started | | |
 | T3b | English-only i18n setup | Not started | | |
@@ -68,7 +68,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 
 ### T6: Contact form
 - Send messages by email through Resend, and don't store them. Check Resend's current limits and its reachability first.
-- Add input validation and rate limiting, and remove the `contact` schema and sample documents.
+- Add input validation and rate limiting, and remove the `contact` schema, its entries in `sanity/structure.ts`, and the sample documents.
 - **Done when:** a test message arrives, and bad input and repeated requests are rejected.
 
 ### T7: Draft mode and webhook content updates
@@ -122,8 +122,7 @@ All decided on 2026-11-03.
 | Find a tester on a mainland network without a VPN | T2 | George |
 | Confirm whether an ICP filing is possible | Only if T2 fails | George |
 | Ask the local cyberspace authority whether the chat needs registration | Before enabling chat for mainland visitors | George |
-| Delete the Clerk app and remove its keys from `.env.local` | After T1 merges | George |
-| Log in to Studio in a real browser | T1 | George, if the login needs it |
+| Delete the Clerk app and remove its keys from `.env.local` | Now that T1 is merged | George |
 
 ## Baseline measurements
 
@@ -148,3 +147,5 @@ Taken on 2026-11-03 on `chore/t1-upgrade-deps`.
 | Production audit | 1 advisory: 1 moderate (`minimatch`) |
 | Full audit, including dev dependencies | 2 advisories: 1 moderate (`minimatch`), 1 low (`deepmerge`, no fix published) |
 | Third-party hosts contacted by the public page | `*.api.sanity.io` only, from `SanityLive` (removed in T7) |
+| Studio in a real browser | Login, saving a draft to Sanity, and discarding it all work |
+| Fresh clone with a frozen install and no Clerk keys | Build, type check, and typegen pass |
