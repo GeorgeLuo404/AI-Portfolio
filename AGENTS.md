@@ -60,7 +60,8 @@ Run `pnpm typegen` after changing a schema or a GROQ query. Don't edit `schema.j
 
 ## Workflow
 
-- Do one roadmap task per branch and PR, named `<type>/t<N>-<slug>`, such as `chore/t1-upgrade-deps`.
+- Do one roadmap task per branch, named `<type>/t<N>-<slug>`, such as `chore/t1-upgrade-deps`.
+- Merge each task with `git merge --no-ff`, so it stays a single merge commit that can be reverted.
 - Before finishing a task, run the build, the type check, and lint.
 - Update the task's status in `docs/ROADMAP.md` in the same branch.
 - Ask before pushing, opening a PR, deploying, or changing an external account such as Vercel, Sanity, or DeepSeek.

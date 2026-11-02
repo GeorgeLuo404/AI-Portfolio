@@ -1,12 +1,12 @@
 # Roadmap
 
-Each task gets its own branch, PR, and checkpoint tag, so any step can be undone on its own. See [AGENTS.md](../AGENTS.md) for the workflow.
+Each task gets its own branch, merge commit, and checkpoint tag, so any step can be undone on its own. See [AGENTS.md](../AGENTS.md) for the workflow.
 
 ## Status
 
 | # | Task | Status | Branch | Checkpoint |
 |---|---|---|---|---|
-| T0 | Baseline and project docs | In review | `chore/t0-baseline-docs` | |
+| T0 | Baseline and project docs | Merged | `chore/t0-baseline-docs` | `checkpoint/t0` |
 | T1 | Upgrade dependencies, remove Clerk and `/dashboard` | Not started | | |
 | T2 | Lint, CI, Vercel deploy, mainland go/no-go test | Not started | | |
 | T3 | Layout: theme, dock, sidebar, metadata | Not started | | |
