@@ -7,7 +7,7 @@ Each task gets its own branch, merge commit, and checkpoint tag, so any step can
 | # | Task | Status | Branch | Checkpoint |
 |---|---|---|---|---|
 | T0 | Baseline and project docs | Merged | `chore/t0-baseline-docs` | `checkpoint/t0` |
-| T1 | Upgrade dependencies, remove Clerk and `/dashboard` | Not started | | |
+| T1 | Upgrade dependencies, remove Clerk and `/dashboard` | Merged | `chore/t1-upgrade-deps` | `checkpoint/t1` |
 | T2 | Lint, CI, Vercel deploy, mainland go/no-go test | Not started | | |
 | T3 | Layout: theme, dock, sidebar, metadata | Not started | | |
 | T3b | English-only i18n setup | Not started | | |
@@ -38,10 +38,14 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Add `packageManager` and `engines`, and allow the pnpm build scripts we need.
 - Try forcing patched versions for the remaining advisories, and keep only those that don't break the build.
 - Decide how to handle the block that Next 16.4 adds to `AGENTS.md` when `next dev` runs.
+- Update `radix-ui`, because Slot 1.2.3 causes a sidebar hydration error on React 19.3.
+- Add `--force` to `schema extract` in the `typegen` script, as Sanity 6 requires.
 - **Done when:** the build and type check pass, the audit shows 0 critical advisories, and logging in and editing in Studio works in a real browser.
 
+`pnpm.overrides` in `package.json` patches `js-yaml`, `smol-toml`, and `undici` where the Sanity CLI pins vulnerable versions. Remove them once the CLI ships patched versions. `minimatch` stays unpatched because its fix needs a major jump, and it is only reached through the CLI.
+
 ### T2: Lint, CI, Vercel deploy, mainland go/no-go test
-- Fix the Biome errors, and add CI for lint, type check, and build.
+- Fix the Biome errors, exclude the generated `sanity.types.ts` from Biome, and add CI for lint, type check, and build.
 - Connect Vercel with a custom domain, and run functions in `hkg1`.
 - Deploy the Hero page, then test it on China Telecom, Unicom, and Mobile networks without a VPN, on several different days.
 - **Done when:** the test result is recorded here. If it fails, switch hosting (see the fallback under Decisions) before starting T3.
@@ -49,6 +53,8 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 ### T3: Layout
 - Add the theme provider, dark mode toggle, floating dock, sidebar toggle, and `loading.tsx`.
 - Replace the sample links in `components/app-sidebar.tsx`, and set real metadata.
+- Fix the circular `--font-sans: var(--font-sans)` in `app/globals.css`, which makes the site render in Times instead of Geist.
+- Add side padding to the Hero, whose text touches the screen edge, and a `sizes` prop to the image in `components/ProfileImage.tsx`.
 - **Done when:** the layout works at desktop and phone widths, in light and dark modes.
 
 ### T3b: English-only i18n setup
@@ -62,7 +68,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 
 ### T6: Contact form
 - Send messages by email through Resend, and don't store them. Check Resend's current limits and its reachability first.
-- Add input validation and rate limiting, and remove the `contact` schema and sample documents.
+- Add input validation and rate limiting, and remove the `contact` schema, its entries in `sanity/structure.ts`, and the sample documents.
 - **Done when:** a test message arrives, and bad input and repeated requests are rejected.
 
 ### T7: Draft mode and webhook content updates
@@ -106,6 +112,7 @@ All decided on 2026-11-03.
 | Do the i18n setup at T3b, and translation at T11 | Adding it late means moving every route, redoing every section, and migrating content. |
 | Send contact messages by email | Sanity's free plan only allows public datasets, so stored messages would be publicly readable. |
 | Keep Sanity | Its schemas are done and upstream's sections depend on it. Moving to files in the repo would mean rewriting the data layer. |
+| Keep the block that `next dev` adds to `AGENTS.md` | It points agents to docs matching the installed Next version, and committing it avoids a dirty diff after every dev run. |
 
 ## Open items
 
@@ -115,8 +122,7 @@ All decided on 2026-11-03.
 | Find a tester on a mainland network without a VPN | T2 | George |
 | Confirm whether an ICP filing is possible | Only if T2 fails | George |
 | Ask the local cyberspace authority whether the chat needs registration | Before enabling chat for mainland visitors | George |
-| Delete the Clerk app and remove its keys from `.env.local` | After T1 merges | George |
-| Log in to Studio in a real browser | T1 | George, if the login needs it |
+| Delete the Clerk app and remove its keys from `.env.local` | Now that T1 is merged | George |
 
 ## Baseline measurements
 
@@ -130,4 +136,16 @@ Taken on 2026-11-03 at `checkpoint/baseline`.
 | Sections built | 1 of 12 (Hero) |
 | Sanity content | 109 published sample documents in a public dataset named `development` |
 
-A trial of T1 on a throwaway copy brought the audit down to 44 advisories: 0 critical, 14 high, 24 moderate, 6 low.
+## After T1
+
+Taken on 2026-11-03 on `chore/t1-upgrade-deps`.
+
+| Check | Result |
+|---|---|
+| Build and type check | Pass |
+| Biome | 19 errors, 7 warnings |
+| Production audit | 1 advisory: 1 moderate (`minimatch`) |
+| Full audit, including dev dependencies | 2 advisories: 1 moderate (`minimatch`), 1 low (`deepmerge`, no fix published) |
+| Third-party hosts contacted by the public page | `*.api.sanity.io` only, from `SanityLive` (removed in T7) |
+| Studio in a real browser | Login, saving a draft to Sanity, and discarding it all work |
+| Fresh clone with a frozen install and no Clerk keys | Build, type check, and typegen pass |
