@@ -1,0 +1,133 @@
+# Roadmap
+
+Each task gets its own branch, PR, and checkpoint tag, so any step can be undone on its own. See [AGENTS.md](../AGENTS.md) for the workflow.
+
+## Status
+
+| # | Task | Status | Branch | Checkpoint |
+|---|---|---|---|---|
+| T0 | Baseline and project docs | In review | `chore/t0-baseline-docs` | |
+| T1 | Upgrade dependencies, remove Clerk and `/dashboard` | Not started | | |
+| T2 | Lint, CI, Vercel deploy, mainland go/no-go test | Not started | | |
+| T3 | Layout: theme, dock, sidebar, metadata | Not started | | |
+| T3b | English-only i18n setup | Not started | | |
+| T4 | Sections: About, Skills, Experience, Education, Projects | Not started | | |
+| T5 | Sections: Testimonials, Certifications, Achievements, Blog | Not started | | |
+| T6 | Contact form that sends email | Not started | | |
+| T7 | Draft mode and webhook content updates | Not started | | |
+| T8 | DeepSeek chat | Not started | | |
+| T9 | Replace sample content with real content | Not started | | |
+| T10 | Production launch | Not started | | |
+| T11 | Chinese translation | Not started | | |
+
+The `checkpoint/baseline` tag marks the project as it was before this work started (commit `9a10424`).
+
+## Tasks
+
+### T0: Baseline and project docs
+- Tag the baseline, and add `AGENTS.md`, `CLAUDE.md`, this roadmap, and `.env.example`.
+- **Done when:** the docs are merged and the dev server runs normally.
+
+### T1: Upgrade dependencies, remove Clerk and `/dashboard`
+- Delete `app/dashboard/` and `components/ui/breadcrumb.tsx`. On Next 16.4, a page outside a root layout is a hard build error.
+- Upgrade to Next 16.4, React 19.3, Sanity 6, next-sanity 13, and `@sanity/client` 8.
+- Keep `@sanity/icons` on 3.x, because `sanity/structure.ts` uses icons that newer majors no longer export under those names.
+- Update the `SanityImageSource` import and the deprecated default export in `sanity/lib/image.ts`.
+- Remove Clerk from `app/(portfolio)/layout.tsx`, `components/ProfileImage.tsx`, `package.json`, and `.env.example`, and delete `proxy.ts`.
+- Move `shadcn` to dev dependencies, because `app/globals.css` only needs it at build time.
+- Add `packageManager` and `engines`, and allow the pnpm build scripts we need.
+- Try forcing patched versions for the remaining advisories, and keep only those that don't break the build.
+- Decide how to handle the block that Next 16.4 adds to `AGENTS.md` when `next dev` runs.
+- **Done when:** the build and type check pass, the audit shows 0 critical advisories, and logging in and editing in Studio works in a real browser.
+
+### T2: Lint, CI, Vercel deploy, mainland go/no-go test
+- Fix the Biome errors, and add CI for lint, type check, and build.
+- Connect Vercel with a custom domain, and run functions in `hkg1`.
+- Deploy the Hero page, then test it on China Telecom, Unicom, and Mobile networks without a VPN, on several different days.
+- **Done when:** the test result is recorded here. If it fails, switch hosting (see the fallback under Decisions) before starting T3.
+
+### T3: Layout
+- Add the theme provider, dark mode toggle, floating dock, sidebar toggle, and `loading.tsx`.
+- Replace the sample links in `components/app-sidebar.tsx`, and set real metadata.
+- **Done when:** the layout works at desktop and phone widths, in light and dark modes.
+
+### T3b: English-only i18n setup
+- Add `next-intl`, `/en` and `/zh` routes under `[locale]`, a language switch, and a system font stack for Chinese.
+- Add `sanity-plugin-internationalized-array`, and localize the schema fields that hold text.
+- **Done when:** both routes render, and `/zh` falls back to English until T11.
+
+### T4 and T5: Sections
+- Port the sections from upstream using translatable text and `next/image`. Skip Services, because the site doesn't advertise paid work.
+- **Done when:** each section renders from Sanity at desktop and phone widths, with no third-party requests in the browser.
+
+### T6: Contact form
+- Send messages by email through Resend, and don't store them. Check Resend's current limits and its reachability first.
+- Add input validation and rate limiting, and remove the `contact` schema and sample documents.
+- **Done when:** a test message arrives, and bad input and repeated requests are rejected.
+
+### T7: Draft mode and webhook content updates
+- Add draft mode and visual editing with a viewer-only token.
+- Update public pages through a Sanity webhook, in place of the browser connection that `SanityLive` opens.
+- **Done when:** published edits reach the live page, and visitors' browsers make no requests to Sanity.
+
+### T8: DeepSeek chat
+- Add an `/api/chat` route using the AI SDK and `deepseek-flash`, with the model ID in an environment variable.
+- Put a snapshot of portfolio content in the system prompt, excluding `contact` and `navigation`.
+- Adapt the prompts from upstream's `prompts/` folder. Remove their MCP instructions, services wording, and upstream's Sanity project ID.
+- Add the chat UI to the sidebar, a rate limit on `/api/*`, and an on/off switch that defaults to off.
+- **Done when:** replies stream from a mainland network, off-topic questions are declined, and the rate limit works.
+
+### T9: Real content
+- Replace the sample data, and delete the `service` documents and schema.
+- Decide whether to keep the dataset name `development` or move to a new `production` dataset.
+- **Done when:** no sample data remains.
+
+### T10: Production launch
+- Set the production environment variables, the Sanity CORS origin, and the firewall rule, and rewrite `README.md`.
+- Repeat the mainland test on the finished site.
+- **Done when:** the production site passes the mainland test and the T8 switch has a settled state.
+
+### T11: Chinese translation
+- Translate the UI and content, and have the chat answer in the visitor's language.
+- **Done when:** `/zh` shows no leftover English, apart from names and terms meant to stay in English.
+
+## Decisions
+
+All decided on 2026-11-03.
+
+| Decision | Reason |
+|---|---|
+| Use the AI SDK and DeepSeek, not OpenAI ChatKit | Upstream's chat needs Agent Builder, which shuts down on 2026-11-30, and a DeepSeek key can't replace it. The AI SDK also makes the provider easy to change. |
+| Remove Clerk, and let visitors chat without signing in | Clerk only gated the chat, and it needs an owned domain, DNS records, and separate OAuth credentials in production. Studio has its own login. |
+| Protect the chat with a firewall rate limit and a small prepaid balance | Needs no extra service. Vercel Hobby includes one rate-limit rule, but it has no daily limit, so the balance caps spending. |
+| Don't advertise paid work | Vercel Hobby is non-commercial, and its rules count advertising a service as commercial use. |
+| Try Vercel first, on a custom domain | Cheap to test and easy to reverse. `*.vercel.app` is blocked in the mainland, and Vercel doesn't guarantee availability there. |
+| If the T2 test fails, host in the mainland with an ICP filing | This is the dependable route. EdgeOne Pages is the first candidate, not yet tried. |
+| Do the i18n setup at T3b, and translation at T11 | Adding it late means moving every route, redoing every section, and migrating content. |
+| Send contact messages by email | Sanity's free plan only allows public datasets, so stored messages would be publicly readable. |
+| Keep Sanity | Its schemas are done and upstream's sections depend on it. Moving to files in the repo would mean rewriting the data layer. |
+
+## Open items
+
+| Item | Needed by | Owner |
+|---|---|---|
+| Buy a `.com` or `.cn` domain, after confirming the ending can be ICP-filed | T2 | George |
+| Find a tester on a mainland network without a VPN | T2 | George |
+| Confirm whether an ICP filing is possible | Only if T2 fails | George |
+| Ask the local cyberspace authority whether the chat needs registration | Before enabling chat for mainland visitors | George |
+| Delete the Clerk app and remove its keys from `.env.local` | After T1 merges | George |
+| Log in to Studio in a real browser | T1 | George, if the login needs it |
+
+## Baseline measurements
+
+Taken on 2026-11-03 at `checkpoint/baseline`.
+
+| Check | Result |
+|---|---|
+| Build and type check | Pass |
+| Biome | 23 errors, 8 warnings |
+| Production audit | 258 advisories: 8 critical, 101 high, 126 moderate, 23 low |
+| Sections built | 1 of 12 (Hero) |
+| Sanity content | 109 published sample documents in a public dataset named `development` |
+
+A trial of T1 on a throwaway copy brought the audit down to 44 advisories: 0 critical, 14 high, 24 moderate, 6 low.
