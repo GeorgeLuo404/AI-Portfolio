@@ -59,7 +59,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Replace the sample links in `components/app-sidebar.tsx`, and set real metadata.
 - Fix the circular `--font-sans: var(--font-sans)` in `app/globals.css`, which makes the site render in Times instead of Geist.
 - Add side padding to the Hero, whose text touches the screen edge, and a `sizes` prop to the image in `components/ProfileImage.tsx`.
-- Credit Sonny Sangha and the original tutorial on the site and in `README.md`, as upstream's license requires.
+- Credit Sonny Sangha and the original tutorial on the site, as upstream's license requires. `README.md` already does.
 - **Done when:** the layout works at desktop and phone widths, in light and dark modes.
 
 ### T3b: English-only i18n setup
@@ -118,6 +118,7 @@ All decided on 2026-11-03.
 | Send contact messages by email | Sanity's free plan only allows public datasets, so stored messages would be publicly readable. |
 | Keep Sanity | Its schemas are done and upstream's sections depend on it. Moving to files in the repo would mean rewriting the data layer. |
 | Keep the block that `next dev` adds to `AGENTS.md` | It points agents to docs matching the installed Next version, and committing it avoids a dirty diff after every dev run. |
+| Keep the GitHub repo public | Owner's choice. Everything committed is public, so private details stay out of the repo. |
 
 ## Open items
 

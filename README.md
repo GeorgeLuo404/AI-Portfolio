@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Credits
+
+This project is based on the [Next-Gen AI Portfolio](https://github.com/sonnysangha/next-gen-ai-portfolio-openai-agentkit-sanity-clerk-nextjs-16) by Sonny Sangha and its original tutorial. See that repository for its license terms.
+
 ## Getting Started
 
 First, run the development server:
