@@ -146,5 +146,5 @@ Taken on 2026-11-03 on `chore/t1-upgrade-deps`.
 | Build and type check | Pass |
 | Biome | 19 errors, 7 warnings |
 | Production audit | 1 advisory: 1 moderate (`minimatch`) |
-| Full audit, including dev dependencies | 9 advisories: 5 high, 3 moderate, 1 low |
+| Full audit, including dev dependencies | 2 advisories: 1 moderate (`minimatch`), 1 low (`deepmerge`, no fix published) |
 | Third-party hosts contacted by the public page | `*.api.sanity.io` only, from `SanityLive` (removed in T7) |
