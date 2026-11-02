@@ -47,7 +47,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 
 ### T2a: Lint and CI
 - Fix the Biome errors, exclude the generated `sanity.types.ts` and `schema.json` from Biome, and add CI for lint, type check, and build.
-- **Done when:** lint passes with no errors, and the CI steps pass in a clean clone. The workflow itself first runs on GitHub when `main` is pushed.
+- **Done when:** lint passes with no errors, and CI passes on GitHub.
 
 ### T2b: Vercel deploy and mainland go/no-go test
 - Connect Vercel with a custom domain, and run functions in `hkg1`.
@@ -165,4 +165,4 @@ Taken on 2026-11-03 on `chore/t2-lint-ci`.
 |---|---|
 | Biome | 0 errors, 0 warnings |
 | CI steps in a fresh clone with only the workflow's values | Install, lint, build, and type check pass |
-| CI on GitHub | Not run yet, because nothing is pushed |
+| CI on GitHub | Pass, on commit `6e42f8f` |
