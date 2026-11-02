@@ -13,7 +13,7 @@ Use pnpm.
 | `pnpm dev` | Start the dev server |
 | `pnpm build` | Production build |
 | `pnpm exec tsc --noEmit` | Type check |
-| `pnpm lint` | Biome check (has known errors until T2; don't add new ones) |
+| `pnpm lint` | Biome check |
 | `pnpm format` | Biome format |
 | `pnpm typegen` | Regenerate `schema.json` and `sanity.types.ts` |
 
@@ -38,7 +38,7 @@ Run `pnpm typegen` after changing a schema or a GROQ query. Don't edit `schema.j
 - Check that any new script, font, image host, or API is reachable from the mainland before adding it.
 
 **Hosting**
-- Keep Vercel-specific APIs out of app code, because hosting may have to move after the T2 test.
+- Keep Vercel-specific APIs out of app code, because hosting may have to move after the T2b test.
 - Keep the site non-commercial: no paid services, ads, affiliate links, or payment flows. The Vercel Hobby plan doesn't allow them.
 
 **Data and secrets**
@@ -57,6 +57,7 @@ Run `pnpm typegen` after changing a schema or a GROQ query. Don't edit `schema.j
 **Using upstream as a reference**
 - [The upstream repo](https://github.com/sonnysangha/next-gen-ai-portfolio-openai-agentkit-sanity-clerk-nextjs-16) is the reference for section layouts, not a source to copy wholesale.
 - Don't copy its dependency versions, which include vulnerable releases. Don't copy its use of `SANITY_API_TOKEN` as a browser token, or its contact form that writes to Sanity.
+- Its README limits use of its code. It allows learning and portfolio demonstration, requires attribution, and asks for written permission for commercial use, redistribution, or deployment. Check the open items in `docs/ROADMAP.md` before deploying.
 
 ## Workflow
 

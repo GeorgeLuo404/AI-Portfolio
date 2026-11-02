@@ -8,7 +8,8 @@ Each task gets its own branch, merge commit, and checkpoint tag, so any step can
 |---|---|---|---|---|
 | T0 | Baseline and project docs | Merged | `chore/t0-baseline-docs` | `checkpoint/t0` |
 | T1 | Upgrade dependencies, remove Clerk and `/dashboard` | Merged | `chore/t1-upgrade-deps` | `checkpoint/t1` |
-| T2 | Lint, CI, Vercel deploy, mainland go/no-go test | Not started | | |
+| T2a | Lint and CI | Merged | `chore/t2-lint-ci` | `checkpoint/t2a` |
+| T2b | Vercel deploy and mainland go/no-go test | Not started | | |
 | T3 | Layout: theme, dock, sidebar, metadata | Not started | | |
 | T3b | English-only i18n setup | Not started | | |
 | T4 | Sections: About, Skills, Experience, Education, Projects | Not started | | |
@@ -44,17 +45,21 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 
 `pnpm.overrides` in `package.json` patches `js-yaml`, `smol-toml`, and `undici` where the Sanity CLI pins vulnerable versions. Remove them once the CLI ships patched versions. `minimatch` stays unpatched because its fix needs a major jump, and it is only reached through the CLI.
 
-### T2: Lint, CI, Vercel deploy, mainland go/no-go test
-- Fix the Biome errors, exclude the generated `sanity.types.ts` from Biome, and add CI for lint, type check, and build.
+### T2a: Lint and CI
+- Fix the Biome errors, exclude the generated `sanity.types.ts` and `schema.json` from Biome, and add CI for lint, type check, and build.
+- **Done when:** lint passes with no errors, and the CI steps pass in a clean clone. The workflow itself first runs on GitHub when `main` is pushed.
+
+### T2b: Vercel deploy and mainland go/no-go test
 - Connect Vercel with a custom domain, and run functions in `hkg1`.
 - Deploy the Hero page, then test it on China Telecom, Unicom, and Mobile networks without a VPN, on several different days.
-- **Done when:** the test result is recorded here. If it fails, switch hosting (see the fallback under Decisions) before starting T3.
+- **Done when:** the test result is recorded here. If it fails, switch hosting (see the fallback under Decisions). The app stays free of Vercel-specific code, so T3 onward can continue while this waits on the domain.
 
 ### T3: Layout
 - Add the theme provider, dark mode toggle, floating dock, sidebar toggle, and `loading.tsx`.
 - Replace the sample links in `components/app-sidebar.tsx`, and set real metadata.
 - Fix the circular `--font-sans: var(--font-sans)` in `app/globals.css`, which makes the site render in Times instead of Geist.
 - Add side padding to the Hero, whose text touches the screen edge, and a `sizes` prop to the image in `components/ProfileImage.tsx`.
+- Credit Sonny Sangha and the original tutorial on the site and in `README.md`, as upstream's license requires.
 - **Done when:** the layout works at desktop and phone widths, in light and dark modes.
 
 ### T3b: English-only i18n setup
@@ -108,7 +113,7 @@ All decided on 2026-11-03.
 | Protect the chat with a firewall rate limit and a small prepaid balance | Needs no extra service. Vercel Hobby includes one rate-limit rule, but it has no daily limit, so the balance caps spending. |
 | Don't advertise paid work | Vercel Hobby is non-commercial, and its rules count advertising a service as commercial use. |
 | Try Vercel first, on a custom domain | Cheap to test and easy to reverse. `*.vercel.app` is blocked in the mainland, and Vercel doesn't guarantee availability there. |
-| If the T2 test fails, host in the mainland with an ICP filing | This is the dependable route. EdgeOne Pages is the first candidate, not yet tried. |
+| If the T2b test fails, host in the mainland with an ICP filing | This is the dependable route. EdgeOne Pages is the first candidate, not yet tried. |
 | Do the i18n setup at T3b, and translation at T11 | Adding it late means moving every route, redoing every section, and migrating content. |
 | Send contact messages by email | Sanity's free plan only allows public datasets, so stored messages would be publicly readable. |
 | Keep Sanity | Its schemas are done and upstream's sections depend on it. Moving to files in the repo would mean rewriting the data layer. |
@@ -118,9 +123,10 @@ All decided on 2026-11-03.
 
 | Item | Needed by | Owner |
 |---|---|---|
-| Buy a `.com` or `.cn` domain, after confirming the ending can be ICP-filed | T2 | George |
-| Find a tester on a mainland network without a VPN | T2 | George |
-| Confirm whether an ICP filing is possible | Only if T2 fails | George |
+| Ask team@papareact.com for written permission to deploy and publish code derived from upstream, whose README limits commercial use, redistribution, and deployment | Before T2b, the first public deploy | George |
+| Buy a `.com` or `.cn` domain, after confirming the ending can be ICP-filed | T2b | George |
+| Find a tester on a mainland network without a VPN | T2b | George |
+| Confirm whether an ICP filing is possible | Only if T2b fails | George |
 | Ask the local cyberspace authority whether the chat needs registration | Before enabling chat for mainland visitors | George |
 | Delete the Clerk app and remove its keys from `.env.local` | Now that T1 is merged | George |
 
@@ -149,3 +155,13 @@ Taken on 2026-11-03 on `chore/t1-upgrade-deps`.
 | Third-party hosts contacted by the public page | `*.api.sanity.io` only, from `SanityLive` (removed in T7) |
 | Studio in a real browser | Login, saving a draft to Sanity, and discarding it all work |
 | Fresh clone with a frozen install and no Clerk keys | Build, type check, and typegen pass |
+
+## After T2a
+
+Taken on 2026-11-03 on `chore/t2-lint-ci`.
+
+| Check | Result |
+|---|---|
+| Biome | 0 errors, 0 warnings |
+| CI steps in a fresh clone with only the workflow's values | Install, lint, build, and type check pass |
+| CI on GitHub | Not run yet, because nothing is pushed |

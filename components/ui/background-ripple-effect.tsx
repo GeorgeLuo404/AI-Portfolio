@@ -17,11 +17,12 @@ export const BackgroundRippleEffect = ({
     col: number;
   } | null>(null);
   const [rippleKey, setRippleKey] = useState(0);
-  const ref = useRef<any>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   return (
     <div
       ref={ref}
+      aria-hidden="true"
       className={cn(
         "absolute inset-0 h-full w-full",
         "[--cell-border-color:var(--color-neutral-300)] [--cell-fill-color:var(--color-neutral-100)] [--cell-shadow-color:var(--color-neutral-500)]",
@@ -111,6 +112,8 @@ const DivGrid = ({
           : {};
 
         return (
+          // biome-ignore lint/a11y/useKeyWithClickEvents: decorative effect, hidden from assistive tech
+          // biome-ignore lint/a11y/noStaticElementInteractions: decorative effect, hidden from assistive tech
           <div
             key={idx}
             className={cn(
