@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home, English</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="ascii.js"></script>
+    <script src="site.js" defer></script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="nav grid">
+        <a class="nav__brand" href="#top">
+          <span class="badge badge--sm"><span data-px="mark" data-size="14"></span></span>
+          George Luo
+        </a>
+        <nav class="nav__links" aria-label="Sections">
+          <a href="#work">Work</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav__end">
+          <div class="lang" aria-label="Language">
+            <a href="index.html" aria-current="page">EN</a>
+            <a href="zh.html" lang="zh-CN">中文</a>
+          </div>
+          <a class="nav__ask" href="#twin">
+            <span data-px="chat" data-size="16"></span>
+            <span>Ask my AI twin</span>
+          </a>
+          <button class="nav__menu" type="button" aria-label="Open menu">
+            <span data-px="menu" data-size="16"></span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" id="top" aria-labelledby="hero-title">
+          <div class="hero__head grid">
+            <h1 class="hero__title display display--xl" id="hero-title">
+              <span>Software</span>
+              <span class="indent">Engineer</span>
+            </h1>
+            <ul class="hero__tags" aria-label="Focus">
+              <li class="chip">AI products</li>
+              <li class="chip">Full stack</li>
+              <li class="chip chip--solid">Open to roles</li>
+            </ul>
+            <div class="hero__intro">
+              <p>
+                I build AI products end to end, from the model calls to the
+                interface people use every day.
+              </p>
+              <p class="status">Open to full-time roles</p>
+            </div>
+            <span class="hero__badge badge" aria-hidden="true">
+              <span data-px="mark" data-size="34"></span>
+            </span>
+          </div>
+
+          <div class="hero__body grid">
+            <div class="hero__aside">
+            <div class="twin" id="twin">
+              <div class="twin__head">
+                <span class="twin__title">
+                  <span data-px="chat" data-size="16" style="color: var(--signal)"></span>
+                  Ask my AI twin
+                </span>
+                <span class="twin__state">Online</span>
+              </div>
+              <div class="twin__input">
+                <span class="twin__prompt">&gt;</span>
+                <span class="twin__placeholder">What has George built with AI?</span>
+                <span class="caret" aria-hidden="true"></span>
+              </div>
+              <div class="twin__suggest">
+                <button class="suggest" type="button">Recent projects</button>
+                <button class="suggest" type="button">Tech stack</button>
+                <button class="suggest" type="button">Work rights and location</button>
+              </div>
+              <div class="twin__foot">
+                <span>Answers come from George's résumé and projects, and can be wrong.</span>
+                <button class="btn btn--signal" type="button">
+                  Ask <span data-px="send" data-size="12"></span>
+                </button>
+              </div>
+            </div>
+            <dl class="facts">
+              <div><dt>Based in</dt><dd>City, country</dd></div>
+              <div><dt>Languages</dt><dd>English and Mandarin</dd></div>
+              <div><dt>Replies</dt><dd>Within one working day</dd></div>
+            </dl>
+            </div>
+
+            <figure class="figure">
+              <div class="figure__art">
+              <div class="figure__marks" aria-hidden="true">
+                <span data-px="cross" data-size="14"></span>
+                <span data-px="cross" data-size="14"></span>
+                <span data-px="cross" data-size="14"></span>
+                <span data-px="cross" data-size="14"></span>
+              </div>
+              <div class="ascii-box">
+                <pre class="ascii" data-ascii="bust" data-decode aria-hidden="true"></pre>
+              </div>
+              </div>
+              <figcaption>
+                <strong>Fig. 1</strong>
+                <span>Portrait drawn in <span data-ascii-count></span> characters</span>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="work" id="work" aria-labelledby="work-title">
+          <header class="section-head grid">
+            <h2 class="section-head__title display display--l" id="work-title">
+              <span>Selected</span>
+              <span class="indent">work</span>
+            </h2>
+            <p class="section-head__aside">
+              Three projects, each with what I built and what changed because of
+              it.
+            </p>
+          </header>
+
+          <article class="project grid">
+            <div class="project__text">
+              <p class="project__year">2026</p>
+              <h3 class="project__title">AI portfolio twin</h3>
+              <p class="project__desc">
+                This site's chat. It answers recruiters' questions from my
+                résumé and projects, and declines anything off topic.
+              </p>
+              <ul class="chips" aria-label="Built with">
+                <li class="chip chip--muted">Next.js</li>
+                <li class="chip chip--muted">AI SDK</li>
+                <li class="chip chip--muted">DeepSeek</li>
+              </ul>
+              <div class="project__actions">
+                <a class="btn btn--signal" href="#work">
+                  View project <span data-px="external" data-size="11"></span>
+                </a>
+                <a class="btn btn--line" href="#work">
+                  Source code <span data-px="external" data-size="11"></span>
+                </a>
+              </div>
+            </div>
+            <div class="project__media">
+              <div class="screen">
+                <div class="screen__bar"><span>ai-twin</span><span>/projects/ai-twin</span></div>
+                <div class="screen__body ascii-box">
+                  <pre class="ascii" data-ascii="orbit" aria-hidden="true"></pre>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="project project--flip grid">
+            <div class="project__text">
+              <p class="project__year">2025</p>
+              <h3 class="project__title">Project two</h3>
+              <p class="project__desc">
+                Placeholder. One or two lines on the problem, what you built,
+                and the result, with a number if you have one.
+              </p>
+              <ul class="chips" aria-label="Built with">
+                <li class="chip chip--muted">TypeScript</li>
+                <li class="chip chip--muted">PostgreSQL</li>
+                <li class="chip chip--muted">AWS</li>
+              </ul>
+              <div class="project__actions">
+                <a class="btn btn--signal" href="#work">
+                  View project <span data-px="external" data-size="11"></span>
+                </a>
+                <a class="btn btn--line" href="#work">
+                  Source code <span data-px="external" data-size="11"></span>
+                </a>
+              </div>
+            </div>
+            <div class="project__media">
+              <div class="screen">
+                <div class="screen__bar"><span>project-two</span><span>/projects/two</span></div>
+                <div class="screen__body ascii-box">
+                  <pre class="ascii" data-ascii="cube" aria-hidden="true"></pre>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="project grid">
+            <div class="project__text">
+              <p class="project__year">2024</p>
+              <h3 class="project__title">Project three</h3>
+              <p class="project__desc">
+                Placeholder. Keep the same shape: the problem, what you built,
+                and what changed for the people who used it.
+              </p>
+              <ul class="chips" aria-label="Built with">
+                <li class="chip chip--muted">Python</li>
+                <li class="chip chip--muted">FastAPI</li>
+                <li class="chip chip--muted">Docker</li>
+              </ul>
+              <div class="project__actions">
+                <a class="btn btn--signal" href="#work">
+                  View project <span data-px="external" data-size="11"></span>
+                </a>
+                <a class="btn btn--line" href="#work">
+                  Source code <span data-px="external" data-size="11"></span>
+                </a>
+              </div>
+            </div>
+            <div class="project__media">
+              <div class="screen">
+                <div class="screen__bar"><span>project-three</span><span>/projects/three</span></div>
+                <div class="screen__body ascii-box">
+                  <pre class="ascii" data-ascii="slabs" aria-hidden="true"></pre>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="skills" id="skills" aria-labelledby="skills-title">
+          <h2 class="sr-only" id="skills-title">Skills</h2>
+          <div class="skills__art" aria-hidden="true">
+            <div class="ascii-box">
+              <pre class="ascii" data-ascii="ring"></pre>
+            </div>
+          </div>
+          <span class="skills__spark" data-px="spark" data-size="40" aria-hidden="true"></span>
+          <ul class="skill-lines">
+            <li class="skill-line">
+              <span class="skill-line__word">AI agents</span>
+              <span class="skill-line__detail">LLM apps, retrieval, tool use, and evaluation</span>
+            </li>
+            <li class="skill-line">
+              <span class="skill-line__word">Full-stack web</span>
+              <span class="skill-line__detail">TypeScript, React, Next.js, and Node</span>
+            </li>
+            <li class="skill-line">
+              <span class="skill-line__word">Data &amp; cloud</span>
+              <span class="skill-line__detail">Python, PostgreSQL, Docker, and AWS</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="experience dark" id="experience" aria-labelledby="experience-title">
+          <div class="exp__top grid">
+            <p class="exp__aside">
+              Roles in order, with what I owned and what shipped. Open one for
+              the details.
+            </p>
+          </div>
+          <div class="exp__head">
+            <h2 class="exp__title display display--giant" id="experience-title">
+              <span>Experience</span>
+            </h2>
+            <div class="exp__links">
+              <a class="chip chip--solid" href="#experience">
+                Résumé PDF <span data-px="download" data-size="10"></span>
+              </a>
+              <a class="chip chip--solid" href="#experience">
+                LinkedIn <span data-px="external" data-size="10"></span>
+              </a>
+            </div>
+          </div>
+          <ol class="timeline">
+            <li class="role is-open">
+              <button class="role__head" type="button" aria-expanded="true">
+                <span class="role__dates">2024–now</span>
+                <span class="role__title">Software engineer</span>
+                <span class="role__org">Company name</span>
+                <span class="role__toggle" data-px="minus" data-size="12"></span>
+              </button>
+              <div class="role__body">
+                <ul>
+                  <li>Placeholder: one line per result, starting with a verb.</li>
+                  <li>Add a number where you have one, such as time saved or users reached.</li>
+                </ul>
+                <ul class="chips" aria-label="Used">
+                  <li class="chip chip--muted">TypeScript</li>
+                  <li class="chip chip--muted">React</li>
+                  <li class="chip chip--muted">AWS</li>
+                </ul>
+              </div>
+            </li>
+            <li class="role">
+              <button class="role__head" type="button" aria-expanded="false">
+                <span class="role__dates">2022–2024</span>
+                <span class="role__title">Role title</span>
+                <span class="role__org">Company name</span>
+                <span class="role__toggle" data-px="plus" data-size="12"></span>
+              </button>
+              <div class="role__body"><ul><li>Placeholder result.</li></ul></div>
+            </li>
+            <li class="role">
+              <button class="role__head" type="button" aria-expanded="false">
+                <span class="role__dates">2021–2022</span>
+                <span class="role__title">Role title</span>
+                <span class="role__org">Company name</span>
+                <span class="role__toggle" data-px="plus" data-size="12"></span>
+              </button>
+              <div class="role__body"><ul><li>Placeholder result.</li></ul></div>
+            </li>
+            <li class="role">
+              <button class="role__head" type="button" aria-expanded="false">
+                <span class="role__dates">2017–2021</span>
+                <span class="role__title">Degree</span>
+                <span class="role__org">University</span>
+                <span class="role__toggle" data-px="plus" data-size="12"></span>
+              </button>
+              <div class="role__body"><ul><li>Placeholder detail.</li></ul></div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="cta dark" id="contact" aria-labelledby="contact-title">
+          <div class="cta__field" aria-hidden="true">
+            <div class="ascii-box">
+              <pre class="ascii" data-ascii="field"></pre>
+            </div>
+          </div>
+          <div class="cta__frame">
+            <span class="cta__corner" aria-hidden="true">┌</span>
+            <span class="cta__corner" aria-hidden="true">┐</span>
+            <span class="cta__corner" aria-hidden="true">└</span>
+            <span class="cta__corner" aria-hidden="true">┘</span>
+            <span class="cta__spark" data-px="spark" data-size="28" aria-hidden="true"></span>
+            <h2 class="cta__title display" id="contact-title">
+              <span>Open to</span>
+              <span>new roles</span>
+            </h2>
+            <p class="cta__text">
+              Full-time, remote or on-site. Email is the fastest way to reach me,
+              and my AI twin can answer the basics any time.
+            </p>
+            <div class="cta__actions">
+              <a class="btn btn--light" href="mailto:you@example.com">
+                <span data-px="mail" data-size="14"></span> Email me
+              </a>
+              <button
+                class="btn btn--line-light"
+                type="button"
+                data-copy="your-wechat-id"
+                data-done="WeChat ID copied"
+              >
+                <span data-px="copy" data-size="14"></span>
+                <span data-label>Copy WeChat ID</span>
+              </button>
+              <a class="btn btn--signal" href="#twin">
+                <span data-px="chat" data-size="14"></span> Ask my AI twin
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer dark">
+        <div class="footer__head">
+          <p class="footer__name display display--giant">
+            <span>George</span>
+            <span class="indent">Luo</span>
+          </p>
+          <div class="footer__lang" aria-label="Language">
+            <a class="chip chip--solid" href="index.html" aria-current="page">English</a>
+            <a class="chip" href="zh.html" lang="zh-CN">中文</a>
+          </div>
+        </div>
+        <div class="footer__cols grid">
+          <nav class="footer__col" aria-label="On this site">
+            <h3>On this site</h3>
+            <a href="#work">Work</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <div class="footer__col">
+            <h3>Elsewhere</h3>
+            <a href="#top">GitHub</a>
+            <a href="#top">LinkedIn</a>
+          </div>
+          <div class="footer__col">
+            <h3>Get in touch</h3>
+            <a href="mailto:you@example.com">you@example.com</a>
+            <span>WeChat: your-wechat-id</span>
+          </div>
+          <div class="footer__col">
+            <h3>AI twin</h3>
+            <a href="#twin">Ask a question</a>
+            <span>Answers come from my résumé and projects.</span>
+          </div>
+        </div>
+        <div class="footer__base">
+          <span>© 2026 George Luo</span>
+          <span>Built with Next.js and hosted in Hong Kong</span>
+          <a href="#top">Back to top</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

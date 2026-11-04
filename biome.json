@@ -14,7 +14,8 @@
       "!dist",
       "!build",
       "!sanity.types.ts",
-      "!schema.json"
+      "!schema.json",
+      "!design/ascii.js"
     ]
   },
   "formatter": {

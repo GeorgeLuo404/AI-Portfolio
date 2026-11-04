@@ -11,7 +11,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T0 | Baseline and project docs | Merged | `chore/t0-baseline-docs` | `checkpoint/t0` |
 | T1 | Upgrade dependencies, remove Clerk and `/dashboard` | Merged | `chore/t1-upgrade-deps` | `checkpoint/t1` |
 | T2a | Lint and CI | Merged | `chore/t2-lint-ci` | `checkpoint/t2a` |
-| T3 | Design in Figma | Not started | | |
+| T3 | Design in Figma | In review | `docs/t3-design` | |
 | T4 | Remove upstream code and Sanity | Not started | | |
 | T2b | Vercel deploy and mainland test | Not started | | |
 | T5 | Foundations | Not started | | |
@@ -63,6 +63,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Build the design as a static HTML page under `design/` at 1440, 768, and 390 px wide, check it in a browser, then capture each width into a new Figma file in George's team. On Figma's Starter plan, MCP read calls are capped at about 20 a month, but creating files and capturing pages aren't counted. Starter files are reported to allow 3 pages: use them for foundations, the English pages, and the Chinese versions.
 - Use placeholder text for George's title and projects until T10.
 - Record the decisions, design tokens, and the Figma link in `docs/DESIGN.md`.
+- **Result so far:** the prototype in `design/`, the [Figma file](https://www.figma.com/design/yOam3gCoyO0uew2262qVq9), and `docs/DESIGN.md`. Open: the Chinese hero option and the job title.
 - **Done when:** George approves the Figma file and `docs/DESIGN.md`.
 
 ### T4: Remove upstream code and Sanity

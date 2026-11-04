@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home, Chinese</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="ascii.js"></script>
+    <script src="site.js" defer></script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="nav grid">
+        <a class="nav__brand" href="#top" lang="en">
+          <span class="badge badge--sm"><span data-px="mark" data-size="14"></span></span>
+          George Luo
+        </a>
+        <nav class="nav__links" aria-label="页面导航">
+          <a href="#work">作品</a>
+          <a href="#skills">技能</a>
+          <a href="#experience">经历</a>
+          <a href="#contact">联系</a>
+        </nav>
+        <div class="nav__end">
+          <div class="lang" aria-label="语言">
+            <a href="index.html" lang="en">EN</a>
+            <a href="zh.html" aria-current="page">中文</a>
+          </div>
+          <a class="nav__ask" href="#twin">
+            <span data-px="chat" data-size="16"></span>
+            <span>问问我的 AI 分身</span>
+          </a>
+          <button class="nav__menu" type="button" aria-label="打开菜单">
+            <span data-px="menu" data-size="16"></span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" id="top" aria-labelledby="hero-title">
+          <div class="hero__head grid">
+            <h1 class="hero__title zh-display" id="hero-title">
+              <span>软件</span>
+              <span class="indent">工程师</span>
+            </h1>
+            <ul class="hero__tags" aria-label="方向">
+              <li class="chip">AI 产品</li>
+              <li class="chip">全栈开发</li>
+              <li class="chip chip--solid">正在求职</li>
+            </ul>
+            <div class="hero__intro">
+              <p>我从头到尾构建 AI 产品：从模型调用，到人们每天使用的界面。</p>
+              <p class="status">正在寻找全职工作</p>
+            </div>
+            <span class="hero__badge badge" aria-hidden="true">
+              <span data-px="mark" data-size="34"></span>
+            </span>
+          </div>
+
+          <div class="hero__body grid">
+            <div class="hero__aside">
+              <div class="twin" id="twin">
+                <div class="twin__head">
+                  <span class="twin__title">
+                    <span data-px="chat" data-size="16" style="color: var(--signal)"></span>
+                    问问我的 AI 分身
+                  </span>
+                  <span class="twin__state">在线</span>
+                </div>
+                <div class="twin__input">
+                  <span class="twin__prompt">&gt;</span>
+                  <span class="twin__placeholder">George 用 AI 做过什么？</span>
+                  <span class="caret" aria-hidden="true"></span>
+                </div>
+                <div class="twin__suggest">
+                  <button class="suggest" type="button">近期项目</button>
+                  <button class="suggest" type="button">技术栈</button>
+                  <button class="suggest" type="button">工作签证与所在地</button>
+                </div>
+                <div class="twin__foot">
+                  <span>回答依据 George 的简历和项目，可能有误。</span>
+                  <button class="btn btn--signal" type="button">
+                    提问 <span data-px="send" data-size="12"></span>
+                  </button>
+                </div>
+              </div>
+              <dl class="facts">
+                <div><dt>所在地</dt><dd>城市，国家</dd></div>
+                <div><dt>语言</dt><dd>英语、普通话</dd></div>
+                <div><dt>回复时间</dt><dd>一个工作日内</dd></div>
+              </dl>
+            </div>
+
+            <figure class="figure">
+              <div class="figure__art">
+              <div class="figure__marks" aria-hidden="true">
+                <span data-px="cross" data-size="14"></span>
+                <span data-px="cross" data-size="14"></span>
+                <span data-px="cross" data-size="14"></span>
+                <span data-px="cross" data-size="14"></span>
+              </div>
+              <div class="ascii-box">
+                <pre class="ascii" data-ascii="bust" data-decode aria-hidden="true"></pre>
+              </div>
+              </div>
+              <figcaption>
+                <strong>图 1</strong>
+                <span>由 <span data-ascii-count></span> 个字符画成的肖像</span>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="work" id="work" aria-labelledby="work-title">
+          <header class="section-head grid">
+            <p class="section-head__title display display--l" lang="en" aria-hidden="true">
+              <span>Selected</span>
+              <span class="indent">work</span>
+            </p>
+            <h2 class="section-head__zh zh-heading" id="work-title">精选作品</h2>
+            <p class="section-head__aside section-head__aside--tall">
+              三个项目，以及每个项目里我做了什么、带来了什么改变。
+            </p>
+          </header>
+
+          <article class="project grid">
+            <div class="project__text">
+              <p class="project__year">2026</p>
+              <h3 class="project__title">AI 作品集分身</h3>
+              <p class="project__desc">
+                就是这个网站的聊天助手。它根据我的简历和项目回答招聘方的问题，与此无关的问题会礼貌拒绝。
+              </p>
+              <ul class="chips" aria-label="技术">
+                <li class="chip chip--muted">Next.js</li>
+                <li class="chip chip--muted">AI SDK</li>
+                <li class="chip chip--muted">DeepSeek</li>
+              </ul>
+              <div class="project__actions">
+                <a class="btn btn--signal" href="#work">
+                  查看项目 <span data-px="external" data-size="11"></span>
+                </a>
+                <a class="btn btn--line" href="#work">
+                  源代码 <span data-px="external" data-size="11"></span>
+                </a>
+              </div>
+            </div>
+            <div class="project__media">
+              <div class="screen">
+                <div class="screen__bar"><span>ai-twin</span><span>/projects/ai-twin</span></div>
+                <div class="screen__body ascii-box">
+                  <pre class="ascii" data-ascii="orbit" aria-hidden="true"></pre>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="project project--flip grid">
+            <div class="project__text">
+              <p class="project__year">2025</p>
+              <h3 class="project__title">项目二</h3>
+              <p class="project__desc">
+                占位文字。用一两句话写清问题、你做了什么、结果如何，有数字就写数字。
+              </p>
+              <ul class="chips" aria-label="技术">
+                <li class="chip chip--muted">TypeScript</li>
+                <li class="chip chip--muted">PostgreSQL</li>
+                <li class="chip chip--muted">AWS</li>
+              </ul>
+              <div class="project__actions">
+                <a class="btn btn--signal" href="#work">
+                  查看项目 <span data-px="external" data-size="11"></span>
+                </a>
+                <a class="btn btn--line" href="#work">
+                  源代码 <span data-px="external" data-size="11"></span>
+                </a>
+              </div>
+            </div>
+            <div class="project__media">
+              <div class="screen">
+                <div class="screen__bar"><span>project-two</span><span>/projects/two</span></div>
+                <div class="screen__body ascii-box">
+                  <pre class="ascii" data-ascii="cube" aria-hidden="true"></pre>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="project grid">
+            <div class="project__text">
+              <p class="project__year">2024</p>
+              <h3 class="project__title">项目三</h3>
+              <p class="project__desc">
+                占位文字。保持同样的结构：问题、你做了什么，以及给使用者带来的改变。
+              </p>
+              <ul class="chips" aria-label="技术">
+                <li class="chip chip--muted">Python</li>
+                <li class="chip chip--muted">FastAPI</li>
+                <li class="chip chip--muted">Docker</li>
+              </ul>
+              <div class="project__actions">
+                <a class="btn btn--signal" href="#work">
+                  查看项目 <span data-px="external" data-size="11"></span>
+                </a>
+                <a class="btn btn--line" href="#work">
+                  源代码 <span data-px="external" data-size="11"></span>
+                </a>
+              </div>
+            </div>
+            <div class="project__media">
+              <div class="screen">
+                <div class="screen__bar"><span>project-three</span><span>/projects/three</span></div>
+                <div class="screen__body ascii-box">
+                  <pre class="ascii" data-ascii="slabs" aria-hidden="true"></pre>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="skills" id="skills" aria-labelledby="skills-title">
+          <h2 class="sr-only" id="skills-title">技能</h2>
+          <div class="skills__art" aria-hidden="true">
+            <div class="ascii-box">
+              <pre class="ascii" data-ascii="ring"></pre>
+            </div>
+          </div>
+          <span class="skills__spark" data-px="spark" data-size="40" aria-hidden="true"></span>
+          <ul class="skill-lines">
+            <li class="skill-line">
+              <span class="skill-line__word" lang="en">AI agents</span>
+              <span class="skill-line__detail">AI 智能体：大模型应用、检索、工具调用与评测</span>
+            </li>
+            <li class="skill-line">
+              <span class="skill-line__word" lang="en">Full-stack web</span>
+              <span class="skill-line__detail">全栈开发：TypeScript、React、Next.js 与 Node</span>
+            </li>
+            <li class="skill-line">
+              <span class="skill-line__word" lang="en">Data &amp; cloud</span>
+              <span class="skill-line__detail">数据与云：Python、PostgreSQL、Docker 与 AWS</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="experience dark" id="experience" aria-labelledby="experience-title">
+          <div class="exp__top grid">
+            <p class="exp__aside">按时间排列的工作经历，以及我负责和交付的内容。点开一项查看详情。</p>
+          </div>
+          <div class="exp__head">
+            <p class="exp__title display display--giant" lang="en" aria-hidden="true">
+              <span>Experience</span>
+            </p>
+            <h2 class="exp__zh zh-heading" id="experience-title">工作经历</h2>
+            <div class="exp__links">
+              <a class="chip chip--solid" href="#experience">
+                简历 PDF <span data-px="download" data-size="10"></span>
+              </a>
+              <a class="chip chip--solid" href="#experience" lang="en">
+                LinkedIn <span data-px="external" data-size="10"></span>
+              </a>
+            </div>
+          </div>
+          <ol class="timeline">
+            <li class="role is-open">
+              <button class="role__head" type="button" aria-expanded="true">
+                <span class="role__dates">2024 年至今</span>
+                <span class="role__title">软件工程师</span>
+                <span class="role__org">公司名称</span>
+                <span class="role__toggle" data-px="minus" data-size="12"></span>
+              </button>
+              <div class="role__body">
+                <ul>
+                  <li>占位文字：每条写一个成果，以动词开头。</li>
+                  <li>有数字就写上，例如节省的时间或覆盖的用户数。</li>
+                </ul>
+                <ul class="chips" aria-label="技术">
+                  <li class="chip chip--muted">TypeScript</li>
+                  <li class="chip chip--muted">React</li>
+                  <li class="chip chip--muted">AWS</li>
+                </ul>
+              </div>
+            </li>
+            <li class="role">
+              <button class="role__head" type="button" aria-expanded="false">
+                <span class="role__dates">2022–2024</span>
+                <span class="role__title">职位名称</span>
+                <span class="role__org">公司名称</span>
+                <span class="role__toggle" data-px="plus" data-size="12"></span>
+              </button>
+              <div class="role__body"><ul><li>占位成果。</li></ul></div>
+            </li>
+            <li class="role">
+              <button class="role__head" type="button" aria-expanded="false">
+                <span class="role__dates">2021–2022</span>
+                <span class="role__title">职位名称</span>
+                <span class="role__org">公司名称</span>
+                <span class="role__toggle" data-px="plus" data-size="12"></span>
+              </button>
+              <div class="role__body"><ul><li>占位成果。</li></ul></div>
+            </li>
+            <li class="role">
+              <button class="role__head" type="button" aria-expanded="false">
+                <span class="role__dates">2017–2021</span>
+                <span class="role__title">学位</span>
+                <span class="role__org">大学</span>
+                <span class="role__toggle" data-px="plus" data-size="12"></span>
+              </button>
+              <div class="role__body"><ul><li>占位详情。</li></ul></div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="cta dark" id="contact" aria-labelledby="contact-title">
+          <div class="cta__field" aria-hidden="true">
+            <div class="ascii-box">
+              <pre class="ascii" data-ascii="field"></pre>
+            </div>
+          </div>
+          <div class="cta__frame">
+            <span class="cta__corner" aria-hidden="true">┌</span>
+            <span class="cta__corner" aria-hidden="true">┐</span>
+            <span class="cta__corner" aria-hidden="true">└</span>
+            <span class="cta__corner" aria-hidden="true">┘</span>
+            <span class="cta__spark" data-px="spark" data-size="28" aria-hidden="true"></span>
+            <h2 class="cta__title zh-display" id="contact-title">
+              <span>正在寻找</span>
+              <span>新的机会</span>
+            </h2>
+            <p class="cta__text">
+              全职，远程或现场均可。发邮件是最快的联系方式，AI 分身随时可以回答基本问题。
+            </p>
+            <div class="cta__actions">
+              <a class="btn btn--light" href="mailto:you@example.com">
+                <span data-px="mail" data-size="14"></span> 给我发邮件
+              </a>
+              <button
+                class="btn btn--line-light"
+                type="button"
+                data-copy="your-wechat-id"
+                data-done="已复制微信号"
+              >
+                <span data-px="copy" data-size="14"></span>
+                <span data-label>复制微信号</span>
+              </button>
+              <a class="btn btn--signal" href="#twin">
+                <span data-px="chat" data-size="14"></span> 问问我的 AI 分身
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer dark">
+        <div class="footer__head">
+          <p class="footer__name display display--giant" lang="en">
+            <span>George</span>
+            <span class="indent">Luo</span>
+          </p>
+          <div class="footer__lang" aria-label="语言">
+            <a class="chip" href="index.html" lang="en">English</a>
+            <a class="chip chip--solid" href="zh.html" aria-current="page">中文</a>
+          </div>
+        </div>
+        <div class="footer__cols grid">
+          <nav class="footer__col" aria-label="本站">
+            <h3>本站</h3>
+            <a href="#work">作品</a>
+            <a href="#skills">技能</a>
+            <a href="#experience">经历</a>
+            <a href="#contact">联系</a>
+          </nav>
+          <div class="footer__col">
+            <h3>其他平台</h3>
+            <a href="#top" lang="en">GitHub</a>
+            <a href="#top" lang="en">LinkedIn</a>
+          </div>
+          <div class="footer__col">
+            <h3>联系方式</h3>
+            <a href="mailto:you@example.com" lang="en">you@example.com</a>
+            <span>微信：your-wechat-id</span>
+          </div>
+          <div class="footer__col">
+            <h3>AI 分身</h3>
+            <a href="#twin">提一个问题</a>
+            <span>回答依据我的简历和项目。</span>
+          </div>
+        </div>
+        <div class="footer__base">
+          <span>© 2026 George Luo</span>
+          <span>使用 Next.js 构建，部署在香港</span>
+          <a href="#top">回到顶部</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

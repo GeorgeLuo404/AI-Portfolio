@@ -27,6 +27,7 @@ Use pnpm.
 - `components/ui/`: shadcn components, plus two Aceternity components that T4 removes.
 - `sanity/schemaTypes/`: the content schema.
 - `sanity/lib/`: Sanity client, image URLs, and live content helpers.
+- `design/`: the T3 HTML prototype that the Figma file is captured from. App code doesn't import from it. See `docs/DESIGN.md`.
 
 There is no `app/layout.tsx`. Every page must sit inside a route group that has a root layout, because Next 16.4 fails the build otherwise.
 
