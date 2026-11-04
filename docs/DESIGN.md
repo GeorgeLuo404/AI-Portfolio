@@ -9,91 +9,117 @@ The Figma frames are captured from the HTML, so they're editable layers but not 
 
 ## Direction
 
-The look borrows the style of the Dribbble shot "Hegia – Personal Website for Developer". Its designer isn't identified yet.
+The layout follows "Hegia – Personal Website for Developer", a Dribbble concept by Faza Dzikrulloh, as closely as George asked on 2026-11-05. Its designer describes it as a portfolio for developers "who see code as a form of architecture": a minimal grid, oversized type, monochrome surfaces with electric blue, and a tree as a metaphor for deep foundations.
 
-| We borrow | We make our own |
+| We follow | We make our own |
 |---|---|
-| Electric blue on white and black | All artwork: an ASCII portrait of George, ASCII objects for projects |
-| Giant uppercase grotesk headings that stagger by columns | All wording, written for job hunting rather than selling services |
-| Hairline cells and section borders | The logo mark and pixel icons |
-| Small tag chips, numbered or dated rows, a dark accordion | The exact composition of every section |
-| A page that turns dark toward the end | An AI twin built into the hero |
+| The composition of every section, from the hero grid to the footer | All artwork: a procedural ASCII tree, ASCII objects for projects |
+| Giant uppercase headings in a staircase, letters on the grid lines | All wording, written for job hunting rather than selling services |
+| Electric blue on white and black, hairline cells, tag chips | The logo mark and pixel icons |
+| A dark accordion, a braced call to action, a giant footer name | An AI twin in the hero, in place of the shot's website preview |
+
+The footer credits the designer: "Layout after Hegia, a concept by Faza Dzikrulloh".
 
 Principles:
 
-1. **Type is the structure.** Giant blue words set the grid; everything around them stays quiet.
-2. **One moving moment.** The portrait resolves from random characters when the page loads. Nothing else animates on its own.
-3. **Pictures made of characters.** ASCII and pixel art stay sharp, light, and the same in both languages.
-4. **Lines carry meaning.** Hairlines mark cells and sections. Chips state facts. No shadows, gradients, or rounded cards.
-5. **Chinese is designed, not translated.** The Chinese page gets its own headline treatment and type settings.
+1. **Type is the structure.** The vertical grid lines are measured from the hero headline's letters, and every other display heading is sized so its letters land on them.
+2. **One moving moment.** The tree resolves from random characters when the page loads. Nothing else animates on its own.
+3. **Pictures made of characters.** ASCII and pixel art stay sharp, light, and the same in both languages and themes.
+4. **Lines carry meaning.** Hairlines mark the grid and the cells. Chips state facts. No shadows, gradients, or rounded cards.
+5. **Chinese is designed, not translated.** English display words stay as graphics, and a Chinese heading carries the meaning.
 
 ## Sections
 
 In page order:
 
-| Section | Content | Reference section it replaces |
-|---|---|---|
-| Navigation | Logo mark and name, section links, EN/中文 switch, "Ask my AI twin". Sticky. | Header |
-| Hero | Job title in giant type, three chips, a short intro, the AI twin box, a facts list, the ASCII portrait | Hero with the ASCII tree |
-| Selected work | Three projects in alternating rows: year, title, one or two lines, stack chips, links, an image well | Numbered projects |
-| Skills | Three skill areas in giant black type with a line of detail each, over a faint ASCII torus | Services word stack |
-| Experience (dark) | Giant "Experience", résumé and LinkedIn chips, roles in an accordion | Workflow accordion |
-| Contact (dark) | "Open to new roles" in an ASCII corner frame, with email, WeChat ID, and AI twin buttons | Launch-your-website call to action |
-| Footer (dark) | The name in giant type, the language switch, links, contact details | Footer |
+| Section | Content |
+|---|---|
+| Navigation | Logo mark and name, section links, EN/中文 switch, theme switch, "Ask my AI twin". Sticky. A menu on phones. |
+| Hero | "AI / Web Engineer" in giant type on the grid, three chips in a staircase, a short intro beside the logo mark, the ASCII tree on a dotted field, a statement box, and the AI twin window standing in a small room drawn in perspective |
+| Selected work | "Selected work" heading, an aside, and three project rows that alternate sides: year, title, a line or two, stack chips, links, and an image well that bleeds to the page edge |
+| Skills | A word stack in black: "AI agents", "Full-stack ( ▢ ) web", "Data & cloud", with blue pixel decorations, faint ASCII objects, and a legend of tools |
+| Experience (dark) | Giant "Experience" with résumé, LinkedIn, and GitHub chips over it, an aside, and roles in an accordion |
+| Contact (dark panel) | "Hiring an AI & web engineer?" in braces, with email, WeChat ID, and AI twin buttons |
+| Footer (dark) | The name in giant type with the chips over it, a faint tree, page links, other profiles, contact details, the credit, and the language switch |
 
-The hero headline reads "AI/Web Engineer" in English and "AI/前端开发工程师" in Chinese, chosen on 2026-11-05. It sits on two lines: "AI / Web" over "Engineer", and "AI / 前端" over "开发工程师". A thin slash joins the two halves in both languages. Because 前端 means frontend, the second chip says Frontend and 前端开发. If the focus becomes full stack, change both the chips and the Chinese headline to 全栈.
+The hero headline reads "AI / Web Engineer" on both pages, as "AI / Web" over "Engineer". A thin slash joins the halves. On the Chinese page the English headline is a graphic, and the real heading is "AI / 前端开发工程师", at the top of the intro. Because 前端 means frontend, the second chip says Frontend and 前端开发. If the focus becomes full stack, change both.
+
+## Grid from type
+
+The hero headline sets the grid. Its size `f` is a share of the content width, and every vertical line is a letter edge measured in em of `f`. The letters were measured in Archivo 800 at −6% tracking, with the slash in Archivo 200.
+
+| Line | Desktop and tablet | What lands on it |
+|---|---|---|
+| L0 | 0 | The A of "AI" |
+| L1 | 1.444em | The top corner of the W |
+| L2 | 2.432em | The stems of the E in "Web" and the E that starts "Engineer", which stack exactly |
+| L3 | 3.702em | The ends of the B and the N, whose stems also stack at 3.069em |
+
+"Engineer" is indented 2.356em, and line 1 is pulled 0.008em left so the A sits on L0.
+
+Phones set the headline on three lines, "AI /", "Web", and "Engineer", at the full content width. There, L1 (0.989em) holds the right edge of the I and the stems of both Es, L2 (2.259em) the ends of the B and the N, and L3 (4.107em) the second E of "Engineer".
+
+Other display headings are solved against these lines:
+
+| Heading | Size | Letters on the lines |
+|---|---|---|
+| Selected work | `0.7302 f` | The D ends on L3, "Work" hangs from the stem of the T, and its R starts on L3. Phones: full width, "Work" hangs from the second E. |
+| Skills stack | `0.5029 f`, Archivo 500 | "AI agents" starts on L2 and its E stands on L3, "Full-stack" starts on L0, "Data & cloud" on L1 |
+| Experience | `1.4288 f` | The R stands on L3. Tablets: `1.2446 f`, with the second E on L2. Phones: full width. |
+| Footer name | `1.1207 f` | "Luo" starts on the stem of the R in "George", on L2 |
+
+If a heading's words change, measure the new letters and solve its size again. The prototype's `?grid` option draws the lines in red on top of everything, which makes a miss easy to see.
 
 ## Tokens
 
 ### Color
 
-| Name | Hex | Use | Contrast |
+| Name | Light | Dark | Use |
 |---|---|---|---|
-| Signal | `#1B2BFF` | Display type, primary buttons, chips, AI twin accents | 7.4:1 on paper. Never text on ink (2.8:1). |
-| Ink | `#000000` | Body text, borders, dark sections | 21:1 on paper |
-| Paper | `#FFFFFF` | Page background, text on signal or ink | |
-| Panel | `#E8E8E8` | Project image wells | |
-| Graphite | `#6E6E6E` | Secondary text on paper | 5.1:1 |
-| Ash | `#8F8F8F` | Secondary text on ink | 6.5:1 |
-| Rule | `#D9D9D9` | Hairlines on paper | |
-| Rule on ink | `#2B2B2B` | Hairlines on ink | |
-| Field | `#262626` | ASCII texture on ink | Decorative |
+| Signal | `#1B2BFF` | `#4352FF` | Display type, fills, chips. Dark is 3.9:1 on black, so large text only. |
+| Signal text | `#1B2BFF` | `#6874FF` | Small blue text. 7.4:1 on white, 5.5:1 on black. |
+| Ink and paper | `#000000` on `#FFFFFF` | `#FFFFFF` on `#000000` | Text and background |
+| Panel | `#F4F4F4` | `#121212` | Chips, the statement box, the header button, the contact panel |
+| Well | `#E9E9E9` | `#161616` | Project image wells |
+| Rule | `#E6E6E6` | `#242424` | Grid lines and borders |
+| Muted | `#6E6E6E` | `#8F8F8F` | Secondary text. 5.1:1 and 6.5:1. |
+| Dot | `#D2D2D2` | `#2E2E2E` | The dotted field behind the tree |
+
+The page follows the visitor's system setting, and the header switch saves a choice. In the light theme the page still turns dark from Experience down: those sections use the dark tokens in both themes.
 
 ### Type
 
-All fonts are OFL. Production self-hosts them with `next/font/local`, because remote fonts break the mainland reachability rule.
+All fonts are OFL. Production self-hosts them with `next/font/local`, because remote fonts break the mainland reachability rule. The grid depends on Archivo's exact metrics, so production must use the same Archivo version, or re-measure.
 
 | Style | Font | Size | Line height | Tracking | Notes |
 |---|---|---|---|---|---|
-| Display XL | Archivo 900 | `clamp(56px, 9.7vw, 148px)` | 0.84 | −4.5% | Uppercase. Hero title. |
-| Display giant | Archivo 900 | `clamp(48px, 13.6vw, 204px)` | 0.84 | −4.5% | Experience, footer name |
-| Display L | Archivo 900 | `clamp(48px, 8.6vw, 132px)` | 0.84 | −4.5% | Section heads |
-| Display M | Archivo 900 | `clamp(40px, 6.6vw, 100px)` | 0.86 | −4% | Skill lines |
-| Title | Archivo 700 | 32px | 1.1 | −1.5% | Project titles |
-| Body | Archivo 400 | 17px, 16px on phones | 1.55 | 0 | |
-| Chip | Archivo 600 | 11.5px | 1 | +6% | Uppercase |
-| Terminal | JetBrains Mono 500 | 16px | 1.4 | 0 | AI twin and chat only |
-| ASCII | JetBrains Mono 500 | Box width ÷ columns ÷ 0.6 | 1 | 0 | Sized to fill its box |
+| Display | Archivo 800 | From the grid table | 0.73 | −6% | Uppercase |
 | Slash | Archivo 200 | Same as its headline | | | Joins the halves of the hero headline |
-| Chinese display | Noto Sans SC 900 | 0.78 × the matching English size | 0.84 ÷ 0.78 | 0 | Latin words inside keep the English size |
-| Chinese heading | Noto Sans SC 900 | `clamp(30px, 3.4vw, 52px)` | 1.2 | +2% | |
-| Chinese body | System font | 16px | 1.8 | 0 | PingFang SC, Microsoft YaHei, Noto Sans CJK SC |
-
-Mono is kept to the AI twin and ASCII art, so it reads as the machine's voice. Buttons use sentence case; only chips and display type are uppercase.
+| Word stack | Archivo 500 | `0.5029 f` | 0.82 | −4% | Uppercase, skills |
+| Statement | Archivo 500 | 26px | 1.3 | −1.5% | Hero statement box |
+| Intro | Archivo 400 | 19px | 1.45 | 0 | Hero intro |
+| Title | Archivo 600 | 22px | 1.2 | −1% | Project titles |
+| Body | Archivo 400 | 15px to 17px | 1.55 | 0 | |
+| Chip | Archivo 500 | 15px in the hero, 13px elsewhere | 1 | +3% | Uppercase |
+| Button | Archivo 600 | 12px | 1 | +5% | Uppercase, 36px tall, 44px on phones |
+| Terminal | JetBrains Mono 500 | 14px | 1.4 | 0 | AI twin and chat only |
+| ASCII | JetBrains Mono 500, 800 for the tree | Box width ÷ columns ÷ 0.6 | 1 | 0 | Sized to fill its box |
+| Chinese heading | Noto Sans SC 900 | `clamp(26px, 2.5vw, 36px)` | 1.25 | +2% | |
+| Chinese body | System font | 17px | 1.75 | 0 | PingFang SC, Microsoft YaHei, Noto Sans CJK SC |
 
 ### Layout
 
-| Width | Range | Designed at | Columns | Margin | Gap |
-|---|---|---|---|---|---|
-| Desktop | 1024px and up | 1440 | 12 | 32px | 24px |
-| Tablet | 640–1023px | 768 | 8 | 24px | 16px |
-| Phone | Below 640px | 390 | 4 | 16px | 12px |
+| Width | Range | Designed at | Margin | Headline `f` |
+|---|---|---|---|---|
+| Desktop | 1024px and up | 1440 | 40px | 10.3% of the content width |
+| Tablet | 640–1023px | 768 | 24px | 12.7% of the content width |
+| Phone | Below 640px | 390 | 16px | Content width ÷ 6.034 |
 
-The page is at most 1440px wide, with hairlines at its edges. Spacing steps are 4, 8, 12, 16, 24, 32, 48, 64, 96, and 128px. Display lines stagger by whole columns: two of nine in the hero, two of eight in section heads.
+The page is at most 1440px wide. Content sits between two hairlines inset by the margin, and those lines run the full height of the page. The hero has lines at L1, L2, and L3; Selected work and Experience have L3; the skills stack has all three; the footer name has L2. On tablets and phones, where content stacks, the lines stop at their heading.
 
 ### Motion
 
-- On load, the hero portrait resolves from random characters in 1.3 seconds.
+- On load, the tree resolves from random characters in 1.3 seconds.
 - The AI twin's caret blinks.
 - Both stop when the visitor has reduced motion turned on. Accordion rows open instantly. Nothing animates on scroll.
 
@@ -101,49 +127,45 @@ The page is at most 1440px wide, with hairlines at its edges. Spacing steps are 
 
 All corners are square, borders are 1px, and nothing has a shadow. `design/foundations.html` shows each one.
 
-- **Chips:** outline (signal), solid (signal), and muted (rule border, graphite text).
-- **Buttons:** signal, line, light, and line-on-ink, all 44px tall. Pixel icons only where they add meaning: external link, download, copy, mail, chat.
-- **AI twin box:** title and status, a terminal prompt with a blinking caret, three suggested questions, a note that answers can be wrong, and an Ask button.
-- **Chat panel:** a 440px side panel on desktop and a full-width sheet on phones. Visitor messages are signal blocks, twin replies have an ink rule, and declined questions use a grey rule and text.
-- **Facts list:** label and value rows divided by hairlines.
-- **Project row:** text on one side and an image well on the other, alternating. The well bleeds to the page edge.
+- **Chips:** panel (blue text on panel), solid (white on signal), and muted (small grey).
+- **Buttons:** signal, line, light, and ghost. Pixel icons only where they add meaning: external link, download, copy, mail, chat.
+- **AI twin window:** title and status, a terminal prompt with a blinking caret, three suggested questions, a note that answers can be wrong, and an Ask button. In the hero it stands in a room: lines from the stage corners to the window, a center line, a horizon, a grey panel and a signal panel behind it. `site.js` draws the lines from the window's position.
+- **Chat panel:** a 440px side panel on desktop and a full-width sheet on phones. Visitor messages are signal blocks, twin replies have an ink rule, and declined questions use a grey rule and text. Esc closes it.
+- **Project row:** year with a signal square, title, description, chips, and links on one side, and an image well on the other, alternating.
 - **Experience row:** dates, title, and company in one line. Opening a row shows result bullets and stack chips.
-- **Pixel icons:** drawn on 7 to 9 pixel grids, in `design/site.js`: mark, chat, send, external, download, mail, copy, plus, minus, down, menu, close, cross, spark.
-- **ASCII art:** `design/scripts/render-ascii.mjs` renders the placeholder scenes. T7 builds the production converter, which works from a photo.
+- **Pixel icons:** drawn on 4 to 15 pixel grids in `design/site.js`: mark, chat, send, external, download, mail, copy, plus, minus, down, menu, close, cross, spark, sun, moon, carets, brace.
+- **ASCII art:** `design/scripts/render-ascii.mjs` grows the tree from a seed, with two small trees behind it, and renders bare branches for the contact panel and small objects for the project wells.
 
 ## Chinese
 
 - Set `lang="zh-CN"` on Chinese pages, so browsers use Simplified Chinese glyph shapes.
-- Chinese text never gets uppercase or negative tracking. Body line height is 1.8.
-- English display words such as "Selected work" and "Experience" stay as graphics on the Chinese page, marked `aria-hidden`. A Chinese heading under each one is the real heading.
-- Where the meaning matters, Chinese is set on its own: the hero title and "正在寻找新的机会".
+- Chinese text never gets uppercase or negative tracking. Body line height is 1.75 or more.
+- English display words, the hero's "AI / Web Engineer" included, stay as graphics on the Chinese page, marked `aria-hidden` and `lang="en"`. A Chinese heading next to or under each one is the real heading.
+- The Chinese page uses George's Chinese name, 罗卓君, in the header, the hero intro, and under the footer name.
 - Body text uses the visitor's system font, so nothing downloads. The heavy display font is trimmed to the characters the site uses, which the build can list because all content lives in the repo (T6).
-- The name stays in English. Add a Chinese name only if George wants one.
-
-**Chinese hero: option A**, chosen on 2026-11-05. "AI / 前端" over "开发工程师" is set in Chinese on its own, with "AI /" in Archivo at the English size. Option B, the English title as a graphic with a Chinese heading below it, stays on the foundations page for reference and is the pattern section headings use.
-
-**Matching sizes.** A Chinese headline that pairs with an English one (the hero, and the contact heading) is set at 0.78 of the English size, the `--cjk-match` token. At that scale the characters stand as tall as Archivo's capitals: capitals measure 0.69 of the font size, and Noto Sans SC characters about 0.88. The line pitch matches the English too, so both pages' heroes come out the same height at every width. Latin words inside sit 0.05em lower to center on the characters.
 
 ## Accessibility
 
-- Every text pair meets WCAG AA. Signal is never used for text on ink.
-- Focus is visible: a 2px signal outline on paper, and white on ink.
-- ASCII art and decorative glyphs are hidden from screen readers.
-- Experience rows are buttons with `aria-expanded`.
+- Every text pair meets WCAG AA. Dark signal (`#4352FF`) is used only for large text and fills with white text (5.4:1).
+- Focus is visible: a 2px signal outline, and white on the dark sections.
+- ASCII art, display graphics on the Chinese page, and decorative glyphs are hidden from screen readers.
+- Experience rows are buttons with `aria-expanded`. The theme switch's label says what it switches to.
 
 ## Placeholders for T10
 
 Replace these with real content:
 
-- The intro, chips, and facts
+- The intro, statement, and chips
 - Projects two and three, and the image wells, which become screenshots
-- Skill areas and their details
+- Skill areas and their tools
 - Roles, dates, companies, results, and education
 - Email address and WeChat ID
-- The ASCII portrait, rendered from George's photo
 
 ## Notes for building it
 
 - The prototype loads Google Fonts, and loads Figma's capture script only when the URL has a `#figmacapture` hash. Neither ships in production.
-- Rebuild the components in T5 and T8 rather than copying the prototype's CSS wholesale. Keep the tokens and measurements in this file.
-- Regenerate the placeholder art with `node design/scripts/render-ascii.mjs > design/ascii.js`.
+- URL options: `?static` skips the load animation, `?theme=light` or `?theme=dark` forces a theme, and `?grid` shows the grid lines.
+- A small script in each page's head applies a saved theme before first paint, so the page doesn't flash. Production needs the same.
+- Pixel icons bake their color in when drawn, because a captured SVG doesn't inherit `currentColor`, so `site.js` redraws them when the theme changes. Production can use `currentColor`.
+- Rebuild the components in T5 and T8 rather than copying the prototype's CSS wholesale. Keep the tokens and the grid measurements in this file.
+- Regenerate the art with `node design/scripts/render-ascii.mjs > design/ascii.js`.

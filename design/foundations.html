@@ -4,11 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Foundations</title>
+    <script>
+      // Theme before first paint: ?theme= wins, then a saved choice, then the system setting.
+      (() => {
+        const params = new URLSearchParams(location.search);
+        let theme = params.get("theme");
+        if (theme !== "light" && theme !== "dark") {
+          try {
+            theme = localStorage.getItem("theme");
+          } catch {}
+        }
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.dataset.theme = theme;
+        }
+        if (params.has("grid")) document.documentElement.classList.add("show-grid");
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
     />
     <link rel="stylesheet" href="styles.css" />
     <script src="ascii.js"></script>
@@ -16,360 +32,397 @@
   </head>
   <body>
     <div class="page">
-      <header class="section-head grid">
-        <h1 class="section-head__title display" style="font-size: clamp(48px, 6.6vw, 96px)">
-          <span>Design</span>
-          <span class="indent">foundations</span>
-        </h1>
-        <p class="section-head__aside">
-          Colors, type, layout, and components for George Luo's portfolio. The
-          HTML prototype in <code>design/</code> is the source, and this page is
-          captured from it.
-        </p>
+      <header class="nav">
+        <div class="frame">
+          <a class="nav__brand" href="index.html">
+            <span class="mark mark--sm"><span data-px="mark" data-size="12"></span></span>
+            <span><b>George</b> Luo</span>
+          </a>
+          <nav class="nav__links" aria-label="Pages">
+            <a href="index.html">English page</a>
+            <a href="zh.html" lang="zh-CN">中文页面</a>
+            <a href="foundations.html" aria-current="page">Foundations</a>
+          </nav>
+          <div class="nav__tools">
+            <button class="theme-toggle" type="button" data-theme-toggle data-label-dark="Switch to dark theme" data-label-light="Switch to light theme">
+              <span data-px="moon" data-size="14"></span>
+            </button>
+          </div>
+        </div>
       </header>
 
-      <section class="fd-section grid" aria-labelledby="color-title">
-        <div class="fd-section__head">
-          <h2 id="color-title">Color</h2>
-          <p>
-            Signal blue carries the brand. Pages start on paper and turn to ink
-            for experience, contact, and the footer.
-          </p>
-        </div>
-        <div class="fd-section__body swatches">
-          <div class="swatch">
-            <div class="swatch__chip" style="background: #1b2bff; border-color: #1b2bff"></div>
-            <strong class="swatch__name">Signal</strong><code>#1B2BFF</code>
-            <p>Display type, primary buttons, chips. 7.4:1 on paper. Never text on ink (2.8:1).</p>
-          </div>
-          <div class="swatch">
-            <div class="swatch__chip" style="background: #000; border-color: #000"></div>
-            <strong class="swatch__name">Ink</strong><code>#000000</code>
-            <p>Body text, borders, and the dark sections.</p>
-          </div>
-          <div class="swatch">
-            <div class="swatch__chip" style="background: #fff"></div>
-            <strong class="swatch__name">Paper</strong><code>#FFFFFF</code>
-            <p>Page background, and text on signal or ink.</p>
-          </div>
-          <div class="swatch">
-            <div class="swatch__chip" style="background: #e8e8e8; border-color: #e8e8e8"></div>
-            <strong class="swatch__name">Panel</strong><code>#E8E8E8</code>
-            <p>Project image wells.</p>
-          </div>
-          <div class="swatch">
-            <div class="swatch__chip" style="background: #6e6e6e; border-color: #6e6e6e"></div>
-            <strong class="swatch__name">Graphite</strong><code>#6E6E6E</code>
-            <p>Secondary text on paper. 5.1:1.</p>
-          </div>
-          <div class="swatch">
-            <div class="swatch__chip" style="background: #8f8f8f; border-color: #8f8f8f"></div>
-            <strong class="swatch__name">Ash</strong><code>#8F8F8F</code>
-            <p>Secondary text on ink. 6.5:1.</p>
-          </div>
-          <div class="swatch">
-            <div class="swatch__chip" style="background: #d9d9d9; border-color: #d9d9d9"></div>
-            <strong class="swatch__name">Rule</strong><code>#D9D9D9</code>
-            <p>Hairlines on paper.</p>
-          </div>
-          <div class="swatch">
-            <div class="swatch__chip" style="background: #2b2b2b; border-color: #2b2b2b"></div>
-            <strong class="swatch__name">Rule on ink</strong><code>#2B2B2B</code>
-            <p>Hairlines on ink. The ASCII field behind the contact block uses #262626.</p>
-          </div>
-        </div>
-      </section>
+      <main>
+        <div class="frame">
+          <header class="sec-head">
+            <h1 class="sec-head__title display fd-title"><span>Foundations</span></h1>
+            <div class="sec-head__aside">
+              <p>
+                The grid, colors, type, and components of George Luo's
+                portfolio, in light and dark. The HTML prototype in
+                <code>design/</code> is the source, and the Figma file is
+                captured from it.
+              </p>
+            </div>
+          </header>
 
-      <section class="fd-section grid" aria-labelledby="type-title">
-        <div class="fd-section__head">
-          <h2 id="type-title">Type</h2>
-          <p>
-            Archivo for everything Latin. JetBrains Mono only for the AI twin and
-            ASCII art. Noto Sans SC for Chinese in the design; production body
-            text uses the visitor's system Chinese font.
-          </p>
-        </div>
-        <dl class="fd-section__body specimens">
-          <div class="specimen">
-            <dt><strong>Display XL</strong>Archivo 900, 148 px, 0.84, −4.5%</dt>
-            <dd class="display" style="font-size: 96px; color: var(--signal)"><span>AI <span class="slash">/</span> Web</span></dd>
-          </div>
-          <div class="specimen">
-            <dt><strong>Display L</strong>Archivo 900, 124 px, 0.84, −4.5%</dt>
-            <dd class="display" style="font-size: 64px; color: var(--signal)">Selected work</dd>
-          </div>
-          <div class="specimen">
-            <dt><strong>Display M</strong>Archivo 900, 95 px, 0.86, −4%</dt>
-            <dd class="display" style="font-size: 56px">AI agents</dd>
-          </div>
-          <div class="specimen">
-            <dt><strong>Title</strong>Archivo 700, 32 px, 1.1</dt>
-            <dd style="font-size: 32px; font-weight: 700; letter-spacing: -0.015em">AI portfolio twin</dd>
-          </div>
-          <div class="specimen">
-            <dt><strong>Body</strong>Archivo 400, 17 px, 1.55</dt>
-            <dd>I build AI products end to end, from the model calls to the interface.</dd>
-          </div>
-          <div class="specimen">
-            <dt><strong>Chip</strong>Archivo 600, 11.5 px, +6%, capitals</dt>
-            <dd><span class="chip">Open to roles</span></dd>
-          </div>
-          <div class="specimen">
-            <dt><strong>Terminal</strong>JetBrains Mono 500, 16 px, 1.4</dt>
-            <dd style="font: 500 16px/1.4 var(--mono)"><span style="color: var(--signal)">&gt;</span> What has George built with AI?</dd>
-          </div>
-          <div class="specimen">
-            <dt><strong>Chinese display</strong>Noto Sans SC 900 at 0.78 of the English size, so characters match the capitals</dt>
-            <dd class="zh-display" lang="zh-CN" style="font-size: 72px; color: var(--signal)"><span><span class="zh-display__latin" lang="en">AI <span class="slash">/</span></span> 前端开发工程师</span></dd>
-          </div>
-          <div class="specimen">
-            <dt><strong>Chinese heading</strong>Noto Sans SC 900, 48 px, 1.2</dt>
-            <dd class="zh-heading" lang="zh-CN">精选作品</dd>
-          </div>
-          <div class="specimen">
-            <dt><strong>Chinese body</strong>16 px, 1.8, system font in production</dt>
-            <dd lang="zh-CN" style="font-size: 16px; line-height: 1.8">我从头到尾构建 AI 产品：从模型调用，到人们每天使用的界面。</dd>
-          </div>
-        </dl>
-      </section>
+          <section class="fd-section" aria-labelledby="grid-title">
+            <div class="fd-section__head">
+              <h2 id="grid-title">Grid from type</h2>
+              <p>
+                The vertical lines are measured from the hero headline. L1 is
+                the top corner of the W. L2 is the stem of the E in "Web" and of
+                the E that starts "Engineer". L3 is where the B and the N end.
+                Every other display heading is sized so its letters land on the
+                same lines.
+              </p>
+            </div>
+            <div class="fd-section__body">
+              <table class="fd-table">
+                <thead>
+                  <tr><th>Heading</th><th>Size</th><th>Letters on the lines</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Hero</td><td><code>f = 10.3% of width</code></td><td>W on L1, E and E on L2, B and N on L3</td></tr>
+                  <tr><td>Selected work</td><td><code>0.7302 f</code></td><td>D and R on L3, W hangs from the T</td></tr>
+                  <tr><td>Skills</td><td><code>0.5029 f</code></td><td>A on L2, F on L0, D on L1, E of "Agents" on L3</td></tr>
+                  <tr><td>Experience</td><td><code>1.4288 f</code></td><td>R on L3</td></tr>
+                  <tr><td>Footer name</td><td><code>1.1207 f</code></td><td>R and L on L2</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
 
-      <section class="fd-section grid" aria-labelledby="zh-title">
-        <div class="fd-section__head">
-          <h2 id="zh-title">Chinese headlines</h2>
-          <p>
-            Two ways to set a headline in Chinese. The hero uses A. Section
-            headings keep the English word as a graphic, as in B.
-          </p>
-        </div>
-        <div class="fd-section__body options">
-          <div class="option">
-            <p class="option__label">A. Chinese on its own <span>Chosen for the hero</span></p>
-            <p class="zh-display zh-match" lang="zh-CN"><span><span class="zh-display__latin" lang="en">AI <span class="slash">/</span></span> 前端</span><span class="indent">开发工程师</span></p>
-            <div class="chips" lang="zh-CN"><span class="chip">AI 产品</span><span class="chip">前端开发</span></div>
-          </div>
-          <div class="option">
-            <p class="option__label">B. English as a graphic <span>Used for section headings</span></p>
-            <p class="display" lang="en"><span>AI <span class="slash">/</span> Web</span><span class="indent">Engineer</span></p>
-            <p class="zh-heading" lang="zh-CN">AI/前端开发工程师</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="fd-section grid" aria-labelledby="layout-title">
-        <div class="fd-section__head">
-          <h2 id="layout-title">Layout</h2>
-          <p>
-            One grid per width. Hairlines mark cells and sections instead of
-            boxes and shadows. Display lines stagger by whole columns.
-          </p>
-        </div>
-        <div class="fd-section__body">
-          <div class="grids">
-            <div class="grid-demo">
-              <p class="grid-demo__label">Desktop 1440 <span>12 columns, 32 px margins, 24 px gaps</span></p>
-              <div class="grid-demo__frame" style="grid-template-columns: repeat(12, 1fr); gap: 8px; padding: 0 16px">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              </div>
-            </div>
-            <div class="grid-demo">
-              <p class="grid-demo__label">Tablet 768 <span>8 columns, 24 px margins, 16 px gaps</span></p>
-              <div class="grid-demo__frame" style="grid-template-columns: repeat(8, 1fr); gap: 10px; padding: 0 16px; max-width: 70%">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              </div>
-            </div>
-            <div class="grid-demo">
-              <p class="grid-demo__label">Phone 390 <span>4 columns, 16 px margins, 12 px gaps</span></p>
-              <div class="grid-demo__frame" style="grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 12px; max-width: 40%">
-                <i></i><i></i><i></i><i></i>
-              </div>
-            </div>
-          </div>
-          <div class="spacing" aria-label="Spacing scale">
-            <div><i style="height: 4px"></i>4</div>
-            <div><i style="height: 8px"></i>8</div>
-            <div><i style="height: 12px"></i>12</div>
-            <div><i style="height: 16px"></i>16</div>
-            <div><i style="height: 24px"></i>24</div>
-            <div><i style="height: 32px"></i>32</div>
-            <div><i style="height: 48px"></i>48</div>
-            <div><i style="height: 64px"></i>64</div>
-            <div><i style="height: 96px"></i>96</div>
-            <div><i style="height: 128px"></i>128</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="fd-section grid" aria-labelledby="components-title">
-        <div class="fd-section__head">
-          <h2 id="components-title">Components</h2>
-          <p>
-            Square corners, one-pixel borders, no shadows. Pixel icons are drawn
-            on a 7 to 9 pixel grid and scale in whole steps.
-          </p>
-        </div>
-        <div class="fd-section__body component-grid">
-          <div class="component">
-            <p class="component__label">Chips</p>
-            <div class="component__row">
-              <span class="chip">AI products</span>
-              <span class="chip chip--solid">Open to roles</span>
-              <span class="chip chip--muted">Next.js</span>
-              <span class="chip" lang="zh-CN">前端开发</span>
-            </div>
-          </div>
-          <div class="component">
-            <p class="component__label">Buttons</p>
-            <div class="component__row">
-              <a class="btn btn--signal" href="#components-title">View project <span data-px="external" data-size="11"></span></a>
-              <a class="btn btn--line" href="#components-title">Source code <span data-px="external" data-size="11"></span></a>
-            </div>
-          </div>
-          <div class="component component--dark dark">
-            <p class="component__label">Buttons on ink</p>
-            <div class="component__row">
-              <a class="btn btn--light" href="#components-title"><span data-px="mail" data-size="14"></span> Email me</a>
-              <button class="btn btn--line-light" type="button"><span data-px="copy" data-size="14"></span> Copy WeChat ID</button>
-              <a class="btn btn--signal" href="#components-title"><span data-px="chat" data-size="14"></span> Ask my AI twin</a>
-            </div>
-          </div>
-          <div class="component">
-            <p class="component__label">Language switch and AI twin link</p>
-            <div class="component__row">
-              <div class="lang">
-                <a href="index.html" aria-current="page">EN</a>
-                <a href="zh.html" lang="zh-CN">中文</a>
-              </div>
-              <a class="nav__ask" href="#components-title"><span data-px="chat" data-size="16"></span><span>Ask my AI twin</span></a>
+          <div class="fd-grid" aria-hidden="true">
+            <span class="vline vline--l1"></span>
+            <span class="vline vline--l2"></span>
+            <span class="vline vline--l3"></span>
+            <p class="hero__title display">
+              <span class="hl hl--ai">AI <span class="slash">/</span></span>
+              <span class="hl hl--web">Web</span>
+              <span class="hl hl--eng">Engineer</span>
+            </p>
+            <div class="fd-grid__labels">
+              <span style="left: 0">L0</span>
+              <span style="left: var(--L1)">L1</span>
+              <span style="left: var(--L2)">L2</span>
+              <span style="left: var(--L3)">L3</span>
             </div>
           </div>
 
-          <div class="component component--wide">
-            <p class="component__label">AI twin, hero version</p>
-            <div class="twin" style="max-width: 560px">
-              <div class="twin__head">
-                <span class="twin__title"><span data-px="chat" data-size="16" style="color: var(--signal)"></span>Ask my AI twin</span>
-                <span class="twin__state">Online</span>
-              </div>
-              <div class="twin__input">
-                <span class="twin__prompt">&gt;</span>
-                <span class="twin__placeholder">What has George built with AI?</span>
-                <span class="caret" aria-hidden="true"></span>
-              </div>
-              <div class="twin__suggest">
-                <button class="suggest" type="button">Recent projects</button>
-                <button class="suggest" type="button">Tech stack</button>
-                <button class="suggest" type="button">Work rights and location</button>
-              </div>
-              <div class="twin__foot">
-                <span>Answers come from George's résumé and projects, and can be wrong.</span>
-                <button class="btn btn--signal" type="button">Ask <span data-px="send" data-size="12"></span></button>
-              </div>
+          <section class="fd-section" aria-labelledby="layout-title">
+            <div class="fd-section__head">
+              <h2 id="layout-title">Layout</h2>
+              <p>
+                Lengths are in em of the hero headline, so the lines scale with
+                the page. Phones set the headline on three lines, where the I of
+                "AI", the E of "Web", and the E of "Engineer" share L1.
+              </p>
             </div>
-          </div>
+            <div class="fd-section__body">
+              <table class="fd-table">
+                <thead>
+                  <tr><th>Width</th><th>Margin</th><th>Headline</th><th>L1</th><th>L2</th><th>L3</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Desktop, 1024 and up</td><td>40px</td><td><code>0.103 × content</code></td><td><code>1.444em</code></td><td><code>2.432em</code></td><td><code>3.702em</code></td></tr>
+                  <tr><td>Tablet, 640 to 1023</td><td>24px</td><td><code>0.127 × content</code></td><td><code>1.444em</code></td><td><code>2.432em</code></td><td><code>3.702em</code></td></tr>
+                  <tr><td>Phone, below 640</td><td>16px</td><td><code>content ÷ 6.034</code></td><td><code>0.989em</code></td><td><code>2.259em</code></td><td><code>4.107em</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
 
-          <div class="component component--wide">
-            <p class="component__label">Chat panel: desktop side panel (440 px) and phone sheet (390 px)</p>
-            <div class="chat-pair">
-              <div class="chat">
-                <div class="chat__head">
-                  <span class="badge badge--sm"><span data-px="mark" data-size="14"></span></span>
-                  <p class="chat__who">George's AI twin<span>Answers from the résumé and projects</span></p>
-                  <button type="button" aria-label="Close chat"><span data-px="close" data-size="12"></span></button>
+          <section class="fd-section" aria-labelledby="color-title">
+            <div class="fd-section__head">
+              <h2 id="color-title">Color</h2>
+              <p>
+                Light is the default and follows the reference: white pages that
+                turn black toward the end. Dark follows the visitor's system
+                setting, with a switch in the header. Signal lightens on black
+                so it keeps its contrast.
+              </p>
+            </div>
+            <div class="fd-section__body fd-themes">
+              <div class="fd-theme">
+                <h3>Light</h3>
+                <div class="swatches">
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #1b2bff"></div>
+                    <strong class="swatch__name">Signal</strong><code>#1B2BFF</code>
+                    <p>Display type, fills, small blue text. 7.4:1 on white.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #000"></div>
+                    <strong class="swatch__name">Ink</strong><code>#000000</code>
+                    <p>Text, and the dark sections.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #fff"></div>
+                    <strong class="swatch__name">Paper</strong><code>#FFFFFF</code>
+                    <p>Page background.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #f4f4f4"></div>
+                    <strong class="swatch__name">Panel</strong><code>#F4F4F4</code>
+                    <p>Chips, the statement box, the header button.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #e9e9e9"></div>
+                    <strong class="swatch__name">Well</strong><code>#E9E9E9</code>
+                    <p>Project image wells.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #e6e6e6"></div>
+                    <strong class="swatch__name">Rule</strong><code>#E6E6E6</code>
+                    <p>Grid lines and borders.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #6e6e6e"></div>
+                    <strong class="swatch__name">Muted</strong><code>#6E6E6E</code>
+                    <p>Secondary text. 5.1:1 on white.</p>
+                  </div>
                 </div>
-                <div class="chat__log">
-                  <p class="msg msg--user">What has George built with AI?</p>
-                  <p class="msg msg--twin">The main one is this site's chat: a DeepSeek model that answers from George's résumé and projects, and stays on that topic.</p>
-                  <p class="msg msg--user">Write me a poem about cats.</p>
-                  <p class="msg msg--twin msg--decline">I only answer questions about George's work. Try asking about projects, skills, or availability.</p>
-                </div>
-                <div class="chat__suggest">
-                  <button class="suggest" type="button">Tech stack</button>
-                  <button class="suggest" type="button">Availability</button>
-                </div>
-                <div class="chat__input">
-                  <span class="twin__prompt">&gt;</span>
-                  <span class="twin__placeholder">Ask about projects or skills</span>
-                  <button class="btn btn--signal" type="button">Send <span data-px="send" data-size="12"></span></button>
-                </div>
-                <p class="chat__note">AI answers can be wrong. For anything important, email George.</p>
               </div>
-              <div class="chat" lang="zh-CN">
-                <div class="chat__head">
-                  <span class="badge badge--sm"><span data-px="mark" data-size="14"></span></span>
-                  <p class="chat__who">George 的 AI 分身<span>回答依据简历和项目</span></p>
-                  <button type="button" aria-label="关闭聊天"><span data-px="close" data-size="12"></span></button>
+              <div class="fd-theme ink">
+                <h3>Dark</h3>
+                <div class="swatches">
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #4352ff"></div>
+                    <strong class="swatch__name">Signal</strong><code>#4352FF</code>
+                    <p>Display type and fills. 3.9:1, so large text only.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #6874ff"></div>
+                    <strong class="swatch__name">Signal text</strong><code>#6874FF</code>
+                    <p>Small blue text. 5.5:1 on black.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #000"></div>
+                    <strong class="swatch__name">Ink</strong><code>#000000</code>
+                    <p>Page background.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #121212"></div>
+                    <strong class="swatch__name">Panel</strong><code>#121212</code>
+                    <p>Chips, boxes, the call to action.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #161616"></div>
+                    <strong class="swatch__name">Well</strong><code>#161616</code>
+                    <p>Project image wells.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #242424"></div>
+                    <strong class="swatch__name">Rule</strong><code>#242424</code>
+                    <p>Grid lines and borders.</p>
+                  </div>
+                  <div class="swatch">
+                    <div class="swatch__chip" style="background: #8f8f8f"></div>
+                    <strong class="swatch__name">Muted</strong><code>#8F8F8F</code>
+                    <p>Secondary text. 6.5:1 on black.</p>
+                  </div>
                 </div>
-                <div class="chat__log">
-                  <p class="msg msg--user">George 用 AI 做过什么？</p>
-                  <p class="msg msg--twin">主要是这个网站的聊天助手：用 DeepSeek 模型，依据 George 的简历和项目作答，只谈这些话题。</p>
-                  <p class="msg msg--user">帮我写首关于猫的诗。</p>
-                  <p class="msg msg--twin msg--decline">我只回答关于 George 工作的问题。可以问问项目、技能或到岗时间。</p>
-                </div>
-                <div class="chat__input">
-                  <span class="twin__prompt">&gt;</span>
-                  <span class="twin__placeholder">问问项目或技能</span>
-                  <button class="btn btn--signal" type="button">发送 <span data-px="send" data-size="12"></span></button>
-                </div>
-                <p class="chat__note">AI 的回答可能有误。重要的事请发邮件给 George。</p>
               </div>
             </div>
-          </div>
+          </section>
 
-          <div class="component component--wide component--dark dark">
-            <p class="component__label">Experience row, open and closed</p>
-            <ol class="timeline" style="margin-top: 0; padding-inline: 0; --cols: 12">
-              <li class="role is-open">
-                <button class="role__head" type="button" aria-expanded="true">
-                  <span class="role__dates">2024–now</span>
-                  <span class="role__title">Software engineer</span>
-                  <span class="role__org">Company name</span>
-                  <span class="role__toggle" data-px="minus" data-size="12"></span>
-                </button>
-                <div class="role__body">
-                  <ul><li>Placeholder: one line per result, starting with a verb.</li></ul>
-                  <ul class="chips"><li class="chip chip--muted">TypeScript</li><li class="chip chip--muted">React</li></ul>
+          <section class="fd-section" aria-labelledby="type-title">
+            <div class="fd-section__head">
+              <h2 id="type-title">Type</h2>
+              <p>
+                Archivo for everything Latin, JetBrains Mono for the AI twin and
+                the art, Noto Sans SC for Chinese headings. Display type is
+                Archivo 800 at −6% tracking, with lines 0.73 of the size apart.
+              </p>
+            </div>
+            <dl class="fd-section__body specimens">
+              <div class="specimen">
+                <dt><strong>Display</strong>Archivo 800, uppercase</dt>
+                <dd><span class="display" style="display: block; font-size: 64px; color: var(--signal)">Selected</span></dd>
+              </div>
+              <div class="specimen">
+                <dt><strong>Slash</strong>Archivo 200</dt>
+                <dd><span class="display" style="display: block; font-size: 64px; color: var(--signal)"><span>AI <span class="slash">/</span> Web</span></span></dd>
+              </div>
+              <div class="specimen">
+                <dt><strong>Word stack</strong>Archivo 500, uppercase</dt>
+                <dd><span style="font-size: 44px; font-weight: 500; letter-spacing: -0.04em; text-transform: uppercase">Data &amp; cloud</span></dd>
+              </div>
+              <div class="specimen">
+                <dt><strong>Statement</strong>Archivo 500, 26px</dt>
+                <dd><p style="font-size: 26px; font-weight: 500; line-height: 1.3; letter-spacing: -0.015em">From the first prompt to the last pixel.</p></dd>
+              </div>
+              <div class="specimen">
+                <dt><strong>Intro</strong>Archivo 400, 19px</dt>
+                <dd><p style="font-size: 19px; line-height: 1.45">I'm George Luo, an AI and web engineer.</p></dd>
+              </div>
+              <div class="specimen">
+                <dt><strong>Title</strong>Archivo 600, 22px</dt>
+                <dd><p class="project__title">AI portfolio twin</p></dd>
+              </div>
+              <div class="specimen">
+                <dt><strong>Body</strong>Archivo 400, 15px</dt>
+                <dd><p class="project__desc">It answers recruiters' questions from my résumé and projects.</p></dd>
+              </div>
+              <div class="specimen">
+                <dt><strong>Chip and button</strong>Archivo 500 and 600, uppercase</dt>
+                <dd class="component__row"><span class="chip">Frontend</span><span class="btn btn--signal">View project</span></dd>
+              </div>
+              <div class="specimen">
+                <dt><strong>Terminal</strong>JetBrains Mono 500, 14px</dt>
+                <dd><span class="twin__input"><span class="twin__prompt">&gt;</span><span class="twin__placeholder">What has George built with AI?</span></span></dd>
+              </div>
+              <div class="specimen">
+                <dt><strong>Chinese heading</strong>Noto Sans SC 900</dt>
+                <dd><p class="zh-heading" lang="zh-CN">精选项目</p></dd>
+              </div>
+              <div class="specimen">
+                <dt><strong>Chinese body</strong>System font, 17px, line height 1.75</dt>
+                <dd><p lang="zh-CN" style="font-size: 17px; line-height: 1.75">我是罗卓君。从模型调用、数据到每天被使用的界面，整条链路我都能做。</p></dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="fd-section" aria-labelledby="zh-title">
+            <div class="fd-section__head">
+              <h2 id="zh-title">Chinese</h2>
+              <p>
+                The English display words stay as graphics on the Chinese page,
+                hidden from screen readers. A Chinese heading in Noto Sans SC
+                900 is the real heading, next to or under the graphic. The
+                Chinese page uses George's Chinese name, 罗卓君.
+              </p>
+            </div>
+            <div class="fd-section__body">
+              <div class="hero__intro" style="margin: 0; padding: 0; border: 0">
+                <div class="hero__intro-text" lang="zh-CN">
+                  <p class="zh-heading"><span lang="en">AI</span> <span class="slash" lang="en">/</span> 前端开发工程师</p>
+                  <p>我是罗卓君。从模型调用、数据到每天被使用的界面，整条链路我都能做。</p>
                 </div>
-              </li>
-              <li class="role">
-                <button class="role__head" type="button" aria-expanded="false">
-                  <span class="role__dates">2022–2024</span>
-                  <span class="role__title">Role title</span>
-                  <span class="role__org">Company name</span>
-                  <span class="role__toggle" data-px="plus" data-size="12"></span>
-                </button>
-                <div class="role__body"><ul><li>Placeholder result.</li></ul></div>
-              </li>
-            </ol>
-          </div>
-
-          <div class="component component--wide">
-            <p class="component__label">Pixel icons</p>
-            <div class="icon-set">
-              <div><span data-px="mark" data-size="24"></span>mark</div>
-              <div><span data-px="chat" data-size="24"></span>chat</div>
-              <div><span data-px="send" data-size="24"></span>send</div>
-              <div><span data-px="external" data-size="24"></span>external</div>
-              <div><span data-px="download" data-size="24"></span>download</div>
-              <div><span data-px="mail" data-size="24"></span>mail</div>
-              <div><span data-px="copy" data-size="24"></span>copy</div>
-              <div><span data-px="plus" data-size="24"></span>plus</div>
-              <div><span data-px="minus" data-size="24"></span>minus</div>
-              <div><span data-px="down" data-size="24"></span>down</div>
-              <div><span data-px="menu" data-size="24"></span>menu</div>
-              <div><span data-px="close" data-size="24"></span>close</div>
-              <div><span data-px="cross" data-size="24"></span>cross</div>
-              <div><span data-px="spark" data-size="24"></span>spark</div>
+                <span class="mark hero__mark" aria-hidden="true"><span data-px="mark" data-size="42"></span></span>
+              </div>
             </div>
-          </div>
+          </section>
 
-          <div class="component component--wide">
-            <p class="component__label">ASCII ramp, light to dark</p>
-            <div class="ramp" aria-label="ASCII ramp">
-              <span>&nbsp;</span><span>.</span><span>:</span><span>-</span><span>=</span><span>+</span><span>*</span><span>#</span><span>%</span><span>@</span>
+          <section class="fd-section" aria-labelledby="components-title">
+            <div class="fd-section__head">
+              <h2 id="components-title">Components</h2>
+              <p>
+                Square corners, 1px rules, and no shadows. Pixel icons are drawn
+                on 7 to 15 pixel grids in <code>site.js</code>.
+              </p>
             </div>
-          </div>
+            <div class="fd-section__body component-grid">
+              <div class="component">
+                <span class="component__label">Chips: panel, solid, muted</span>
+                <div class="component__row">
+                  <span class="chip">AI products</span>
+                  <span class="chip chip--solid">LinkedIn <span data-px="external" data-size="10"></span></span>
+                  <span class="chip chip--muted">Next.js</span>
+                </div>
+              </div>
+              <div class="component">
+                <span class="component__label">Buttons: signal, line, ghost</span>
+                <div class="component__row">
+                  <span class="btn btn--signal">View project <span data-px="external" data-size="10"></span></span>
+                  <span class="btn btn--line">Copy WeChat ID</span>
+                  <span class="btn btn--ghost">Source code</span>
+                </div>
+              </div>
+              <div class="component">
+                <span class="component__label">AI twin window</span>
+                <div class="twin">
+                  <div class="twin__head">
+                    <span class="twin__title"><span data-px="chat" data-size="14"></span> Ask my AI twin</span>
+                    <span class="twin__state">Online</span>
+                  </div>
+                  <div class="twin__body">
+                    <div class="twin__input">
+                      <span class="twin__prompt">&gt;</span>
+                      <span class="twin__placeholder">What has George built with AI?</span>
+                      <span class="caret" aria-hidden="true"></span>
+                    </div>
+                    <div class="twin__suggest">
+                      <span class="suggest">Recent projects</span>
+                      <span class="suggest">Tech stack</span>
+                      <span class="suggest">Work rights</span>
+                    </div>
+                    <div class="twin__foot">
+                      <span>Answers come from my résumé and projects, and can be wrong.</span>
+                      <span class="btn btn--signal">Ask <span data-px="send" data-size="11"></span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="component">
+                <span class="component__label">Chat panel</span>
+                <div class="chat">
+                  <div class="chat__head">
+                    <span class="chat__who"><span data-px="chat" data-size="14"></span> AI twin <span class="twin__state">Online</span></span>
+                    <span class="chat__close"><span data-px="close" data-size="12"></span></span>
+                  </div>
+                  <div class="chat__log">
+                    <p class="msg msg--user">What has George built with AI?</p>
+                    <p class="msg msg--twin">This portfolio's chat, for one. It answers questions from his résumé and projects.</p>
+                    <p class="msg msg--user">What's the weather in Shanghai?</p>
+                    <p class="msg msg--decline">I only answer questions about George and his work.</p>
+                  </div>
+                  <div class="chat__input">
+                    <span class="twin__prompt">&gt;</span>
+                    <span class="twin__placeholder">Ask about George's work</span>
+                    <span class="btn btn--signal">Send <span data-px="send" data-size="11"></span></span>
+                  </div>
+                  <p class="chat__note">Answers come from George's résumé and projects, and can be wrong.</p>
+                </div>
+              </div>
+              <div class="component component--wide ink">
+                <span class="component__label">Experience row on ink</span>
+                <ol class="timeline">
+                  <li class="role is-open">
+                    <div class="role__head">
+                      <span class="role__dates">2024–now</span>
+                      <span class="role__title">Software engineer</span>
+                      <span class="role__org">Company name</span>
+                      <span class="role__toggle" data-px="minus" data-size="12"></span>
+                    </div>
+                    <div class="role__body">
+                      <ul><li>One line per result, starting with a verb.</li></ul>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+              <div class="component component--wide">
+                <span class="component__label">Pixel icons</span>
+                <div class="icon-set">
+                  <div><span data-px="mark" data-size="20"></span>mark</div>
+                  <div><span data-px="chat" data-size="20"></span>chat</div>
+                  <div><span data-px="send" data-size="20"></span>send</div>
+                  <div><span data-px="external" data-size="20"></span>external</div>
+                  <div><span data-px="download" data-size="20"></span>download</div>
+                  <div><span data-px="mail" data-size="20"></span>mail</div>
+                  <div><span data-px="copy" data-size="20"></span>copy</div>
+                  <div><span data-px="plus" data-size="20"></span>plus</div>
+                  <div><span data-px="minus" data-size="20"></span>minus</div>
+                  <div><span data-px="down" data-size="20"></span>down</div>
+                  <div><span data-px="menu" data-size="20"></span>menu</div>
+                  <div><span data-px="close" data-size="20"></span>close</div>
+                  <div><span data-px="sun" data-size="20"></span>sun</div>
+                  <div><span data-px="moon" data-size="20"></span>moon</div>
+                  <div><span data-px="spark" data-size="20" style="color: var(--signal)"></span>spark</div>
+                  <div><span data-px="carets" data-size="24" style="color: var(--signal)"></span>carets</div>
+                  <div><span data-px="brace" data-size="20" style="color: var(--signal)"></span>brace</div>
+                </div>
+              </div>
+              <div class="component component--wide">
+                <span class="component__label">ASCII ramp, light to dark</span>
+                <div class="ramp" aria-hidden="true">
+                  <span>&nbsp;</span><span>.</span><span>:</span><span>-</span><span>=</span><span>+</span><span>*</span><span>#</span><span>%</span><span>@</span>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
+      </main>
     </div>
   </body>
 </html>
