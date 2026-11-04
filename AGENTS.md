@@ -22,7 +22,7 @@ Use pnpm.
 - `app/(portfolio)/`: the public site, with its own root layout.
 - `app/(sanity)/studio/`: Sanity Studio at `/studio`, with its own root layout.
 - `components/sections/`: one Server Component per page section, each fetching its own data with `defineQuery` and `sanityFetch`.
-- `components/ui/`: shadcn and Aceternity components.
+- `components/ui/`: shadcn components, plus two Aceternity components that T5 replaces.
 - `sanity/schemaTypes/`: the content schema.
 - `sanity/lib/`: Sanity client, image URLs, and live content helpers.
 
@@ -52,12 +52,12 @@ Run `pnpm typegen` after changing a schema or a GROQ query. Don't edit `schema.j
 - Give the model portfolio content only. Exclude `contact` documents.
 
 **Translations**
-- From T3b onward, put user-facing text in translation files, not in components.
+- From T5 onward, put user-facing text in translation files, not in components.
 
-**Using upstream as a reference**
-- [The upstream repo](https://github.com/sonnysangha/next-gen-ai-portfolio-openai-agentkit-sanity-clerk-nextjs-16) is the reference for section layouts, not a source to copy wholesale.
-- Don't copy its dependency versions, which include vulnerable releases. Don't copy its use of `SANITY_API_TOKEN` as a browser token, or its contact form that writes to Sanity.
-- Its README limits use of its code. It allows learning and portfolio demonstration, requires attribution, and asks for written permission for commercial use, redistribution, or deployment. Check the open items in `docs/ROADMAP.md` before deploying.
+**Upstream**
+- This project started from [an upstream repo](https://github.com/sonnysangha/next-gen-ai-portfolio-openai-agentkit-sanity-clerk-nextjs-16) whose README limits use of its code. We are replacing all upstream-derived code with our own (see T3 to T12 in `docs/ROADMAP.md`).
+- Don't copy, paraphrase, or port code, schemas, prompts, or sample content from upstream. Build from `docs/DESIGN.md` and the project's own requirements instead.
+- Keep the upstream credit in `README.md` until T12 confirms no derived code remains.
 
 ## Workflow
 
