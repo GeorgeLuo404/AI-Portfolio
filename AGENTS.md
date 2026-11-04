@@ -1,8 +1,10 @@
 # AGENTS.md
 
-Personal portfolio with an AI twin chat, built with Next.js and Sanity. Visitors are both in and outside mainland China, and the site is planned in English and Chinese.
+Personal portfolio with an AI twin chat, built with Next.js. Visitors are both in and outside mainland China, and the site is planned in English and Chinese.
 
 Read [docs/ROADMAP.md](docs/ROADMAP.md) before starting work. It holds the task list, each task's scope, and the decisions behind them.
+
+The code still uses Sanity, which T4 removes in favor of typed content files in the repo. Don't build anything new on Sanity.
 
 ## Commands
 
@@ -22,7 +24,7 @@ Use pnpm.
 - `app/(portfolio)/`: the public site, with its own root layout.
 - `app/(sanity)/studio/`: Sanity Studio at `/studio`, with its own root layout.
 - `components/sections/`: one Server Component per page section, each fetching its own data with `defineQuery` and `sanityFetch`.
-- `components/ui/`: shadcn components, plus two Aceternity components that T5 replaces.
+- `components/ui/`: shadcn components, plus two Aceternity components that T4 removes.
 - `sanity/schemaTypes/`: the content schema.
 - `sanity/lib/`: Sanity client, image URLs, and live content helpers.
 
@@ -33,29 +35,36 @@ Run `pnpm typegen` after changing a schema or a GROQ query. Don't edit `schema.j
 ## Rules
 
 **Mainland China reachability**
-- Pages must not depend on third-party hosts in visitors' browsers. That means no external scripts, analytics, or remote fonts, and no direct `cdn.sanity.io` image URLs.
+- Pages must not depend on third-party hosts in visitors' browsers. That means no external scripts, analytics, remote fonts, or images served from other hosts.
 - Render images with `next/image`, which serves them from our own domain.
 - Check that any new script, font, image host, or API is reachable from the mainland before adding it.
 
 **Hosting**
 - Keep Vercel-specific APIs out of app code, because hosting may have to move after the T2b test.
+- Hosting stays outside mainland China for now, so no ICP filing is needed.
 - Keep the site non-commercial: no paid services, ads, affiliate links, or payment flows. The Vercel Hobby plan doesn't allow them.
 
 **Data and secrets**
-- The Sanity dataset is publicly readable without a login. Never store visitor data or anything private in it.
+- The repo and the Sanity dataset are both public. Never put visitor data or private details, such as a phone number or home address, in content, prompts, or commits.
 - Never pass a Sanity write token to the browser. Use a viewer-only token where the browser needs one.
 - Server-only values must not use the `NEXT_PUBLIC_` prefix.
 - Add every new environment variable to `.env.example` in the same change.
 
 **Chat**
 - Use the AI SDK with `@ai-sdk/deepseek`. Don't use OpenAI ChatKit or Agent Builder, which shuts down on November 30, 2026.
-- Give the model portfolio content only. Exclude `contact` documents.
+- Give the model public portfolio content only, in full in the system prompt rather than through RAG.
+- Keep the `/api/chat` request and response format stable, so a different backend could replace it later.
 
 **Translations**
 - From T5 onward, put user-facing text in translation files, not in components.
+- From T6 onward, content lives in typed content files, with English and Chinese side by side.
+
+**Design**
+- The look borrows the style of a Dribbble shot (see T3 in `docs/ROADMAP.md`). Never reproduce its artwork, wording, logo marks, or exact composition.
+- Once T3 is approved, build UI from `docs/DESIGN.md` and its Figma file, including its rules for Chinese text.
 
 **Upstream**
-- This project started from [an upstream repo](https://github.com/sonnysangha/next-gen-ai-portfolio-openai-agentkit-sanity-clerk-nextjs-16) whose README limits use of its code. We are replacing all upstream-derived code with our own (see T3 to T12 in `docs/ROADMAP.md`).
+- This project started from [an upstream repo](https://github.com/sonnysangha/next-gen-ai-portfolio-openai-agentkit-sanity-clerk-nextjs-16) whose README limits use of its code. T4 removes all upstream-derived code, and T12 cleans the public history.
 - Don't copy, paraphrase, or port code, schemas, prompts, or sample content from upstream. Build from `docs/DESIGN.md` and the project's own requirements instead.
 - Keep the upstream credit in `README.md` until T12 confirms no derived code remains.
 
@@ -65,7 +74,7 @@ Run `pnpm typegen` after changing a schema or a GROQ query. Don't edit `schema.j
 - Merge each task with `git merge --no-ff`, so it stays a single merge commit that can be reverted.
 - Before finishing a task, run the build, the type check, and lint.
 - Update the task's status in `docs/ROADMAP.md` in the same branch.
-- Ask before pushing, opening a PR, deploying, or changing an external account such as Vercel, Sanity, or DeepSeek.
+- Ask before pushing, opening a PR, deploying, or changing an external account such as Vercel, Sanity, DeepSeek, or Figma.
 - Write commit messages as `type: Summary`.
 
 After a task merges, tag the merge commit `checkpoint/t<N>`. To undo a task, run `git revert -m 1 <merge commit>`. To inspect an earlier state, run `git switch --detach checkpoint/t<N>`.
