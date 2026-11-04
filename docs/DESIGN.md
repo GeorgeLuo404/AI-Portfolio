@@ -41,7 +41,7 @@ In page order:
 | Contact (dark) | "Open to new roles" in an ASCII corner frame, with email, WeChat ID, and AI twin buttons | Launch-your-website call to action |
 | Footer (dark) | The name in giant type, the language switch, links, contact details | Footer |
 
-The hero headline is "AI & Web / Engineer" in English and "AI & 前端 / 工程师" in Chinese, chosen on 2026-11-05. Because 前端 means frontend, the second chip says Frontend and 前端开发. If the focus becomes full stack, change both the chips and the Chinese headline to 全栈.
+The hero headline reads "AI/Web Engineer" in English and "AI/前端开发工程师" in Chinese, chosen on 2026-11-05. It sits on two lines: "AI / Web" over "Engineer", and "AI / 前端" over "开发工程师". A thin slash joins the two halves in both languages. Because 前端 means frontend, the second chip says Frontend and 前端开发. If the focus becomes full stack, change both the chips and the Chinese headline to 全栈.
 
 ## Tokens
 
@@ -74,7 +74,8 @@ All fonts are OFL. Production self-hosts them with `next/font/local`, because re
 | Chip | Archivo 600 | 11.5px | 1 | +6% | Uppercase |
 | Terminal | JetBrains Mono 500 | 16px | 1.4 | 0 | AI twin and chat only |
 | ASCII | JetBrains Mono 500 | Box width ÷ columns ÷ 0.6 | 1 | 0 | Sized to fill its box |
-| Chinese display | Noto Sans SC 900 | `clamp(64px, 13vw, 196px)` in the hero, 18.5vw on phones | 1.02 | 0 | Latin words inside it use Archivo 900 at 1.1em |
+| Slash | Archivo 200 | Same as its headline | | | Joins the halves of the hero headline |
+| Chinese display | Noto Sans SC 900 | 0.78 × the matching English size | 0.84 ÷ 0.78 | 0 | Latin words inside keep the English size |
 | Chinese heading | Noto Sans SC 900 | `clamp(30px, 3.4vw, 52px)` | 1.2 | +2% | |
 | Chinese body | System font | 16px | 1.8 | 0 | PingFang SC, Microsoft YaHei, Noto Sans CJK SC |
 
@@ -119,7 +120,9 @@ All corners are square, borders are 1px, and nothing has a shadow. `design/found
 - Body text uses the visitor's system font, so nothing downloads. The heavy display font is trimmed to the characters the site uses, which the build can list because all content lives in the repo (T6).
 - The name stays in English. Add a Chinese name only if George wants one.
 
-**Chinese hero: option A**, chosen on 2026-11-05. "AI & 前端 / 工程师" is set in Chinese on its own, with "AI &" in Archivo so it matches the English page. Option B, the English title as a graphic with a Chinese heading below it, stays on the foundations page for reference and is the pattern section headings use.
+**Chinese hero: option A**, chosen on 2026-11-05. "AI / 前端" over "开发工程师" is set in Chinese on its own, with "AI /" in Archivo at the English size. Option B, the English title as a graphic with a Chinese heading below it, stays on the foundations page for reference and is the pattern section headings use.
+
+**Matching sizes.** A Chinese headline that pairs with an English one (the hero, and the contact heading) is set at 0.78 of the English size, the `--cjk-match` token. At that scale the characters stand as tall as Archivo's capitals: capitals measure 0.69 of the font size, and Noto Sans SC characters about 0.88. The line pitch matches the English too, so both pages' heroes come out the same height at every width. Latin words inside sit 0.05em lower to center on the characters.
 
 ## Accessibility
 

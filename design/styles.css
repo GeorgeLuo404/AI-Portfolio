@@ -26,7 +26,7 @@
   --size-l: clamp(48px, 8.6vw, 132px);
   --size-giant: clamp(48px, 13.6vw, 204px);
   --size-m: clamp(40px, 6.6vw, 100px);
-  --size-zh-xl: clamp(64px, 13vw, 196px);
+  --cjk-match: 0.78;
 }
 
 /* Base */
@@ -173,16 +173,19 @@ button {
   letter-spacing: 0.02em;
 }
 
-.hero__title.zh-display {
-  font-size: var(--size-zh-xl);
-}
-
-/* Latin words inside a Chinese headline match the English page. */
+/* Latin words inside a Chinese headline keep the English size and font, and
+   sit slightly lower so they center on the Chinese characters. */
 .zh-display__latin {
   font-family: var(--sans);
-  font-size: 1.1em;
-  line-height: 0.9;
-  letter-spacing: -0.03em;
+  font-size: calc(1em / var(--cjk-match));
+  line-height: 0;
+  letter-spacing: -0.045em;
+  vertical-align: -0.05em;
+}
+
+/* A thin slash joins the two halves of a headline in both languages. */
+.slash {
+  font-weight: 200;
 }
 
 /* Pixel icons and badges */
@@ -417,6 +420,7 @@ button {
 
 .hero__title {
   --indent: calc((100% + var(--gap)) * 2 / 9);
+  --match-size: var(--size-xl);
   grid-column: 1 / span 9;
   grid-row: 1;
   color: var(--signal);
@@ -1059,11 +1063,8 @@ button {
 
 .cta__title {
   --indent: 0;
-  font-size: var(--size-l);
-}
-
-.cta__title.zh-display {
-  font-size: clamp(48px, 7.4vw, 112px);
+  --match-size: var(--size-l);
+  font-size: var(--match-size);
 }
 
 .cta__text {
@@ -1138,6 +1139,15 @@ button {
   font-size: 13px;
   color: var(--ash);
   border-top: 1px solid var(--rule-dark);
+}
+
+/* Chinese headlines that match an English one. Noto Sans SC is scaled so its
+   characters stand as tall as Archivo's capitals (0.69 against 0.88 of the font
+   size), on the same line pitch as the English. */
+
+.zh-match {
+  font-size: calc(var(--match-size) * var(--cjk-match));
+  line-height: calc(0.84 / var(--cjk-match));
 }
 
 /* Chat panel (shown on the foundations page) */
@@ -1321,6 +1331,7 @@ button {
 }
 
 .option {
+  --match-size: 52px;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -1344,13 +1355,16 @@ button {
 }
 
 .option .display {
-  font-size: 52px;
+  font-size: var(--match-size);
   --indent: 18%;
 }
 
 .option .zh-display {
-  font-size: 72px;
   --indent: 18%;
+}
+
+.option .zh-heading {
+  font-size: 32px;
 }
 
 .grids {
@@ -1502,7 +1516,6 @@ button {
     --size-l: 10.4vw;
     --size-giant: 13.4vw;
     --size-m: 8.4vw;
-    --size-zh-xl: 15vw;
   }
 
   .nav {
@@ -1691,7 +1704,6 @@ button {
     --size-l: 13.4vw;
     --size-giant: 13.2vw;
     --size-m: 10.6vw;
-    --size-zh-xl: 18.5vw;
   }
 
   body {
@@ -1894,7 +1906,7 @@ button {
   }
 
   .cta__title {
-    font-size: 11vw;
+    --match-size: 11vw;
   }
 
   .cta__actions {
