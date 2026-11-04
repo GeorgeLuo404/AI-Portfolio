@@ -41,6 +41,8 @@ In page order:
 | Contact (dark) | "Open to new roles" in an ASCII corner frame, with email, WeChat ID, and AI twin buttons | Launch-your-website call to action |
 | Footer (dark) | The name in giant type, the language switch, links, contact details | Footer |
 
+The hero headline is "AI & Web / Engineer" in English and "AI & 前端 / 工程师" in Chinese, chosen on 2026-11-05. Because 前端 means frontend, the second chip says Frontend and 前端开发. If the focus becomes full stack, change both the chips and the Chinese headline to 全栈.
+
 ## Tokens
 
 ### Color
@@ -72,7 +74,7 @@ All fonts are OFL. Production self-hosts them with `next/font/local`, because re
 | Chip | Archivo 600 | 11.5px | 1 | +6% | Uppercase |
 | Terminal | JetBrains Mono 500 | 16px | 1.4 | 0 | AI twin and chat only |
 | ASCII | JetBrains Mono 500 | Box width ÷ columns ÷ 0.6 | 1 | 0 | Sized to fill its box |
-| Chinese display | Noto Sans SC 900 | `clamp(64px, 13vw, 196px)` in the hero | 1.02 | 0 | |
+| Chinese display | Noto Sans SC 900 | `clamp(64px, 13vw, 196px)` in the hero, 18.5vw on phones | 1.02 | 0 | Latin words inside it use Archivo 900 at 1.1em |
 | Chinese heading | Noto Sans SC 900 | `clamp(30px, 3.4vw, 52px)` | 1.2 | +2% | |
 | Chinese body | System font | 16px | 1.8 | 0 | PingFang SC, Microsoft YaHei, Noto Sans CJK SC |
 
@@ -117,7 +119,7 @@ All corners are square, borders are 1px, and nothing has a shadow. `design/found
 - Body text uses the visitor's system font, so nothing downloads. The heavy display font is trimmed to the characters the site uses, which the build can list because all content lives in the repo (T6).
 - The name stays in English. Add a Chinese name only if George wants one.
 
-**Open: the Chinese hero.** Option A sets 软件 / 工程师 in giant Chinese type. Option B keeps the English title as a graphic with 软件工程师 below it. The Chinese page uses A; the foundations page shows both.
+**Chinese hero: option A**, chosen on 2026-11-05. "AI & 前端 / 工程师" is set in Chinese on its own, with "AI &" in Archivo so it matches the English page. Option B, the English title as a graphic with a Chinese heading below it, stays on the foundations page for reference and is the pattern section headings use.
 
 ## Accessibility
 
@@ -130,7 +132,7 @@ All corners are square, borders are 1px, and nothing has a shadow. `design/found
 
 Replace these with real content:
 
-- The job title (currently "Software engineer"), intro, chips, and facts
+- The intro, chips, and facts
 - Projects two and three, and the image wells, which become screenshots
 - Skill areas and their details
 - Roles, dates, companies, results, and education

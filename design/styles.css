@@ -177,6 +177,14 @@ button {
   font-size: var(--size-zh-xl);
 }
 
+/* Latin words inside a Chinese headline match the English page. */
+.zh-display__latin {
+  font-family: var(--sans);
+  font-size: 1.1em;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
 /* Pixel icons and badges */
 
 .px {
@@ -1341,7 +1349,7 @@ button {
 }
 
 .option .zh-display {
-  font-size: 96px;
+  font-size: 72px;
   --indent: 18%;
 }
 
@@ -1683,7 +1691,7 @@ button {
     --size-l: 13.4vw;
     --size-giant: 13.2vw;
     --size-m: 10.6vw;
-    --size-zh-xl: 21vw;
+    --size-zh-xl: 18.5vw;
   }
 
   body {
