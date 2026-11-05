@@ -1,6 +1,6 @@
 # Design
 
-Status: draft for George's review (T3). UI work from T5 on follows this file once it's approved.
+Status: approved by George on 2026-11-06 (T3). UI work from T5 on follows this file.
 
 - **Figma:** [George Luo portfolio design](https://www.figma.com/design/yOam3gCoyO0uew2262qVq9), with Foundations, English, and Chinese pages.
 - **Prototype:** `design/`, the source the Figma frames are captured from. Run it with the `design` entry in `.claude/launch.json`, or `python3 -m http.server 4321 --directory design`, then open `index.html`, `zh.html`, or `foundations.html`.
