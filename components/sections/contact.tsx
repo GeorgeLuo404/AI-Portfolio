@@ -1,6 +1,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { getContent } from "@/content";
 import { AsciiScene } from "../ascii-art";
+import { AskLink } from "../chat/ask-link";
 import { CopyButton } from "../copy-button";
 import { PixelIcon } from "../pixel-icon";
 
@@ -79,12 +80,10 @@ export function Contact() {
             done={t("copied")}
             className="btn btn-line max-sm:h-11"
           />
-          {/* Opens the chat once T9 adds it. Until then, it goes to the AI
-              twin's window in the hero. */}
-          <a href="#twin" className="btn btn-signal max-sm:h-11">
+          <AskLink className="btn btn-signal max-sm:h-11">
             <PixelIcon name="chat" size={13} />
             {header("ask")}
-          </a>
+          </AskLink>
         </div>
       </div>
     </section>

@@ -27,10 +27,34 @@
     "suggest": {
       "projects": "近期项目",
       "stack": "技术栈",
-      "start": "何时到岗"
+      "start": "何时到岗",
+      "contact": "联系方式"
     },
     "note": "回答来自我的简历和项目，可能有误。",
-    "ask": "提问"
+    "ask": "提问",
+    "offline": "离线",
+    "resting": "AI 分身暂时离线。",
+    "offNote": "请直接发邮件给罗卓君：",
+    "question": "你的问题",
+    "questions": {
+      "projects": "罗卓君最近做过哪些项目？",
+      "stack": "罗卓君用什么技术栈？",
+      "start": "罗卓君什么时候可以到岗？",
+      "contact": "怎么联系罗卓君？"
+    }
+  },
+  "chat": {
+    "title": "AI 分身",
+    "close": "关闭",
+    "welcome": "可以问我罗卓君的项目、技能、经历，或者怎么联系他。",
+    "placeholder": "问问罗卓君的工作",
+    "question": "你的问题",
+    "send": "发送",
+    "stop": "停止",
+    "thinking": "AI 分身正在回答。",
+    "error": "AI 分身暂时无法回答。请重试，或直接发邮件给罗卓君。",
+    "retry": "重试",
+    "note": "回答来自罗卓君的简历和项目，可能有误。"
   },
   "work": {
     "heading": "精选项目",

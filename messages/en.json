@@ -34,10 +34,34 @@
     "suggest": {
       "projects": "Recent projects",
       "stack": "Tech stack",
-      "start": "Start date"
+      "start": "Start date",
+      "contact": "How to reach him"
     },
     "note": "Answers come from my résumé and projects, and can be wrong.",
-    "ask": "Ask"
+    "ask": "Ask",
+    "offline": "Offline",
+    "resting": "The twin is offline right now.",
+    "offNote": "Email George instead:",
+    "question": "Your question",
+    "questions": {
+      "projects": "What has George worked on recently?",
+      "stack": "What's George's tech stack?",
+      "start": "When can George start?",
+      "contact": "How can I reach George?"
+    }
+  },
+  "chat": {
+    "title": "AI twin",
+    "close": "Close",
+    "welcome": "Ask me about George's projects, skills, experience, or how to reach him.",
+    "placeholder": "Ask about George's work",
+    "question": "Your question",
+    "send": "Send",
+    "stop": "Stop",
+    "thinking": "The twin is writing a reply.",
+    "error": "The twin couldn't answer just now. Try again, or email George.",
+    "retry": "Try again",
+    "note": "Answers come from George's résumé and projects, and can be wrong."
   },
   "work": {
     "display": "Selected Work",

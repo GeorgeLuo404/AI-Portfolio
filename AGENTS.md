@@ -17,6 +17,7 @@ Use pnpm.
 | `pnpm exec tsc --noEmit` | Type check |
 | `pnpm lint` | Biome check |
 | `pnpm format` | Biome format |
+| `pnpm chat:test` | Run the AI twin's test set against the dev server (needs `CHAT_ENABLED=true`) |
 
 ## Where things live
 
@@ -30,6 +31,7 @@ Use pnpm.
 - `public/`: George's photo and the project images. Strip a photo's metadata before adding it, because the repo is public.
 - `content/`: every fact about George, such as projects, skills, roles, and contact details, typed in `content/types.ts` with English and Chinese side by side. Sections and the AI twin both read it through `getContent(locale)`, which falls back to English for any field without Chinese, until T11.
 - `i18n/` and `messages/`: next-intl routing and the English and Chinese interface text, such as headings, labels, and buttons. Chinese falls back to English for any message it lacks, until T11.
+- `app/api/chat/` and `lib/chat/`: the AI twin's route, its instructions, and its switches. `components/chat/` has the chat panel and the twin window, and `scripts/chat/` the test set. See `docs/CHAT.md`.
 - `proxy.ts`: sends `/` to `/en` or `/zh` from the visitor's language. Next 16 calls middleware "proxy".
 - `design/`: the T3 HTML prototype that the Figma file is captured from. App code doesn't import from it. See `docs/DESIGN.md`.
 
@@ -55,7 +57,9 @@ There is no `app/layout.tsx`. Every page must sit inside a route group that has 
 **Chat**
 - Use the AI SDK with `@ai-sdk/deepseek`. Don't use OpenAI ChatKit or Agent Builder, which shuts down on November 30, 2026.
 - Give the model public portfolio content only, in full in the system prompt rather than through RAG.
-- Keep the `/api/chat` request and response format stable, so a different backend could replace it later.
+- Keep the `/api/chat` request and response format stable, so a different backend could replace it later. `docs/CHAT.md` documents it.
+- Run `pnpm chat:test` after changing the instructions or the content, and before turning the chat on in production.
+- Don't store or log what visitors type.
 
 **Translations**
 - From T5 onward, put user-facing text in translation files, not in components.
