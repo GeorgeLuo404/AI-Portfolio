@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="ascii.js"></script>
     <script src="site.js" defer></script>
+    <script src="koi.js" defer></script>
   </head>
   <body>
     <div class="page">
@@ -108,13 +109,19 @@
                   <span data-px="mark" data-size="42"></span>
                 </span>
               </div>
-              <figure class="hero__art">
-                <div class="ascii-box">
-                  <pre class="ascii" data-ascii="tree" data-decode aria-hidden="true"></pre>
+              <figure class="hero__art" data-koi data-state="koi" data-art="koi">
+                <div class="koi ascii-box">
+                  <canvas class="koi__mask" aria-hidden="true"></canvas>
+                  <pre class="ascii" aria-hidden="true"></pre>
+                  <img class="koi__photo" data-src="assets/george.jpg" alt="罗卓君戴着黑色毛线帽，在海边观景台竖起大拇指" width="1040" height="976" decoding="async" />
                 </div>
+                <button class="koi__toggle" type="button" data-koi-toggle>
+                  <span data-when="koi"><span data-px="eye" data-size="12"></span>我长啥样</span>
+                  <span data-when="face"><span data-px="fish" data-size="12"></span>把鱼叫回来</span>
+                </button>
                 <figcaption>
-                  <b>图 1</b>
-                  <span>用 <span data-ascii-count="tree"></span> 个字符画成的树</span>
+                  <span data-when="koi"><b>图 1</b><span>用 <span data-koi-count></span> 个字符画成的两条锦鲤</span></span>
+                  <span data-when="face"><b>图 2</b><span>罗卓君本人</span></span>
                 </figcaption>
               </figure>
             </div>
@@ -146,7 +153,7 @@
                   <div class="twin__suggest">
                     <button class="suggest" type="button" data-chat>近期项目</button>
                     <button class="suggest" type="button" data-chat>技术栈</button>
-                    <button class="suggest" type="button" data-chat>工作签证</button>
+                    <button class="suggest" type="button" data-chat>何时到岗</button>
                   </div>
                   <div class="twin__foot">
                     <span>回答来自我的简历和项目，可能有误。</span>
@@ -401,7 +408,7 @@
         <section class="cta ink" id="contact" aria-labelledby="cta-title">
           <div class="frame">
             <div class="cta__art ascii-box" aria-hidden="true">
-              <pre class="ascii ascii--faint" data-ascii="branches"></pre>
+              <pre class="ascii ascii--faint" data-ascii="ripples"></pre>
             </div>
             <div class="cta__head" aria-hidden="true" lang="en">
               <span class="cta__brace">{</span>
@@ -436,7 +443,7 @@
           <div class="footer__head">
             <span class="vline vline--l2" aria-hidden="true"></span>
             <div class="footer__art ascii-box" aria-hidden="true">
-              <pre class="ascii ascii--faint" data-ascii="tree"></pre>
+              <pre class="ascii ascii--faint" data-koi-still="58"></pre>
             </div>
             <p class="footer__name display" aria-hidden="true" lang="en">
               <span class="n1">George</span>
@@ -501,7 +508,7 @@
       </div>
       <div class="chat__suggest">
         <button class="suggest" type="button">技术栈</button>
-        <button class="suggest" type="button">工作签证</button>
+        <button class="suggest" type="button">何时到岗</button>
         <button class="suggest" type="button">怎么联系他</button>
       </div>
       <div class="chat__input">

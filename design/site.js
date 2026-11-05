@@ -175,6 +175,24 @@
       ".##..",
       "..###",
     ],
+    eye: [
+      "...###...",
+      ".##...##.",
+      "#...#...#",
+      "#..###..#",
+      "#...#...#",
+      ".##...##.",
+      "...###...",
+    ],
+    fish: [
+      "...####...#",
+      ".##....##.#",
+      "#.#.....###",
+      "#.......#..",
+      "#.......###",
+      ".##....##.#",
+      "...####...#",
+    ],
   };
 
   // Draw each run of "#" as one rect, so a row of pixels stays one shape.
@@ -247,46 +265,14 @@
   systemDark.addEventListener("change", syncThemeToggle);
   syncThemeToggle();
 
-  const isStatic =
-    new URLSearchParams(location.search).has("static") ||
-    matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // The one load animation: the portrait resolves from noise into the face.
-  function decode(pre, text) {
-    const noise = ".:-=+*#%@";
-    const chars = [...text];
-    const reveal = chars.map((c) =>
-      c === " " || c === "\n" ? -1 : Math.random(),
-    );
-    const start = performance.now();
-    const duration = 1300;
-    function frame(now) {
-      const progress = (now - start) / duration;
-      let out = "";
-      for (let i = 0; i < chars.length; i++) {
-        if (reveal[i] < 0 || reveal[i] < progress) out += chars[i];
-        else out += noise[Math.floor(Math.random() * noise.length)];
-      }
-      pre.textContent = out;
-      if (progress < 1) requestAnimationFrame(frame);
-      else pre.textContent = text;
-    }
-    requestAnimationFrame(frame);
-  }
-
+  // The hero's koi are drawn by koi.js. The rest of the art is fixed text.
   for (const pre of document.querySelectorAll("[data-ascii]")) {
     const name = pre.dataset.ascii;
-    const text = window.ASCII?.[name] ?? "";
     const [cols, rows] = window.ASCII_SIZES?.[name] ?? [72, 30];
     pre.style.setProperty("--cols", cols);
     // Keep the box its full height even where the last rows are blank.
     pre.style.minHeight = `${rows}em`;
-    if (pre.hasAttribute("data-decode") && !isStatic) decode(pre, text);
-    else pre.textContent = text;
-  }
-
-  for (const el of document.querySelectorAll("[data-ascii-count]")) {
-    el.textContent = window.ASCII_TREE_CHARACTERS.toLocaleString("en-US");
+    pre.textContent = window.ASCII?.[name] ?? "";
   }
 
   for (const head of document.querySelectorAll(".role__head")) {

@@ -13,7 +13,7 @@ The layout follows "Hegia – Personal Website for Developer", a Dribbble concep
 
 | We follow | We make our own |
 |---|---|
-| The composition of every section, from the hero grid to the footer | All artwork: a procedural ASCII tree, ASCII objects for projects |
+| The composition of every section, from the hero grid to the footer | All artwork: two koi drawn in characters in place of the shot's tree, pond ripples, ASCII objects for projects |
 | Giant uppercase headings in a staircase, letters on the grid lines | All wording, written for job hunting rather than selling services |
 | Electric blue on white and black, hairline cells, tag chips | The logo mark and pixel icons |
 | A dark accordion, a braced call to action, a giant footer name | An AI twin in the hero, in place of the shot's website preview |
@@ -23,7 +23,7 @@ The footer credits the designer: "Layout after Hegia, a concept by Faza Dzikrull
 Principles:
 
 1. **Type is the structure.** The vertical grid lines are measured from the hero headline's letters, and every other display heading is sized so its letters land on them.
-2. **One moving moment.** The tree resolves from random characters when the page loads. Nothing else animates on its own.
+2. **One living picture.** Two koi swim slowly in the hero, and they're the only thing that moves on its own. A button trades them for George's photo.
 3. **Pictures made of characters.** ASCII and pixel art stay sharp, light, and the same in both languages and themes.
 4. **Lines carry meaning.** Hairlines mark the grid and the cells. Chips state facts. No shadows, gradients, or rounded cards.
 5. **Chinese is designed, not translated.** English display words stay as graphics, and a Chinese heading carries the meaning.
@@ -35,14 +35,24 @@ In page order:
 | Section | Content |
 |---|---|
 | Navigation | Logo mark and name, section links, EN/中文 switch, theme switch, "Ask my AI twin". Sticky. A menu on phones. |
-| Hero | "AI / Web Engineer" in giant type on the grid, three chips in a staircase, a short intro that highlights the role, the logo mark in the intro's bottom-right corner, the ASCII tree on a dotted field, a statement box, and the AI twin window standing in a small room drawn in perspective |
+| Hero | "AI / Web Engineer" in giant type on the grid, three chips in a staircase, a short intro that highlights the role, the logo mark in the intro's bottom-right corner, two koi circling in a brushed ring on a dotted field with a button that trades them for George's photo, a statement box, and the AI twin window standing in a small room drawn in perspective |
 | Selected work | "Selected work" heading, an aside, and three project rows that alternate sides: year, title, a line or two, stack chips, links, and an image well that bleeds to the page edge |
 | Skills | A word stack in black: "AI agents", "Full-stack ( ▢ ) web", "Data & cloud", with blue pixel decorations, faint ASCII objects, and a legend of tools |
 | Experience (dark) | Giant "Experience" with résumé, LinkedIn, and GitHub chips over it, an aside, and roles in an accordion |
-| Contact (dark panel) | "Hiring an AI & web engineer?" in braces, with email, WeChat ID, and AI twin buttons |
-| Footer (dark) | The name in giant type with the chips over it, a faint tree, page links, other profiles, contact details, the credit, and the language switch |
+| Contact (dark panel) | "Hiring an AI & web engineer?" in braces, with email, WeChat ID, and AI twin buttons, over faint pond ripples |
+| Footer (dark) | The name in giant type with the chips over it, a faint, still pair of koi, page links, other profiles, contact details, the credit, and the language switch |
 
 The hero headline reads "AI / Web Engineer" on both pages, as "AI / Web" over "Engineer". A thin slash joins the halves. On the Chinese page the English headline is a graphic, and the real heading, "AI / 前端开发工程师", is hidden for screen readers. The intro names the role on both pages, highlighted: "AI and web engineer" and "AI 与前端开发工程师". Because 前端 means frontend, the second chip says Frontend and 前端开发. If the focus becomes full stack, change both.
+
+## Hero art
+
+Two koi circle each other inside a brushed ring, drawn in characters: one in solid ink and one in outline. They stand for George's sign, Pisces, and together they make a yin-yang, which Chinese often calls 阴阳鱼, yin-yang fish. Each fish has a round tancho spot on its head in the other's color, as the yin-yang's two dots. The characters take the ink color, so the two fish swap colors when the theme changes.
+
+- **Idle:** the koi swim a lap every 26 seconds, bending as they go and paddling their fins. Faint ripples spread out from the ring, and the dot grid stays clear inside it.
+- **Show my face (我长啥样):** the koi break the circle and swim off in opposite directions. A ripple front from the center turns the art into George's portrait in characters, then the photo itself fades in. The caption changes from "Fig. 1 Two koi in N characters" to "Fig. 2 George himself" (用 N 个字符画成的两条锦鲤 and 罗卓君本人).
+- **Bring the fish back (把鱼叫回来):** the photo fades back to characters, water spreads from the center, the ring brushes itself on again, and the koi swim in from the left and right.
+- **The photo:** `design/assets/george.jpg`, cropped from George's own photo to his head, his thumbs-up, and the coast behind him. It's black and white, so it suits both themes, and it was saved without metadata, so no location or camera details ship. It loads after the page settles, or as soon as someone reaches for the button.
+- **Sources:** the koi are drawn from scratch in code. George's reference images, a brush yin-yang, a black-and-white koi painting, and a line drawing with long fins, set the mood only. Nothing is traced or converted from them.
 
 ## Grid from type
 
@@ -83,7 +93,7 @@ If a heading's words change, measure the new letters and solve its size again. T
 | Well | `#E9E9E9` | `#161616` | Project image wells |
 | Rule | `#E6E6E6` | `#242424` | Grid lines and borders |
 | Muted | `#6E6E6E` | `#8F8F8F` | Secondary text. 5.1:1 and 6.5:1. |
-| Dot | `#D2D2D2` | `#2E2E2E` | The dotted field behind the tree |
+| Dot | `#D2D2D2` | `#2E2E2E` | The dotted field behind the koi |
 
 The page follows the visitor's system setting, and the header switch saves a choice. In the light theme the page still turns dark from Experience down: those sections use the dark tokens in both themes.
 
@@ -103,7 +113,7 @@ All fonts are OFL. Production self-hosts them with `next/font/local`, because re
 | Chip | Archivo 500 | 15px in the hero, 13px elsewhere | 1 | +3% | Uppercase |
 | Button | Archivo 600 | 12px | 1 | +5% | Uppercase, 36px tall, 44px on phones |
 | Terminal | JetBrains Mono 500 | 14px | 1.4 | 0 | AI twin and chat only |
-| ASCII | JetBrains Mono 500, 800 for the tree | Box width ÷ columns ÷ 0.6 | 1 | 0 | Sized to fill its box |
+| ASCII | JetBrains Mono 500, 800 for the koi | Box width ÷ columns ÷ 0.6 | 1 | 0 | Sized to fill its box |
 | Chinese heading | Noto Sans SC 900 | `clamp(26px, 2.5vw, 36px)` | 1.25 | +2% | |
 | Chinese body | System font | 17px | 1.75 | 0 | PingFang SC, Microsoft YaHei, Noto Sans CJK SC |
 
@@ -119,9 +129,10 @@ The page is at most 1440px wide. Content sits between two hairlines inset by the
 
 ### Motion
 
-- On load, the tree resolves from random characters in 1.3 seconds.
+- The hero's koi move at about 24 frames a second. On load they resolve from random characters in 1.3 seconds. They pause while the hero is off screen or the tab is hidden.
+- Showing the photo takes about 4 seconds, and bringing the fish back about 3. A click during either jumps to its end and turns back.
 - The AI twin's caret blinks.
-- Both stop when the visitor has reduced motion turned on. Accordion rows open instantly. Nothing animates on scroll.
+- With reduced motion turned on, the koi hold still, the caret stops, and the button swaps the photo with a fade. Accordion rows open instantly. Nothing animates on scroll.
 
 ## Components
 
@@ -130,13 +141,14 @@ All corners are square, borders are 1px, and nothing has a shadow. `design/found
 - **Chips:** panel (blue text on panel), solid (white on signal), and muted (small grey).
 - **Logo mark:** the pixel G on a signal square, 98px on desktop, 64px on tablets, and 52px on phones, on both pages. In the hero it sits in the intro's bottom-right corner, on the frame line and the art's top rule, however long the intro runs.
 - **Highlight:** a `mark` on the panel color with 0.1em padding. It reaches 0.1em into the space before it, so a phrase that starts a line keeps the line's edge. The role in the hero never breaks across lines.
+- **Art button:** a panel button with a pixel icon in the art's top-right corner, and beside the caption on phones. It says what it will do: an eye with "Show my face" or 我长啥样, then a fish with "Bring the fish back" or 把鱼叫回来.
 - **Buttons:** signal, line, light, and ghost. Pixel icons only where they add meaning: external link, download, copy, mail, chat.
 - **AI twin window:** title and status, a terminal prompt with a blinking caret, three suggested questions, a note that answers can be wrong, and an Ask button. In the hero it stands in a room: lines from the stage corners to the window, a center line, a horizon, a grey panel and a signal panel behind it. `site.js` draws the lines from the window's position.
 - **Chat panel:** a 440px side panel on desktop and a full-width sheet on phones. Visitor messages are signal blocks, twin replies have an ink rule, and declined questions use a grey rule and text. Esc closes it.
 - **Project row:** year with a signal square, title, description, chips, and links on one side, and an image well on the other, alternating.
 - **Experience row:** dates, title, and company in one line. Opening a row shows result bullets and stack chips.
-- **Pixel icons:** drawn on 4 to 15 pixel grids in `design/site.js`: mark, chat, send, external, download, mail, copy, plus, minus, down, menu, close, cross, spark, sun, moon, carets, brace.
-- **ASCII art:** `design/scripts/render-ascii.mjs` grows the tree from a seed, with two small trees behind it, and renders bare branches for the contact panel and small objects for the project wells.
+- **Pixel icons:** drawn on 4 to 15 pixel grids in `design/site.js`: mark, chat, send, external, download, mail, copy, plus, minus, down, menu, close, cross, spark, sun, moon, carets, brace, eye, fish.
+- **ASCII art:** `design/koi.js` draws the koi every frame: a spine that follows each fish's track, a body of tapered capsules, swept-back fins, a two-lobed tail, and the ring with dry-brush streaks. It also turns the photo into characters with the photo's own crop, and draws the footer's still pair. `design/scripts/render-ascii.mjs` renders the fixed art: pond ripples for the contact panel and small objects for the project wells.
 
 ## Chinese
 
@@ -151,7 +163,7 @@ All corners are square, borders are 1px, and nothing has a shadow. `design/found
 
 - Every text pair meets WCAG AA. Dark signal (`#4352FF`) is used only for large text and fills with white text (5.4:1).
 - Focus is visible: a 2px signal outline, and white on the dark sections.
-- ASCII art, display graphics on the Chinese page, and decorative glyphs are hidden from screen readers.
+- ASCII art, display graphics on the Chinese page, and decorative glyphs are hidden from screen readers. The photo has alt text, and screen readers reach it only while it shows.
 - Experience rows are buttons with `aria-expanded`. The theme switch's label says what it switches to.
 
 ## Placeholders for T10
@@ -163,12 +175,14 @@ Replace these with real content:
 - Skill areas and their tools
 - Roles, dates, companies, results, and education
 - Email address and WeChat ID
+- George's start date, so the AI twin can answer the "Start date" (何时到岗) chip
 
 ## Notes for building it
 
 - The prototype loads Google Fonts, and loads Figma's capture script only when the URL has a `#figmacapture` hash. Neither ships in production.
-- URL options: `?static` skips the load animation, `?theme=light` or `?theme=dark` forces a theme, and `?grid` shows the grid lines.
+- URL options: `?static` draws one still frame of the koi, `?face` starts on the photo, `?theme=light` or `?theme=dark` forces a theme, and `?grid` shows the grid lines. In the console, `KOI.step(seconds)` moves the koi on by hand.
+- In production the koi become a client component that draws into a `pre`, with the same pause and reduced-motion rules, and `next/image` serves the photo from our own domain.
 - A small script in each page's head applies a saved theme before first paint, so the page doesn't flash. Production needs the same.
 - Pixel icons bake their color in when drawn, because a captured SVG doesn't inherit `currentColor`, so `site.js` redraws them when the theme changes. Production can use `currentColor`.
 - Rebuild the components in T5 and T8 rather than copying the prototype's CSS wholesale. Keep the tokens and the grid measurements in this file.
-- Regenerate the art with `node design/scripts/render-ascii.mjs > design/ascii.js`.
+- Regenerate the fixed art with `node design/scripts/render-ascii.mjs > design/ascii.js`.

@@ -662,26 +662,107 @@ mark {
   background-position: 4px 4px;
 }
 
-/* The tree's characters are tiny, so a heavy weight keeps it as dark as a print. */
-.hero__art .ascii {
+/* The koi fill the art cell. koi.js counts the rows from the box's height,
+   and the font size still comes from its width. Under the characters, a
+   canvas hides the dot grid inside the ring and behind each fish. */
+.koi {
+  position: relative;
+  flex: 1;
+  min-height: 360px;
+}
+
+.koi__mask,
+.koi .ascii,
+.koi__photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.koi__mask,
+.koi__photo {
+  height: 100%;
+}
+
+/* The characters are tiny, so a heavy weight keeps the ink as dark as a print. */
+.koi .ascii {
   font-weight: 800;
+}
+
+/* The same crop as the portrait in characters, which koi.js draws to match. */
+.koi__photo {
+  object-fit: cover;
+  object-position: 60% 20%;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.8s ease,
+    visibility 0s 0.8s;
+}
+
+.koi__photo.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s ease;
 }
 
 .hero__art figcaption {
   position: absolute;
   left: 28px;
   top: 14px;
-  display: flex;
-  gap: 10px;
   padding: 4px 8px 4px 0;
   background: var(--bg);
   font-size: 12px;
   color: var(--muted);
 }
 
+.hero__art figcaption > span {
+  display: flex;
+  gap: 10px;
+}
+
 .hero__art figcaption b {
   font-weight: 600;
   color: var(--fg);
+}
+
+.koi__toggle {
+  position: absolute;
+  top: 14px;
+  right: 28px;
+  z-index: 1;
+  height: 26px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg);
+  background: var(--panel);
+}
+
+.koi__toggle > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.koi__toggle:hover {
+  color: var(--signal-text);
+}
+
+/* In the foundations specimens, the button sits in a row. */
+.component .koi__toggle {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* The caption follows the art, and the button names what it will do. */
+.hero__art[data-art="koi"] figcaption [data-when="face"],
+.hero__art[data-art="face"] figcaption [data-when="koi"],
+.hero__art[data-state="koi"] .koi__toggle [data-when="face"],
+.hero__art[data-state="face"] .koi__toggle [data-when="koi"] {
+  display: none;
 }
 
 .hero__statement {
@@ -2054,6 +2135,17 @@ mark {
     left: 20px;
   }
 
+  /* Below desktop, the art sets its own height. */
+  .koi {
+    flex: none;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .koi__toggle {
+    right: 20px;
+  }
+
   .hero__statement {
     padding: 32px 24px 36px 20px;
   }
@@ -2376,6 +2468,17 @@ mark {
     position: static;
     padding: 12px 0;
     background: var(--bg);
+  }
+
+  .koi {
+    aspect-ratio: 5 / 4;
+  }
+
+  /* On phones the caption sits under the art, with the button beside it. */
+  .koi__toggle {
+    top: auto;
+    right: 12px;
+    bottom: 10px;
   }
 
   .hero__statement {

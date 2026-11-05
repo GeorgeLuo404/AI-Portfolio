@@ -56,14 +56,14 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 
 ### T3: Design in Figma
 - Follow the Dribbble shot "Hegia – Personal Website for Developer" by Faza Dzikrulloh as closely as possible, as George asked on 2026-11-05: its composition, a grid whose lines run along the headline's letters, giant grotesk headings, electric blue on white and black, tag chips, a dark accordion, and a page that turns dark toward the end.
-- Make the artwork, wording, and logo marks our own, such as a procedural ASCII tree, and rewrite the shot's agency pitch for job hunting. Credit the designer in the footer.
-- Sections, in order: a hero with the title, skill tags, intro, ASCII tree, and the "Ask my AI twin" window; selected work; a skills word stack; an experience accordion on dark; a call to action with email and WeChat ID; and a footer with the name in giant type and the language switch.
+- Make the artwork, wording, and logo marks our own, such as the hero's two koi drawn in characters, and rewrite the shot's agency pitch for job hunting. Credit the designer in the footer.
+- Sections, in order: a hero with the title, skill tags, intro, the koi art with a photo reveal, and the "Ask my AI twin" window; selected work; a skills word stack; an experience accordion on dark; a call to action with email and WeChat ID; and a footer with the name in giant type and the language switch.
 - Chinese: keep the giant English words as graphics in both languages, the hero title included, with a bold Chinese heading as the real heading. Use George's Chinese name, 罗卓君. Use system fonts for Chinese body text, and a heavy Chinese display font such as Source Han Sans Heavy (OFL), trimmed to the characters used.
 - Light and dark themes: follow the system setting, with a switch in the header.
 - Build the design as a static HTML page under `design/` at 1440, 768, and 390 px wide, check it in a browser, then capture each width into a new Figma file in George's team. On Figma's Starter plan, MCP read calls are capped at about 20 a month, but creating files and capturing pages aren't counted. Starter files are reported to allow 3 pages: use them for foundations, the English pages, and the Chinese versions.
 - Use placeholder text for George's title and projects until T10.
 - Record the decisions, design tokens, and the Figma link in `docs/DESIGN.md`.
-- **Result so far:** the prototype in `design/`, the [Figma file](https://www.figma.com/design/yOam3gCoyO0uew2262qVq9), and `docs/DESIGN.md`. Decided: the headline "AI / Web Engineer" on both pages, with "AI / 前端开发工程师" as the Chinese heading. The Figma frames still show the earlier version until they're captured again.
+- **Result so far:** the prototype in `design/`, the [Figma file](https://www.figma.com/design/yOam3gCoyO0uew2262qVq9), and `docs/DESIGN.md`. Decided: the headline "AI / Web Engineer" on both pages, with "AI / 前端开发工程师" as the Chinese heading. On 2026-11-05 George replaced the tree with two koi in a yin-yang, for his sign, Pisces, and a button that swaps them for his photo. The Figma frames still show the earlier version until they're captured again.
 - **Done when:** George approves the Figma file and `docs/DESIGN.md`.
 
 ### T4: Remove upstream code and Sanity
@@ -94,9 +94,10 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - **Done when:** a missing English field fails the type check, and `/zh` falls back to English.
 
 ### T7: ASCII art
-- Generate the ASCII art when the site builds: the tree from `design/scripts/render-ascii.mjs`, and our own converter for any images, such as project screenshots. Keep the load animation optional and respect the reduced-motion setting.
-- Mark the art as decorative for screen readers.
-- **Done when:** the tree and a converted placeholder image render at all three widths without layout shift.
+- Generate the fixed ASCII art when the site builds, from `design/scripts/render-ascii.mjs`, and add our own converter for images, such as project screenshots.
+- Port the hero's koi and photo reveal from `design/koi.js` to a client component. Keep the load animation optional, pause the koi off screen, and hold them still with reduced motion.
+- Mark the art as decorative for screen readers, and give the photo alt text.
+- **Done when:** the koi, the ripples, and a converted placeholder image render at all three widths without layout shift.
 
 ### T8: Sections
 - Build each section from the Figma file at desktop, tablet, and phone widths, with text from translation and content files, and images through `next/image`.
