@@ -22,9 +22,60 @@
     "enShort": "EN",
     "zhShort": "中文"
   },
-  "home": {
+  "hero": {
     "display": "AI / Web Engineer",
-    "title": "AI / Web Engineer"
+    "title": "AI / Web Engineer",
+    "focus": "Focus",
+    "scroll": "Scroll down"
+  },
+  "twin": {
+    "online": "Online",
+    "placeholder": "What has George built with AI?",
+    "suggest": {
+      "projects": "Recent projects",
+      "stack": "Tech stack",
+      "start": "Start date"
+    },
+    "note": "Answers come from my résumé and projects, and can be wrong.",
+    "ask": "Ask"
+  },
+  "work": {
+    "display": "Selected Work",
+    "heading": "Selected work",
+    "aside": "Three projects, each with what I built and what changed because of it.",
+    "builtWith": "Built with",
+    "view": "View project",
+    "source": "Source code"
+  },
+  "skills": {
+    "heading": "Skills",
+    "lines": {
+      "ai": "AI agents",
+      "full": "Full-stack",
+      "web": "web",
+      "data": "Data & cloud"
+    }
+  },
+  "experience": {
+    "display": "Experience",
+    "heading": "Experience",
+    "aside": "Roles in order, with what I owned and what shipped. Open one for the details.",
+    "resume": "Résumé PDF",
+    "lead": "Roles and education",
+    "used": "Used",
+    "range": "{start}–{end}",
+    "current": "{start}–now"
+  },
+  "contact": {
+    "display": {
+      "first": "Hiring an AI",
+      "second": "& web engineer?"
+    },
+    "heading": "Hiring an AI & web engineer?",
+    "text": "Full-time, remote or on-site. Email is the fastest way to reach me, and my AI twin can answer the basics any time.",
+    "email": "Email me",
+    "copy": "Copy WeChat ID",
+    "copied": "WeChat ID copied"
   },
   "koi": {
     "show": "Show my face",

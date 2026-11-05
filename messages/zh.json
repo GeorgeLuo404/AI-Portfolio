@@ -16,8 +16,47 @@
     "ask": "问我的 AI 分身",
     "menu": "菜单"
   },
-  "home": {
-    "title": "AI / 前端开发工程师"
+  "hero": {
+    "title": "AI / 前端开发工程师",
+    "focus": "方向",
+    "scroll": "向下滚动"
+  },
+  "twin": {
+    "online": "在线",
+    "placeholder": "罗卓君用 AI 做过什么？",
+    "suggest": {
+      "projects": "近期项目",
+      "stack": "技术栈",
+      "start": "何时到岗"
+    },
+    "note": "回答来自我的简历和项目，可能有误。",
+    "ask": "提问"
+  },
+  "work": {
+    "heading": "精选项目",
+    "aside": "三个项目，每个都写清楚我做了什么、带来了什么改变。",
+    "builtWith": "技术",
+    "view": "查看项目",
+    "source": "源代码"
+  },
+  "skills": {
+    "heading": "技能"
+  },
+  "experience": {
+    "heading": "经历",
+    "aside": "按时间排列的职位，写清楚我负责什么、交付了什么。点开查看详情。",
+    "resume": "简历 PDF",
+    "lead": "工作与教育经历",
+    "used": "技术",
+    "range": "{start}–{end}",
+    "current": "{start} 至今"
+  },
+  "contact": {
+    "heading": "需要一位 AI 与前端开发工程师？",
+    "text": "全职，远程或驻场皆可。发邮件最快，AI 分身也随时可以回答基本问题。",
+    "email": "发邮件",
+    "copy": "复制微信号",
+    "copied": "已复制微信号"
   },
   "koi": {
     "show": "我长啥样",

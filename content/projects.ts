@@ -1,6 +1,7 @@
 import type { Project } from "./types";
 
-// Newest first. Projects two and three are placeholders until T10.
+// Newest first. Projects two and three, their links, and the screenshots are
+// placeholders until T10.
 export const projects: readonly Project[] = [
   {
     id: "ai-twin",
@@ -11,7 +12,18 @@ export const projects: readonly Project[] = [
       zh: "就是本站的对话功能。它根据我的简历和项目回答招聘方的问题，并拒绝无关话题。",
     },
     stack: ["Next.js", "AI SDK", "DeepSeek"],
-    links: { source: "https://github.com/GeorgeLuo404/AI-Portfolio" },
+    // This site is the live project.
+    links: {
+      live: "#top",
+      source: "https://github.com/GeorgeLuo404/AI-Portfolio",
+    },
+    phoneImage: {
+      src: "/projects/placeholder-phone.png",
+      alt: {
+        en: "Placeholder: a sketch of the AI twin's chat on a phone",
+        zh: "占位图：手机上 AI 分身对话的示意图",
+      },
+    },
     image: {
       src: "/projects/placeholder.png",
       alt: {
@@ -29,7 +41,7 @@ export const projects: readonly Project[] = [
       zh: "占位文字。用一两句话写问题、你做了什么和结果，有数字就写上数字。",
     },
     stack: ["TypeScript", "PostgreSQL", "AWS"],
-    links: {},
+    links: { live: "#work", source: "#work" },
   },
   {
     id: "project-three",
@@ -40,6 +52,6 @@ export const projects: readonly Project[] = [
       zh: "占位文字。保持同样的结构：问题、你做了什么、对使用者带来了什么改变。",
     },
     stack: ["Python", "FastAPI", "Docker"],
-    links: {},
+    links: { live: "#work", source: "#work" },
   },
 ];

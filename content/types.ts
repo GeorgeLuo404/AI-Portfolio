@@ -36,8 +36,13 @@ export type Project = {
   summary: Localized;
   stack: readonly string[];
   links: { live?: string; source?: string };
-  /** A screenshot in `public/`, shown in characters. Placeholder until T10. */
+  /**
+   * Screenshots in `public/`, shown in characters in the project's well: a
+   * wide one, and optionally a phone one beside it. Without a screenshot,
+   * the well shows an ASCII object. Placeholders until T10.
+   */
   image?: { src: string; alt: Localized };
+  phoneImage?: { src: string; alt: Localized };
 };
 
 export type SkillArea = {

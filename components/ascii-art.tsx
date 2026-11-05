@@ -9,18 +9,21 @@ import { COLS, stillKoi } from "@/lib/koi/engine";
 
 function AsciiText({
   cols,
+  rows,
   text,
   className = "",
 }: {
   cols: number;
+  rows: number;
   text: string;
   className?: string;
 }) {
+  // A `pre` drops a trailing blank line, so hold the box at its full rows.
   return (
     <pre
       aria-hidden="true"
       className={`ascii ${className}`}
-      style={{ "--cols": cols } as CSSProperties}
+      style={{ "--cols": cols, minHeight: `${rows}em` } as CSSProperties}
     >
       {text}
     </pre>
@@ -37,11 +40,12 @@ export function AsciiScene({
   faint?: boolean;
   className?: string;
 }) {
-  const { cols, text } = getScene(scene);
+  const { cols, rows, text } = getScene(scene);
   return (
     <div aria-hidden="true" className={`ascii-box ${className}`}>
       <AsciiText
         cols={cols}
+        rows={rows}
         text={text}
         className={faint ? "ascii-faint" : ""}
       />
@@ -64,7 +68,7 @@ export async function AsciiImage({
   const art = await imageToAscii(src, cols);
   return (
     <div role="img" aria-label={alt} className={`ascii-box ${className}`}>
-      <AsciiText cols={cols} text={art.text} />
+      <AsciiText cols={cols} rows={art.rows} text={art.text} />
     </div>
   );
 }
@@ -79,7 +83,12 @@ export function StillKoi({
 }) {
   return (
     <div aria-hidden="true" className={`ascii-box ${className}`}>
-      <AsciiText cols={COLS} text={stillKoi(rows)} className="ascii-faint" />
+      <AsciiText
+        cols={COLS}
+        rows={rows}
+        text={stillKoi(rows)}
+        className="ascii-faint"
+      />
     </div>
   );
 }
