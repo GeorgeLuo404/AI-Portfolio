@@ -63,7 +63,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Build the design as a static HTML page under `design/` at 1440, 768, and 390 px wide, check it in a browser, then capture each width into a new Figma file in George's team. On Figma's Starter plan, MCP read calls are capped at about 20 a month, but creating files and capturing pages aren't counted. Starter files are reported to allow 3 pages: use them for foundations, the English pages, and the Chinese versions.
 - Use placeholder text for George's title and projects until T10.
 - Record the decisions, design tokens, and the Figma link in `docs/DESIGN.md`.
-- **Result so far:** the prototype in `design/`, the [Figma file](https://www.figma.com/design/yOam3gCoyO0uew2262qVq9), and `docs/DESIGN.md`. Decided: the headline "AI / Web Engineer" on both pages, with "AI / 前端开发工程师" as the Chinese heading. On 2026-11-05 George replaced the tree with two koi in a yin-yang, for his sign, Pisces, and a button that swaps them for his photo. The Figma frames still show the earlier version until they're captured again.
+- **Result so far:** the prototype in `design/`, the [Figma file](https://www.figma.com/design/yOam3gCoyO0uew2262qVq9), and `docs/DESIGN.md`. Decided: the headline "AI / Web Engineer" on both pages, with "AI / 前端开发工程师" as the Chinese heading. On 2026-11-05 George replaced the tree with two koi in a yin-yang, for his sign, Pisces, and a button that swaps them for his photo. On 2026-11-06 the Figma file was captured again from this version: Foundations at 1440, English at 1440 (light and dark), 768, and 390, and Chinese at 1440 and 390.
 - **Done when:** George approves the Figma file and `docs/DESIGN.md`.
 
 ### T4: Remove upstream code and Sanity
