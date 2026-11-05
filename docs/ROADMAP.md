@@ -14,7 +14,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T3 | Design in Figma | Merged | `docs/t3-design` | `checkpoint/t3` |
 | T4 | Remove upstream code and Sanity | Merged | `chore/t4-remove-upstream` | `checkpoint/t4` |
 | T2b | Vercel deploy and mainland test | Not started | | |
-| T5 | Foundations | In review | `feat/t5-foundations` | |
+| T5 | Foundations | Merged | `feat/t5-foundations` | `checkpoint/t5` |
 | T6 | Content files | Not started | | |
 | T7 | ASCII art | Not started | | |
 | T8 | Sections | Not started | | |
