@@ -35,14 +35,14 @@ In page order:
 | Section | Content |
 |---|---|
 | Navigation | Logo mark and name, section links, EN/中文 switch, theme switch, "Ask my AI twin". Sticky. A menu on phones. |
-| Hero | "AI / Web Engineer" in giant type on the grid, three chips in a staircase, a short intro beside the logo mark, the ASCII tree on a dotted field, a statement box, and the AI twin window standing in a small room drawn in perspective |
+| Hero | "AI / Web Engineer" in giant type on the grid, three chips in a staircase, a short intro that highlights the role, the logo mark in the intro's bottom-right corner, the ASCII tree on a dotted field, a statement box, and the AI twin window standing in a small room drawn in perspective |
 | Selected work | "Selected work" heading, an aside, and three project rows that alternate sides: year, title, a line or two, stack chips, links, and an image well that bleeds to the page edge |
 | Skills | A word stack in black: "AI agents", "Full-stack ( ▢ ) web", "Data & cloud", with blue pixel decorations, faint ASCII objects, and a legend of tools |
 | Experience (dark) | Giant "Experience" with résumé, LinkedIn, and GitHub chips over it, an aside, and roles in an accordion |
 | Contact (dark panel) | "Hiring an AI & web engineer?" in braces, with email, WeChat ID, and AI twin buttons |
 | Footer (dark) | The name in giant type with the chips over it, a faint tree, page links, other profiles, contact details, the credit, and the language switch |
 
-The hero headline reads "AI / Web Engineer" on both pages, as "AI / Web" over "Engineer". A thin slash joins the halves. On the Chinese page the English headline is a graphic, and the real heading is "AI / 前端开发工程师", at the top of the intro. Because 前端 means frontend, the second chip says Frontend and 前端开发. If the focus becomes full stack, change both.
+The hero headline reads "AI / Web Engineer" on both pages, as "AI / Web" over "Engineer". A thin slash joins the halves. On the Chinese page the English headline is a graphic, and the real heading, "AI / 前端开发工程师", is hidden for screen readers. The intro names the role on both pages, highlighted: "AI and web engineer" and "AI 与前端开发工程师". Because 前端 means frontend, the second chip says Frontend and 前端开发. If the focus becomes full stack, change both.
 
 ## Grid from type
 
@@ -128,6 +128,8 @@ The page is at most 1440px wide. Content sits between two hairlines inset by the
 All corners are square, borders are 1px, and nothing has a shadow. `design/foundations.html` shows each one.
 
 - **Chips:** panel (blue text on panel), solid (white on signal), and muted (small grey).
+- **Logo mark:** the pixel G on a signal square, 98px on desktop, 64px on tablets, and 52px on phones, on both pages. In the hero it sits in the intro's bottom-right corner, on the frame line and the art's top rule, however long the intro runs.
+- **Highlight:** a `mark` on the panel color with 0.1em padding. It reaches 0.1em into the space before it, so a phrase that starts a line keeps the line's edge. The role in the hero never breaks across lines.
 - **Buttons:** signal, line, light, and ghost. Pixel icons only where they add meaning: external link, download, copy, mail, chat.
 - **AI twin window:** title and status, a terminal prompt with a blinking caret, three suggested questions, a note that answers can be wrong, and an Ask button. In the hero it stands in a room: lines from the stage corners to the window, a center line, a horizon, a grey panel and a signal panel behind it. `site.js` draws the lines from the window's position.
 - **Chat panel:** a 440px side panel on desktop and a full-width sheet on phones. Visitor messages are signal blocks, twin replies have an ink rule, and declined questions use a grey rule and text. Esc closes it.
@@ -140,7 +142,8 @@ All corners are square, borders are 1px, and nothing has a shadow. `design/found
 
 - Set `lang="zh-CN"` on Chinese pages, so browsers use Simplified Chinese glyph shapes.
 - Chinese text never gets uppercase or negative tracking. Body line height is 1.75 or more.
-- English display words, the hero's "AI / Web Engineer" included, stay as graphics on the Chinese page, marked `aria-hidden` and `lang="en"`. A Chinese heading next to or under each one is the real heading.
+- English display words, the hero's "AI / Web Engineer" included, stay as graphics on the Chinese page, marked `aria-hidden` and `lang="en"`. A Chinese heading next to or under each one is the real heading. In the hero, that heading is hidden for screen readers, and the intro names the role instead.
+- At the same size, Chinese characters stand about a third taller than Latin capitals. Where they sit side by side, as in the header's language switch, size them to the same height: EN is 16px and 中文 12px, both 11px tall, and 中文 is raised 1px so they share a center line. Keep Chinese at 12px or more.
 - The Chinese page uses George's Chinese name, 罗卓君, in the header, the hero intro, and under the footer name.
 - Body text uses the visitor's system font, so nothing downloads. The heavy display font is trimmed to the characters the site uses, which the build can list because all content lives in the repo (T6).
 
