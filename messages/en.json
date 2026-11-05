@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "George Luo, AI and web engineer",
+    "description": "George Luo's portfolio, being rebuilt."
+  },
+  "header": {
+    "brand": "<b>George</b> Luo",
+    "sections": "Sections",
+    "work": "Work",
+    "skills": "Skills",
+    "experience": "Experience",
+    "contact": "Contact",
+    "language": "Language",
+    "toDark": "Switch to dark theme",
+    "toLight": "Switch to light theme",
+    "ask": "Ask my AI twin",
+    "menu": "Menu"
+  },
+  "languages": {
+    "en": "English",
+    "zh": "中文",
+    "enShort": "EN",
+    "zhShort": "中文"
+  },
+  "home": {
+    "display": "AI / Web Engineer",
+    "title": "AI / Web Engineer",
+    "placeholder": "George Luo's portfolio is being rebuilt. The new site is on its way."
+  },
+  "footer": {
+    "chips": {
+      "ai": "AI products",
+      "frontend": "Frontend",
+      "open": "Open to roles"
+    },
+    "onThisSite": "On this site",
+    "home": "Home",
+    "elsewhere": "Elsewhere",
+    "resume": "Résumé PDF",
+    "contact": "Contact",
+    "wechat": "WeChat: {id}",
+    "copyright": "© {year} George Luo",
+    "credit": "Layout after Hegia, a concept by Faza Dzikrulloh",
+    "top": "Back to top",
+    "localName": ""
+  }
+}

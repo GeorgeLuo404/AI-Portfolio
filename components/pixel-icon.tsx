@@ -1,0 +1,109 @@
+// Pixel icons from the T3 design, drawn on small grids. Each run of "#" in a
+// row becomes one rect, so a row stays one shape and the edges stay crisp.
+const ICONS = {
+  mark: [
+    ".######.",
+    "##....##",
+    "##......",
+    "##..####",
+    "##....##",
+    "##....##",
+    ".######.",
+  ],
+  chat: [
+    "#########",
+    "#.......#",
+    "#.#.#.#.#",
+    "#.......#",
+    "#########",
+    "..##.....",
+    ".#.......",
+  ],
+  menu: [
+    "########",
+    "........",
+    "........",
+    "########",
+    "........",
+    "........",
+    "########",
+  ],
+  close: [
+    "#.....#",
+    ".#...#.",
+    "..#.#..",
+    "...#...",
+    "..#.#..",
+    ".#...#.",
+    "#.....#",
+  ],
+  sun: [
+    "....#....",
+    ".#.....#.",
+    "...###...",
+    "..#####..",
+    "#.#####.#",
+    "..#####..",
+    "...###...",
+    ".#.....#.",
+    "....#....",
+  ],
+  moon: [
+    "...##....",
+    "..##.....",
+    ".##......",
+    "###......",
+    "###......",
+    "####.....",
+    ".####....",
+    "..#####..",
+    "...###...",
+  ],
+} as const;
+
+export type PixelIconName = keyof typeof ICONS;
+
+export function PixelIcon({
+  name,
+  size = 14,
+  className,
+}: {
+  name: PixelIconName;
+  size?: number;
+  className?: string;
+}) {
+  const rows = ICONS[name];
+  const width = rows[0].length;
+  const height = rows.length;
+  const scale = size / Math.max(width, height);
+  const rects: { x: number; y: number; w: number }[] = [];
+  rows.forEach((row, y) => {
+    let x = 0;
+    while (x < width) {
+      if (row[x] !== "#") {
+        x++;
+        continue;
+      }
+      let end = x;
+      while (end < width && row[end] === "#") end++;
+      rects.push({ x, y, w: end - x });
+      x = end;
+    }
+  });
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox={`0 0 ${width} ${height}`}
+      width={Math.round(width * scale)}
+      height={Math.round(height * scale)}
+      fill="currentColor"
+      shapeRendering="crispEdges"
+      aria-hidden="true"
+      className={`block shrink-0 ${className ?? ""}`}
+    >
+      {rects.map(({ x, y, w }) => (
+        <rect key={`${x}-${y}`} x={x} y={y} width={w} height={1} />
+      ))}
+    </svg>
+  );
+}

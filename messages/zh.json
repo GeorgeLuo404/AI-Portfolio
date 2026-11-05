@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "title": "罗卓君，AI 与前端开发工程师",
+    "description": "罗卓君的作品集，正在重建。"
+  },
+  "header": {
+    "brand": "<zh>罗卓君</zh> <en>George Luo</en>",
+    "sections": "页面分区",
+    "work": "项目",
+    "skills": "技能",
+    "experience": "经历",
+    "contact": "联系",
+    "language": "语言",
+    "toDark": "切换到深色模式",
+    "toLight": "切换到浅色模式",
+    "ask": "问我的 AI 分身",
+    "menu": "菜单"
+  },
+  "home": {
+    "title": "AI / 前端开发工程师",
+    "placeholder": "罗卓君的作品集正在重建，新网站即将上线。"
+  },
+  "footer": {
+    "chips": {
+      "ai": "AI 产品",
+      "frontend": "前端开发",
+      "open": "正在求职"
+    },
+    "onThisSite": "本站",
+    "home": "首页",
+    "elsewhere": "其他平台",
+    "resume": "简历 PDF",
+    "contact": "联系方式",
+    "wechat": "微信：{id}",
+    "copyright": "© {year} 罗卓君",
+    "credit": "版式参考 Faza Dzikrulloh 的 Hegia 概念设计",
+    "top": "回到顶部",
+    "localName": "罗卓君"
+  }
+}
