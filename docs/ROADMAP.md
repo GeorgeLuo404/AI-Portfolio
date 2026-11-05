@@ -17,7 +17,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T5 | Foundations | Merged | `feat/t5-foundations` | `checkpoint/t5` |
 | T6 | Content files | Merged | `feat/t6-content-files` | `checkpoint/t6` |
 | T7 | ASCII art | Merged | `feat/t7-ascii-art` | `checkpoint/t7` |
-| T8 | Sections | In review | `feat/t8-sections` | |
+| T8 | Sections | Merged | `feat/t8-sections` | `checkpoint/t8` |
 | T9 | DeepSeek chat | Not started | | |
 | T10 | Real content | Not started | | |
 | T11 | Chinese translation | Not started | | |
