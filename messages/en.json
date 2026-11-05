@@ -22,9 +22,30 @@
     "enShort": "EN",
     "zhShort": "中文"
   },
-  "home": {
+  "hero": {
     "display": "AI / Web Engineer",
-    "title": "AI / Web Engineer"
+    "title": "AI / Web Engineer",
+    "focus": "Focus",
+    "scroll": "Scroll down"
+  },
+  "twin": {
+    "online": "Online",
+    "placeholder": "What has George built with AI?",
+    "suggest": {
+      "projects": "Recent projects",
+      "stack": "Tech stack",
+      "start": "Start date"
+    },
+    "note": "Answers come from my résumé and projects, and can be wrong.",
+    "ask": "Ask"
+  },
+  "work": {
+    "display": "Selected Work",
+    "heading": "Selected work",
+    "aside": "Three projects, each with what I built and what changed because of it.",
+    "builtWith": "Built with",
+    "view": "View project",
+    "source": "Source code"
   },
   "koi": {
     "show": "Show my face",

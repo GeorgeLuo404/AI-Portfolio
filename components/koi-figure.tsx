@@ -385,7 +385,7 @@ export function KoiFigure({
         onClick={onClick}
         onPointerEnter={reach}
         onFocus={reach}
-        className="koi-toggle absolute right-5 bottom-12 z-1 inline-flex h-[30px] items-center gap-2 bg-signal px-3 text-[12px] font-semibold tracking-[0.05em] whitespace-nowrap text-white uppercase hover:brightness-[0.82] sm:top-3 sm:right-5 sm:bottom-auto lg:right-7 [&:lang(zh)]:tracking-[0.04em]"
+        className="koi-toggle absolute right-5 bottom-[51px] z-1 inline-flex h-[30px] items-center gap-2 bg-signal px-3 text-[12px] font-semibold tracking-[0.05em] whitespace-nowrap text-white uppercase hover:brightness-[0.82] sm:top-3 sm:right-5 sm:bottom-auto lg:right-7 [&:lang(zh)]:tracking-[0.04em]"
       >
         {state === "koi" ? (
           <>
@@ -399,7 +399,7 @@ export function KoiFigure({
           </>
         )}
       </button>
-      <figcaption className="bg-bg py-3 text-xs text-muted sm:absolute sm:top-3.5 sm:left-5 sm:py-1 sm:pr-2 lg:left-7">
+      <figcaption className="bg-bg py-3 text-[12px] text-muted sm:absolute sm:top-3.5 sm:left-5 sm:py-1 sm:pr-2 lg:left-7">
         <span className="flex gap-2.5">
           <b className="font-semibold text-fg">
             {art === "koi" ? t("koiFigure") : t("faceFigure")}
