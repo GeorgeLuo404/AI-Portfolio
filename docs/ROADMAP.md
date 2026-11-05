@@ -16,7 +16,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T2b | Vercel deploy and mainland test | Not started | | |
 | T5 | Foundations | Merged | `feat/t5-foundations` | `checkpoint/t5` |
 | T6 | Content files | Merged | `feat/t6-content-files` | `checkpoint/t6` |
-| T7 | ASCII art | In review | `feat/t7-ascii-art` | |
+| T7 | ASCII art | Merged | `feat/t7-ascii-art` | `checkpoint/t7` |
 | T8 | Sections | Not started | | |
 | T9 | DeepSeek chat | Not started | | |
 | T10 | Real content | Not started | | |
