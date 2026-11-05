@@ -727,17 +727,14 @@ mark {
   color: var(--fg);
 }
 
+/* The art's button: a signal button, a size smaller than the others. */
 .koi__toggle {
   position: absolute;
-  top: 14px;
+  top: 12px;
   right: 28px;
   z-index: 1;
-  height: 26px;
-  padding: 0 10px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--fg);
-  background: var(--panel);
+  height: 30px;
+  padding: 0 12px;
 }
 
 .koi__toggle > span {
@@ -746,15 +743,48 @@ mark {
   gap: 8px;
 }
 
+/* The icons bake in their color, so hover darkens the whole button. */
 .koi__toggle:hover {
-  color: var(--signal-text);
+  filter: brightness(0.82);
+}
+
+/* Until someone tries it, two square ripples run out from the button every
+   few seconds, like the rings on the water. Not with reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__art:not([data-tried])[data-state="koi"] .koi__toggle::before,
+  .hero__art:not([data-tried])[data-state="koi"] .koi__toggle::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--signal);
+    opacity: 0;
+    pointer-events: none;
+    animation: koi-call 3.2s ease-out 1.6s infinite;
+  }
+
+  .hero__art:not([data-tried])[data-state="koi"] .koi__toggle::after {
+    animation-delay: 1.95s;
+  }
+}
+
+@keyframes koi-call {
+  0% {
+    inset: -1px;
+    opacity: 0.9;
+  }
+
+  50%,
+  100% {
+    inset: -14px;
+    opacity: 0;
+  }
 }
 
 /* In the foundations specimens, the button sits in a row. */
 .component .koi__toggle {
-  position: static;
-  display: inline-flex;
-  align-items: center;
+  position: relative;
+  top: auto;
+  right: auto;
 }
 
 /* The caption follows the art, and the button names what it will do. */
@@ -2478,7 +2508,7 @@ mark {
   .koi__toggle {
     top: auto;
     right: 12px;
-    bottom: 10px;
+    bottom: 8px;
   }
 
   .hero__statement {

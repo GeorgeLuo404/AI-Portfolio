@@ -1,8 +1,8 @@
 // The hero's koi for the T3 design prototype, drawn in characters every
-// frame: one fish in solid ink and one in outline, circling each other inside
-// a brushed ring. The button beside the caption sends them away and shows
-// George's photo, first in characters, then the photo itself. The footer gets
-// a still, faint pair.
+// frame: one fish in solid ink and one in outline, circling each other
+// clockwise like a yin-yang, inside a brushed ring that turns with them. The
+// button beside the caption sends them away and shows George's photo, first
+// in characters, then the photo itself. The footer gets a still, faint pair.
 //
 // The koi are drawn from scratch here. George's reference images set the mood
 // only, and nothing is traced from them.
@@ -19,16 +19,22 @@
 
   // Lengths are in units of the ring's radius.
   const RING = 1;
-  const ORBIT = 0.62;
-  const BODY = 0.98;
+  const TAU = 2 * Math.PI;
+  // Each head circles at ORBIT, and the body spirals out behind it to OUTER,
+  // so each tail sweeps around outside the other fish's head.
+  const ORBIT = 0.38;
+  const OUTER = 0.79;
+  const BODY = 1.0;
   // The tail's two lobes reach this far past the end of the body.
-  const TAIL = 0.44;
+  const TAIL = 0.4;
   const LENGTH = BODY + TAIL;
-  const WIDTH = 0.165;
+  const WIDTH = 0.205;
   const SPINE = 84;
-  // One lap every 26 seconds.
-  const SPEED = (2 * Math.PI * ORBIT) / 26;
-  const START = (205 * Math.PI) / 180;
+  // One lap every 26 seconds, and the ring turns with the fish.
+  const SPEED = (TAU * ORBIT) / 26;
+  const TURN = SPEED / ORBIT;
+  // The solid fish's head starts near the top, as in a yin-yang.
+  const START = (80 * Math.PI) / 180;
   // The tancho spot: a round mark on the head, in the other fish's color.
   const SPOT_AT = 0.17;
   const SPOT_R = 0.06;
@@ -57,6 +63,20 @@
     const v = smooth(0, 1, y - yi);
     const top = mix(hash(xi, yi), hash(xi + 1, yi), u);
     const bottom = mix(hash(xi, yi + 1), hash(xi + 1, yi + 1), u);
+    return mix(top, bottom, v);
+  }
+
+  // The same noise, but repeating every `period` along x, for going around
+  // the ring without a seam.
+  function loopNoise(x, y, period) {
+    const xi = Math.floor(x);
+    const yi = Math.floor(y);
+    const u = smooth(0, 1, x - xi);
+    const v = smooth(0, 1, y - yi);
+    const a = ((xi % period) + period) % period;
+    const b = (a + 1) % period;
+    const top = mix(hash(a, yi), hash(b, yi), u);
+    const bottom = mix(hash(a, yi + 1), hash(b, yi + 1), u);
     return mix(top, bottom, v);
   }
 
@@ -90,24 +110,58 @@
 
   const widthAt = (l) => bodyWidth(clamp(l / BODY, 0, 1));
 
+  // For each point on the spine: how far the body sits outside the head's
+  // circle, and how far back along that circle it is, so that the body keeps
+  // its length as it spirals out.
+  const SPIRAL_OUT = new Float32Array(SPINE + 1);
+  const SPIRAL_BACK = new Float32Array(SPINE + 1);
+  for (let k = 1; k <= SPINE; k++) {
+    const r = ORBIT + (OUTER - ORBIT) * (k / SPINE) ** 1.3;
+    SPIRAL_OUT[k] = r - ORBIT;
+    SPIRAL_BACK[k] = SPIRAL_BACK[k - 1] + (LENGTH / SPINE) * (ORBIT / r);
+  }
+
   // A track maps a distance along a fish's path to a point. Every fish
-  // circles counter-clockwise, and `angle` is where its head is at distance 0.
+  // circles clockwise, and `angle` is where its head is at distance 0.
   function orbit(angle) {
     return (d) => {
-      const a = angle + d / ORBIT;
+      const a = angle - d / ORBIT;
       return [ORBIT * Math.cos(a), ORBIT * Math.sin(a)];
     };
   }
 
-  // The fish's track up to `at`, then straight on the way it was heading.
-  function leaving(track, at) {
-    const [x0, y0] = track(at);
-    const [xb, yb] = track(at - 0.01);
-    const len = Math.hypot(x0 - xb, y0 - yb) || 1;
-    const tx = (x0 - xb) / len;
-    const ty = (y0 - yb) / len;
-    return (d) =>
-      d <= at ? track(d) : [x0 + tx * (d - at), y0 + ty * (d - at)];
+  // Straight on from the head, the way it was heading, with the body
+  // following its own shape from the moment it turned away.
+  function leaving(fish) {
+    const pts = baseSpine(fish);
+    const at = fish.d;
+    const head = pts[0];
+    const path = [{ x: head.x, y: head.y, s: 0 }];
+    for (let k = 1; k < pts.length; k++) {
+      const q = path[k - 1];
+      const { x, y } = pts[k];
+      path.push({ x, y, s: q.s + Math.hypot(x - q.x, y - q.y) });
+    }
+    const end = path[path.length - 1];
+    const before = path[path.length - 2];
+    const len = Math.hypot(end.x - before.x, end.y - before.y) || 1;
+    const ex = (end.x - before.x) / len;
+    const ey = (end.y - before.y) / len;
+    return (d) => {
+      if (d >= at) {
+        return [head.x + head.tx * (d - at), head.y + head.ty * (d - at)];
+      }
+      const behind = at - d;
+      if (behind >= end.s) {
+        return [end.x + ex * (behind - end.s), end.y + ey * (behind - end.s)];
+      }
+      let k = 1;
+      while (path[k].s < behind) k++;
+      const a = path[k - 1];
+      const b = path[k];
+      const t = (behind - a.s) / (b.s - a.s || 1);
+      return [mix(a.x, b.x, t), mix(a.y, b.y, t)];
+    };
   }
 
   // A straight run `run` units long that meets the orbit at `angle`, then the
@@ -115,8 +169,8 @@
   function arriving(angle, run) {
     const around = orbit(angle);
     const [x0, y0] = around(0);
-    const tx = -Math.sin(angle);
-    const ty = Math.cos(angle);
+    const tx = Math.sin(angle);
+    const ty = -Math.cos(angle);
     return (d) =>
       d >= run ? around(d - run) : [x0 - tx * (run - d), y0 - ty * (run - d)];
   }
@@ -130,6 +184,8 @@
       phase: kind === "ink" ? 0 : 2.1,
       fin: kind === "ink" ? 0 : 1.4,
       amp: 0.035,
+      // 1 while circling, so the body spirals out; 0 while swimming straight.
+      spiral: 1,
       gone: false,
       arrive: null,
     };
@@ -148,16 +204,29 @@
     }
   }
 
-  // Points from snout to tail tip along the fish's track, bent by a wave that
-  // travels toward the tail and grows along the body.
-  function spine(fish) {
+  // Points from snout to tail tip along the fish's track, spiralling out
+  // while it circles.
+  function baseSpine(fish) {
     const pts = [];
     for (let k = 0; k <= SPINE; k++) {
       const l = (k / SPINE) * LENGTH;
-      const [x, y] = fish.track(fish.d - l);
+      let [x, y] = fish.track(fish.d - mix(l, SPIRAL_BACK[k], fish.spiral));
+      const out = SPIRAL_OUT[k] * fish.spiral;
+      if (out > 0) {
+        const r = Math.hypot(x, y) || 1;
+        x += (x / r) * out;
+        y += (y / r) * out;
+      }
       pts.push({ x, y, l, tx: 1, ty: 0 });
     }
     tangents(pts);
+    return pts;
+  }
+
+  // The spine, bent by a wave that travels toward the tail and grows along
+  // the body.
+  function spine(fish) {
+    const pts = baseSpine(fish);
     for (const p of pts) {
       const r = p.l / LENGTH;
       const off =
@@ -213,9 +282,8 @@
       sd: new Float32Array(n),
       bl: new Float32Array(n),
       lat: new Float32Array(n),
-      ring: new Float32Array(n),
-      ringAt: new Float32Array(n),
       reveal: new Float32Array(n),
+      ringCells: [],
       portrait: null,
     };
     f.aa = 0.7 * Math.sqrt(f.cu * f.cv);
@@ -229,9 +297,9 @@
         f.r[k] = Math.hypot(x, y);
         f.a[k] = Math.atan2(y, x);
         f.reveal[k] = Math.random();
+        if (Math.abs(f.r[k] - RING) < 0.17) f.ringCells.push(k);
       }
     }
-    drawRing(f);
     return f;
   }
 
@@ -262,38 +330,42 @@
   const outline = (f, sd) =>
     clamp(1 - Math.abs(sd + 1.2 * f.aa) / (1.5 * f.aa), 0, 1);
 
-  // A brush ring: pressed down where it starts, widest halfway, then dry and
-  // breaking up, with a gap before it closes.
-  const RING_START = (248 * Math.PI) / 180;
-  const RING_SPAN = (334 * Math.PI) / 180;
-  function ringWidth(p) {
-    return (
-      0.038 *
-      (0.78 + 0.4 * Math.sin(Math.PI * Math.min(p * 1.1, 1)) ** 0.6) *
-      (1 - 0.6 * smooth(0.8, 1, p))
-    );
-  }
-  function drawRing(f) {
-    for (let k = 0; k < f.n; k++) {
-      f.ring[k] = 0;
-      f.ringAt[k] = 2;
-      const dr = f.r[k] - RING;
-      if (Math.abs(dr) > 0.12) continue;
-      let t = (f.a[k] - RING_START) % (2 * Math.PI);
-      if (t < 0) t += 2 * Math.PI;
-      const p = t / RING_SPAN;
-      if (p > 1) continue;
-      const hw = ringWidth(p);
-      // A rounded start, where the brush first touched down.
-      const start = p * RING_SPAN * RING;
-      const cap = start < hw ? hw - Math.sqrt(hw * hw - (hw - start) ** 2) : 0;
-      const cov = clamp(0.5 - (Math.abs(dr) + cap - hw) / f.aa, 0, 1);
+  // The ring: one brush stroke that turns clockwise with the koi. It swells
+  // just behind each tail, as if the fish were stirring it, runs dry between
+  // them, and its edge drifts as it turns. `turn` is how far it has turned,
+  // and `drawn` how much of it is painted, from 0 to 1, clockwise from the top
+  // of its own turning frame.
+  function drawRing(f, turn, time, tails, drawn) {
+    for (const k of f.ringCells) {
+      const a = f.a[k];
+      const own = (((a + turn) % TAU) + TAU) % TAU;
+      if (
+        drawn < 1 &&
+        (((Math.PI / 2 - own) % TAU) + TAU) % TAU > drawn * TAU
+      ) {
+        continue;
+      }
+      let swell = 0;
+      for (const tail of tails) {
+        let gap = Math.abs(a - tail.angle) % TAU;
+        if (gap > Math.PI) gap = TAU - gap;
+        swell = Math.max(swell, tail.weight * Math.exp(-((gap / 0.95) ** 2)));
+      }
+      const drift = loopNoise((own / TAU) * 6, time * 0.08, 6);
+      const radius =
+        RING *
+        (1 + 0.03 * (drift - 0.5) + 0.012 * Math.sin(2 * own + time * 0.3));
+      const hw =
+        0.032 *
+        (0.45 + 1.15 * swell) *
+        (0.85 + 0.3 * loopNoise((own / TAU) * 10, time * 0.12 + 7, 10));
+      const dr = f.r[k] - radius;
+      const cov = clamp(0.5 - (Math.abs(dr) - hw) / f.aa, 0, 1);
       if (cov <= 0) continue;
-      const streak = noise(p * 16, (dr / hw) * 1.6 + 4.3);
-      let ink = 0.5 + 0.38 * streak;
-      if (streak < smooth(0.55, 1, p) * 0.95) ink *= 0.2;
-      f.ring[k] = cov * ink;
-      f.ringAt[k] = p;
+      const streak = loopNoise((own / TAU) * 64, (dr / hw) * 1.5 + 4.3, 64);
+      let ink = 0.5 + 0.4 * streak;
+      if (streak < (1 - swell) * 0.6) ink *= 0.22;
+      if (cov * ink > f.bg[k]) f.bg[k] = cov * ink;
     }
   }
 
@@ -465,11 +537,11 @@
     for (const side of [-1, 1]) {
       const at = (l) => (l - BODY) / TAIL;
       const width = (l) =>
-        0.07 * Math.sin(Math.PI * clamp((at(l) + 0.15) / 1.15, 0, 1)) ** 0.6;
+        0.062 * Math.sin(Math.PI * clamp((at(l) + 0.15) / 1.15, 0, 1)) ** 0.6;
       const offset = (l) =>
         side *
         smooth(-0.15, 1, at(l)) ** 1.2 *
-        (0.14 + 0.025 * Math.sin(fish.fin * 0.8 + side * 1.3));
+        (0.1 + 0.02 * Math.sin(fish.fin * 0.8 + side * 1.3));
       strip(f, pts, BODY - 0.07, LENGTH, width, offset, (k, sd, l, lat) => {
         const x = clamp(at(l), 0, 1);
         const rays = (0.5 + 0.5 * Math.cos((lat / 0.07) * Math.PI * 2.5)) ** 3;
@@ -481,9 +553,7 @@
     }
   }
 
-  function drawFish(f, fish) {
-    if (fish.gone) return;
-    const pts = spine(fish);
+  function drawFish(f, fish, pts) {
     drawTail(f, fish, pts);
     for (const [at, length, width, spread] of FINS) {
       drawFin(f, fish, pts, at, length, width, spread, -1);
@@ -520,9 +590,23 @@
     f.ink.fill(0);
     f.cov.fill(0);
     if (scene.ripples !== false) drawRipples(f, time);
-    for (let k = 0; k < f.n; k++) {
-      if (f.ringAt[k] <= ringDrawn && f.ring[k] > f.bg[k]) f.bg[k] = f.ring[k];
-    }
+    const spines = fish.map((one) => (one.gone ? null : spine(one)));
+    // Where each tail is, so the ring can swell behind it. The fish swim
+    // clockwise, so "behind" is a little counter-clockwise.
+    const tails = [];
+    fish.forEach((one, n) => {
+      const pts = spines[n];
+      if (!pts) return;
+      const end = pts[SPINE];
+      const r = Math.hypot(end.x, end.y);
+      tails.push({
+        angle: Math.atan2(end.y, end.x) + 0.35,
+        weight:
+          (one.kind === "ink" ? 1 : 0.6) *
+          Math.exp(-(((r - RING) / 0.45) ** 2)),
+      });
+    });
+    if (ringDrawn > 0) drawRing(f, scene.turn ?? 0, time, tails, ringDrawn);
     if (front >= 0 && f.portrait) {
       const band = 0.16;
       for (let k = 0; k < f.n; k++) {
@@ -536,7 +620,9 @@
         }
       }
     }
-    for (const one of fish) drawFish(f, one);
+    fish.forEach((one, n) => {
+      if (spines[n]) drawFish(f, one, spines[n]);
+    });
     const mask = new Uint8Array(f.n);
     const lines = [];
     let count = 0;
@@ -745,12 +831,6 @@
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = getComputedStyle(figure).getPropertyValue("--bg").trim();
     const cw = font * CELL_W;
-    // The water inside the ring stays clear of the dot grid.
-    if (ringDrawn > 0 && (front < 0 || inside === "water")) {
-      ctx.beginPath();
-      ctx.arc(width / 2, height / 2, RING * field.s * font, 0, 2 * Math.PI);
-      ctx.fill();
-    }
     if (front >= 0) {
       ctx.beginPath();
       const r = front * field.s * font;
@@ -789,6 +869,7 @@
     const frame = render(field, {
       fish,
       time,
+      turn: time * TURN,
       ringDrawn,
       front,
       inside,
@@ -808,7 +889,8 @@
     since = 0;
     frontFrom = -1;
     for (const one of fish) {
-      one.track = leaving(one.track, one.d);
+      one.track = leaving(one);
+      one.spiral = 0;
       one.arrive = null;
     }
   }
@@ -842,6 +924,7 @@
   }
 
   function update(dt) {
+    if (!field) return;
     time += dt;
     since += dt;
     if (decode !== undefined) {
@@ -860,6 +943,8 @@
         if (p >= 1) one.arrive = null;
       } else {
         one.d += one.speed * dt;
+        // Once back on the circle, the body curls out into its spiral again.
+        if (mode !== "leaving") one.spiral = Math.min(1, one.spiral + dt * 0.7);
       }
       one.phase += dt * (5.4 + one.speed * 8);
       one.fin += dt * (4.2 + one.speed * 6);
@@ -890,13 +975,15 @@
       if (p > 0) figure.dataset.art = "koi";
       ringDrawn = smooth(0.55, 1.9, since);
       if (since > 1.0 && fish.every((one) => one.gone && !one.arrive)) {
-        // In from the left and right, along lines that meet the orbit.
+        // In from the left along the top and from the right along the
+        // bottom, on lines that meet the orbit.
         const run = field.halfW + LENGTH + 0.4;
-        const angles = [-Math.PI / 2, Math.PI / 2];
+        const angles = [Math.PI / 2, -Math.PI / 2];
         fish = [makeFish("ink", angles[0]), makeFish("paper", angles[1])];
         for (const [n, one] of fish.entries()) {
           one.track = arriving(angles[n], run);
           one.arrive = { start: time, span: 1.9, run };
+          one.spiral = 0;
           one.d = 0;
         }
       }
@@ -931,6 +1018,8 @@
   }
 
   button.addEventListener("click", async () => {
+    // The button stops calling for attention once someone has tried it.
+    figure.dataset.tried = "";
     const toFace = figure.dataset.state !== "face";
     figure.dataset.state = toFace ? "face" : "koi";
     if (still) {
@@ -980,6 +1069,7 @@
   // For checking frames by hand: KOI.step(seconds) advances the scene.
   window.KOI = {
     step(seconds, fps = 24) {
+      if (!field) measure();
       for (let t = 0; t < seconds; t += 1 / fps) update(1 / fps);
       draw();
       return { mode, since, front, ringDrawn };
