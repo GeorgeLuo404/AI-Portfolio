@@ -20,8 +20,12 @@ Use pnpm.
 
 ## Where things live
 
-- `app/(portfolio)/`: the public site, with its own root layout. For now it holds a placeholder page, until the sections are built (T8).
-- `app/globals.css`: Tailwind and the placeholder's styles. T5 turns the design tokens into the theme.
+- `app/(portfolio)/[locale]/`: the public site in English (`/en`) and Chinese (`/zh`), with its root layout. The page is a placeholder until the sections are built (T8).
+- `app/globals.css`: the design tokens as Tailwind theme values, both themes, and the grid lengths measured from the headline.
+- `app/fonts/`: Archivo and JetBrains Mono, self-hosted, with their OFL licenses.
+- `components/`: the header, footer, and their parts, such as pixel icons and the language switch.
+- `i18n/` and `messages/`: next-intl routing and the English and Chinese text. Chinese falls back to English for any message it lacks, until T11.
+- `proxy.ts`: sends `/` to `/en` or `/zh` from the visitor's language. Next 16 calls middleware "proxy".
 - `design/`: the T3 HTML prototype that the Figma file is captured from. App code doesn't import from it. See `docs/DESIGN.md`.
 
 There is no `app/layout.tsx`. Every page must sit inside a route group that has a root layout, because Next 16.4 fails the build otherwise.
@@ -77,7 +81,7 @@ After a task merges, tag the merge commit `checkpoint/t<N>`. To undo a task, run
 
 If the dev server compiles for minutes or logs `Can't resolve 'tailwindcss'`, the `.next` cache is stale. Stop the server, delete `.next`, and start it again.
 
-If `tsc` reports a missing module in `.next/dev/types` after a route is deleted, the generated types are stale. Delete `.next` and run it again.
+If `tsc` reports a missing module in `.next/dev/types` after a route is deleted, the generated types are stale. Delete `.next` and run it again. Route types such as `PageProps` come from Next, so after deleting `.next`, run `pnpm exec next typegen` or a build before `tsc`.
 
 Check UI changes in a browser as well as with the build. A hydration error from the Next 16.4 upgrade passed the build, the type check, and `curl`, and only showed up in the browser console.
 

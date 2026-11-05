@@ -99,7 +99,7 @@ The page follows the visitor's system setting, and the header switch saves a cho
 
 ### Type
 
-All fonts are OFL. Production self-hosts them with `next/font/local`, because remote fonts break the mainland reachability rule. The grid depends on Archivo's exact metrics, so production must use the same Archivo version, or re-measure.
+All fonts are OFL. Production self-hosts them with `next/font/local` from `app/fonts/`, because remote fonts break the mainland reachability rule. The files are Fontsource's builds of the Google Fonts versions (Archivo variable, latin subset). The grid depends on Archivo's exact metrics, so check the letter edges against the grid lines when the hero is built (T8), and re-measure if the font changes.
 
 | Style | Font | Size | Line height | Tracking | Notes |
 |---|---|---|---|---|---|

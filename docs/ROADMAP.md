@@ -14,7 +14,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T3 | Design in Figma | Merged | `docs/t3-design` | `checkpoint/t3` |
 | T4 | Remove upstream code and Sanity | Merged | `chore/t4-remove-upstream` | `checkpoint/t4` |
 | T2b | Vercel deploy and mainland test | Not started | | |
-| T5 | Foundations | Not started | | |
+| T5 | Foundations | In review | `feat/t5-foundations` | |
 | T6 | Content files | Not started | | |
 | T7 | ASCII art | Not started | | |
 | T8 | Sections | Not started | | |
@@ -82,7 +82,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 
 ### T5: Foundations
 - Add `next-intl` with `/en` and `/zh` routes under `[locale]`, and a language switch. `/zh` falls back to English until T11.
-- Self-host the T3 fonts with `next/font/local`, replacing the font setup in `app/globals.css` that currently renders Times, and set `lang` per locale (`zh-CN` for Chinese).
+- Self-host the T3 fonts with `next/font/local`, and set `lang` per locale (`zh-CN` for Chinese).
 - Turn the T3 colors, type scale, spacing, and grid into Tailwind theme tokens.
 - Build the header and footer.
 - **Done when:** both routes render the header and footer at desktop, tablet, and phone widths.
@@ -228,4 +228,15 @@ Taken on 2026-11-06 on `chore/t4-remove-upstream`.
 | Dependencies | `next`, `react`, `react-dom`, plus dev tools. Sanity, `styled-components`, shadcn, Radix, Motion, and their helpers are gone, along with the `pnpm.overrides` for the Sanity CLI |
 | Third-party hosts contacted by the public page | None. The placeholder uses system fonts |
 | Routes | `/` only. `/studio` is gone |
+
+## After T5
+
+Taken on 2026-11-06 on `feat/t5-foundations`.
+
+| Check | Result |
+|---|---|
+| Build, type check, and Biome | Pass, 0 errors, 0 warnings |
+| Routes | `/en` and `/zh`, both static. `/` redirects by the browser's language |
+| Header and footer | Checked at 1440, 768, and 390, in both languages and both themes, with the phone menu |
+| Third-party hosts contacted by the page | None. Archivo and JetBrains Mono are self-hosted, and Chinese uses system fonts |
 
