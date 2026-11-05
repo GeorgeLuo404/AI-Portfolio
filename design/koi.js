@@ -602,13 +602,14 @@
       if (cov <= 0) return;
       const streak = (0.5 + 0.5 * Math.cos(across * Math.PI * 4.5)) ** 2;
       const value = solid
-        ? (0.68 - 0.36 * x) * (0.6 + 0.4 * streak)
+        ? // As dark as the body, with faint streaks and a softer edge.
+          (0.97 - 0.2 * x ** 2) * (0.84 + 0.16 * streak)
         : Math.max(
             0.7 * (1 - 0.4 * x) * outline(f, edge),
             0.06,
             0.26 * streak * (1 - 0.5 * x),
           );
-      over(f, k, cov * (solid ? 0.92 : 1), value);
+      over(f, k, cov, value);
     });
   }
 
