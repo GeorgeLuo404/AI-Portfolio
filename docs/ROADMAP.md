@@ -15,7 +15,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T4 | Remove upstream code and Sanity | Merged | `chore/t4-remove-upstream` | `checkpoint/t4` |
 | T2b | Vercel deploy and mainland test | Not started | | |
 | T5 | Foundations | Merged | `feat/t5-foundations` | `checkpoint/t5` |
-| T6 | Content files | Not started | | |
+| T6 | Content files | Merged | `feat/t6-content-files` | `checkpoint/t6` |
 | T7 | ASCII art | Not started | | |
 | T8 | Sections | Not started | | |
 | T9 | DeepSeek chat | Not started | | |
@@ -92,6 +92,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Write placeholder content of our own, so pages render before T10.
 - Add one loader that both the sections and the chat use.
 - **Done when:** a missing English field fails the type check, and `/zh` falls back to English.
+- Built as `content/`: one file per topic, the shapes in `content/types.ts`, and `getContent(locale)` in `content/index.ts`. `content/types.check.ts` holds type tests, so `tsc` fails if English stops being required. Facts about George moved there from the translation files: the chips, the Chinese name, and the contact details.
 
 ### T7: ASCII art
 - Generate the fixed ASCII art when the site builds, from `design/scripts/render-ascii.mjs`, and add our own converter for images, such as project screenshots.
@@ -240,3 +241,14 @@ Taken on 2026-11-06 on `feat/t5-foundations`.
 | Header and footer | Checked at 1440, 768, and 390, in both languages and both themes, with the phone menu |
 | Third-party hosts contacted by the page | None. Archivo and JetBrains Mono are self-hosted, and Chinese uses system fonts |
 
+## After T6
+
+Taken on 2026-11-06 on `feat/t6-content-files`.
+
+| Check | Result |
+|---|---|
+| Build, type check, and Biome | Pass, 0 errors, 0 warnings |
+| A project title with only Chinese | Fails the type check: `Property 'en' is missing` |
+| `/zh` with the Chinese intro removed, then set to "" | Shows the English intro both times |
+| Content without Chinese yet | The start date and the résumé link, which fall back to English |
+| Saved theme after switching language | Kept both ways, with no console errors. Before this fix, the switch cleared it and React warned about the theme script |

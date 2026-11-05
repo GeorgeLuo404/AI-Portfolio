@@ -169,7 +169,7 @@ All corners are square, borders are 1px, and nothing has a shadow. `design/found
 
 ## Placeholders for T10
 
-Replace these with real content:
+Replace these with real content, in the files in `content/`:
 
 - The intro, statement, and chips
 - Projects two and three, and the image wells, which become screenshots

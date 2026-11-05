@@ -17,15 +17,9 @@
     "menu": "菜单"
   },
   "home": {
-    "title": "AI / 前端开发工程师",
-    "placeholder": "罗卓君的作品集正在重建，新网站即将上线。"
+    "title": "AI / 前端开发工程师"
   },
   "footer": {
-    "chips": {
-      "ai": "AI 产品",
-      "frontend": "前端开发",
-      "open": "正在求职"
-    },
     "onThisSite": "本站",
     "home": "首页",
     "elsewhere": "其他平台",
@@ -34,7 +28,6 @@
     "wechat": "微信：{id}",
     "copyright": "© {year} 罗卓君",
     "credit": "版式参考 Faza Dzikrulloh 的 Hegia 概念设计",
-    "top": "回到顶部",
-    "localName": "罗卓君"
+    "top": "回到顶部"
   }
 }

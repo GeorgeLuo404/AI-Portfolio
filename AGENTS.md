@@ -4,7 +4,7 @@ Personal portfolio with an AI twin chat, built with Next.js. Visitors are both i
 
 Read [docs/ROADMAP.md](docs/ROADMAP.md) before starting work. It holds the task list, each task's scope, and the decisions behind them.
 
-Content will live in typed content files in the repo (T6). Don't add a CMS or a database for content.
+Content lives in typed content files in `content/`. Don't add a CMS or a database for content.
 
 ## Commands
 
@@ -24,7 +24,8 @@ Use pnpm.
 - `app/globals.css`: the design tokens as Tailwind theme values, both themes, and the grid lengths measured from the headline.
 - `app/fonts/`: Archivo and JetBrains Mono, self-hosted, with their OFL licenses.
 - `components/`: the header, footer, and their parts, such as pixel icons and the language switch.
-- `i18n/` and `messages/`: next-intl routing and the English and Chinese text. Chinese falls back to English for any message it lacks, until T11.
+- `content/`: every fact about George, such as projects, skills, roles, and contact details, typed in `content/types.ts` with English and Chinese side by side. Sections and the AI twin both read it through `getContent(locale)`, which falls back to English for any field without Chinese, until T11.
+- `i18n/` and `messages/`: next-intl routing and the English and Chinese interface text, such as headings, labels, and buttons. Chinese falls back to English for any message it lacks, until T11.
 - `proxy.ts`: sends `/` to `/en` or `/zh` from the visitor's language. Next 16 calls middleware "proxy".
 - `design/`: the T3 HTML prototype that the Figma file is captured from. App code doesn't import from it. See `docs/DESIGN.md`.
 
@@ -54,7 +55,8 @@ There is no `app/layout.tsx`. Every page must sit inside a route group that has 
 
 **Translations**
 - From T5 onward, put user-facing text in translation files, not in components.
-- From T6 onward, content lives in typed content files, with English and Chinese side by side.
+- From T6 onward, facts about George go in `content/`, with English and Chinese side by side. Interface wording goes in `messages/`.
+- Never put a phone number, home address, or anything else private in `content/`, because the chat repeats it to anyone.
 
 **Design**
 - The layout closely follows a Dribbble concept by Faza Dzikrulloh, by George's choice (see T3 in `docs/ROADMAP.md`). Never reproduce its artwork, wording, or logo marks, and keep the credit to its designer.
@@ -82,6 +84,8 @@ After a task merges, tag the merge commit `checkpoint/t<N>`. To undo a task, run
 If the dev server compiles for minutes or logs `Can't resolve 'tailwindcss'`, the `.next` cache is stale. Stop the server, delete `.next`, and start it again.
 
 If `tsc` reports a missing module in `.next/dev/types` after a route is deleted, the generated types are stale. Delete `.next` and run it again. Route types such as `PageProps` come from Next, so after deleting `.next`, run `pnpm exec next typegen` or a build before `tsc`.
+
+React clears every attribute on `<html>` that it didn't render itself whenever the layout remounts, such as after switching language. Anything a script sets there, like the theme, has to be set again from a client component (see `components/theme-toggle.tsx`).
 
 Check UI changes in a browser as well as with the build. A hydration error from the Next 16.4 upgrade passed the build, the type check, and `curl`, and only showed up in the browser console.
 

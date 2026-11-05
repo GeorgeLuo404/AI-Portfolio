@@ -1,16 +1,8 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { getContent } from "@/content";
 import { LangSwitch } from "./lang-switch";
 
 const SECTIONS = ["work", "skills", "experience", "contact"] as const;
-
-// Placeholders until the real content arrives (T10).
-const CONTACT = {
-  github: "https://github.com/GeorgeLuo404",
-  linkedin: "#top",
-  resume: "#top",
-  email: "you@example.com",
-  wechat: "your-wechat-id",
-};
 
 // The footer stays dark in both themes: the name in giant type with chips
 // over it, links, contact details, the credit, and the language switch.
@@ -19,7 +11,9 @@ export function Footer() {
   const header = useTranslations("header");
   const chip =
     "absolute z-1 inline-flex h-[30px] items-center bg-signal px-3.5 text-[11px] font-medium tracking-chip whitespace-nowrap text-white uppercase";
-  const localName = t("localName");
+  const locale = useLocale();
+  const { profile, contact } = getContent(locale);
+  const [ai, frontend, open] = profile.chips;
   return (
     <footer className="ink">
       <div className="frame pt-16 sm:pt-[88px]">
@@ -41,23 +35,23 @@ export function Footer() {
             aria-hidden="true"
             className={`${chip} top-[calc(var(--f-name)*0.4)] left-3 sm:left-[calc(var(--L1)*0.42)]`}
           >
-            {t("chips.ai")}
+            {ai}
           </span>
           <span
             aria-hidden="true"
             className={`${chip} top-[calc(var(--f-name)*1.1)] left-(--L2)`}
           >
-            {t("chips.frontend")}
+            {frontend}
           </span>
           <span
             aria-hidden="true"
             className={`${chip} top-[calc(var(--f-name)*0.2)] right-3 sm:right-auto sm:left-[calc(var(--L3)+24px)]`}
           >
-            {t("chips.open")}
+            {open}
           </span>
-          {localName && (
+          {locale === "zh" && (
             <p className="relative mt-6 pl-(--L2) text-[clamp(26px,2.5vw,36px)] leading-[1.25] font-black tracking-[0.02em]">
-              {localName}
+              {profile.chineseName}
             </p>
           )}
         </div>
@@ -85,13 +79,13 @@ export function Footer() {
             <h3 className="mb-2 text-sm font-semibold text-fg">
               {t("elsewhere")}
             </h3>
-            <a href={CONTACT.github} className="hover:text-signal-text">
+            <a href={contact.github} className="hover:text-signal-text">
               GitHub
             </a>
-            <a href={CONTACT.linkedin} className="hover:text-signal-text">
+            <a href={contact.linkedin} className="hover:text-signal-text">
               LinkedIn
             </a>
-            <a href={CONTACT.resume} className="hover:text-signal-text">
+            <a href={contact.resume} className="hover:text-signal-text">
               {t("resume")}
             </a>
           </div>
@@ -100,12 +94,12 @@ export function Footer() {
               {t("contact")}
             </h3>
             <a
-              href={`mailto:${CONTACT.email}`}
+              href={`mailto:${contact.email}`}
               className="hover:text-signal-text"
             >
-              {CONTACT.email}
+              {contact.email}
             </a>
-            <span>{t("wechat", { id: CONTACT.wechat })}</span>
+            <span>{t("wechat", { id: contact.wechat })}</span>
           </div>
         </div>
 
