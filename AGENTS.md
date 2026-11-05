@@ -27,6 +27,7 @@ Use pnpm.
 - `components/ui/`: shadcn components, plus two Aceternity components that T4 removes.
 - `sanity/schemaTypes/`: the content schema.
 - `sanity/lib/`: Sanity client, image URLs, and live content helpers.
+- `design/`: the T3 HTML prototype that the Figma file is captured from. App code doesn't import from it. See `docs/DESIGN.md`.
 
 There is no `app/layout.tsx`. Every page must sit inside a route group that has a root layout, because Next 16.4 fails the build otherwise.
 
@@ -60,8 +61,9 @@ Run `pnpm typegen` after changing a schema or a GROQ query. Don't edit `schema.j
 - From T6 onward, content lives in typed content files, with English and Chinese side by side.
 
 **Design**
-- The look borrows the style of a Dribbble shot (see T3 in `docs/ROADMAP.md`). Never reproduce its artwork, wording, logo marks, or exact composition.
-- Once T3 is approved, build UI from `docs/DESIGN.md` and its Figma file, including its rules for Chinese text.
+- The layout closely follows a Dribbble concept by Faza Dzikrulloh, by George's choice (see T3 in `docs/ROADMAP.md`). Never reproduce its artwork, wording, or logo marks, and keep the credit to its designer.
+- The grid lines are measured from the hero headline's letters, and display heading sizes are solved against them. If a display heading's words change, solve its size again (see `docs/DESIGN.md`).
+- Once T3 is approved, build UI from `docs/DESIGN.md` and its Figma file, including its rules for Chinese text and both themes.
 
 **Upstream**
 - This project started from [an upstream repo](https://github.com/sonnysangha/next-gen-ai-portfolio-openai-agentkit-sanity-clerk-nextjs-16) whose README limits use of its code. T4 removes all upstream-derived code, and T12 cleans the public history.

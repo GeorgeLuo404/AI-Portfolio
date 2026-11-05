@@ -11,7 +11,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T0 | Baseline and project docs | Merged | `chore/t0-baseline-docs` | `checkpoint/t0` |
 | T1 | Upgrade dependencies, remove Clerk and `/dashboard` | Merged | `chore/t1-upgrade-deps` | `checkpoint/t1` |
 | T2a | Lint and CI | Merged | `chore/t2-lint-ci` | `checkpoint/t2a` |
-| T3 | Design in Figma | Not started | | |
+| T3 | Design in Figma | Merged | `docs/t3-design` | `checkpoint/t3` |
 | T4 | Remove upstream code and Sanity | Not started | | |
 | T2b | Vercel deploy and mainland test | Not started | | |
 | T5 | Foundations | Not started | | |
@@ -55,14 +55,15 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - **Done when:** lint passes with no errors, and CI passes on GitHub.
 
 ### T3: Design in Figma
-- Base the look on the style of the Dribbble shot "Hegia – Personal Website for Developer": electric blue on white and black, giant grotesk headings, thin grid lines, ASCII and dithered art, tag chips, numbered project rows, and a page that turns dark toward the end.
-- Borrow the style only. Make the artwork, wording, logo marks, and exact composition our own, such as an ASCII portrait made from George's photo, and rewrite the shot's agency pitch for job hunting.
-- Sections, in order: a hero with George's name, title, skill tags, ASCII portrait, and an "Ask my AI twin" box; selected work; a skills word stack; an experience accordion on dark; an open-to-roles call to action with email and WeChat ID; and a footer with the name in giant type and the language switch.
-- Chinese: keep the giant English words as graphics in both languages, with a bold Chinese heading under them, and set Chinese on its own where the meaning matters, such as the job title. Use system fonts for Chinese body text, and a heavy Chinese display font such as Source Han Sans Heavy (OFL), trimmed to the characters used. An OFL pixel font with Chinese, such as Ark Pixel, is an option for labels.
-- Leave out a light/dark toggle, because the page itself moves from light to dark.
+- Follow the Dribbble shot "Hegia – Personal Website for Developer" by Faza Dzikrulloh as closely as possible, as George asked on 2026-11-05: its composition, a grid whose lines run along the headline's letters, giant grotesk headings, electric blue on white and black, tag chips, a dark accordion, and a page that turns dark toward the end.
+- Make the artwork, wording, and logo marks our own, such as the hero's two koi drawn in characters, and rewrite the shot's agency pitch for job hunting. Credit the designer in the footer.
+- Sections, in order: a hero with the title, skill tags, intro, the koi art with a photo reveal, and the "Ask my AI twin" window; selected work; a skills word stack; an experience accordion on dark; a call to action with email and WeChat ID; and a footer with the name in giant type and the language switch.
+- Chinese: keep the giant English words as graphics in both languages, the hero title included, with a bold Chinese heading as the real heading. Use George's Chinese name, 罗卓君. Use system fonts for Chinese body text, and a heavy Chinese display font such as Source Han Sans Heavy (OFL), trimmed to the characters used.
+- Light and dark themes: follow the system setting, with a switch in the header.
 - Build the design as a static HTML page under `design/` at 1440, 768, and 390 px wide, check it in a browser, then capture each width into a new Figma file in George's team. On Figma's Starter plan, MCP read calls are capped at about 20 a month, but creating files and capturing pages aren't counted. Starter files are reported to allow 3 pages: use them for foundations, the English pages, and the Chinese versions.
 - Use placeholder text for George's title and projects until T10.
 - Record the decisions, design tokens, and the Figma link in `docs/DESIGN.md`.
+- **Result so far:** the prototype in `design/`, the [Figma file](https://www.figma.com/design/yOam3gCoyO0uew2262qVq9), and `docs/DESIGN.md`. Decided: the headline "AI / Web Engineer" on both pages, with "AI / 前端开发工程师" as the Chinese heading. On 2026-11-05 George replaced the tree with two koi in a yin-yang, for his sign, Pisces, and a button that swaps them for his photo. On 2026-11-06 the Figma file was captured again from this version: Foundations at 1440, English at 1440 (light and dark), 768, and 390, and Chinese at 1440 and 390.
 - **Done when:** George approves the Figma file and `docs/DESIGN.md`.
 
 ### T4: Remove upstream code and Sanity
@@ -93,9 +94,10 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - **Done when:** a missing English field fails the type check, and `/zh` falls back to English.
 
 ### T7: ASCII art
-- Write our own converter that turns an image into ASCII or dithered art when the site builds, with an optional animated version that respects the reduced-motion setting.
-- Mark the art as decorative for screen readers.
-- **Done when:** it renders a placeholder photo at all three widths without layout shift.
+- Generate the fixed ASCII art when the site builds, from `design/scripts/render-ascii.mjs`, and add our own converter for images, such as project screenshots.
+- Port the hero's koi and photo reveal from `design/koi.js` to a client component. Keep the load animation optional, pause the koi off screen, and hold them still with reduced motion.
+- Mark the art as decorative for screen readers, and give the photo alt text.
+- **Done when:** the koi, the ripples, and a converted placeholder image render at all three widths without layout shift.
 
 ### T8: Sections
 - Build each section from the Figma file at desktop, tablet, and phone widths, with text from translation and content files, and images through `next/image`.
@@ -112,8 +114,8 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - **Done when:** replies stream from a mainland network, the test set passes, and the rate limit works.
 
 ### T10: Real content
-- George shares the resume and a photo outside the repo. Move only public facts into the content files, in English first, with no phone number or home address, because the repo is public.
-- Use the photo for the ASCII portrait.
+- George shares the resume outside the repo. Move only public facts into the content files, in English first, with no phone number or home address, because the repo is public.
+- Replace the placeholder project images with screenshots.
 - **Done when:** no placeholder content remains.
 
 ### T11: Chinese translation
@@ -125,7 +127,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 ### T12: Clean public history
 - Re-run the similarity scan against upstream, and confirm no upstream-derived code remains apart from shared open-source parts such as shadcn.
 - Publish the clean tree as a fresh history, either a new repo or a reset of this one, and make the old history private. George decides which, because both are hard to undo.
-- Remove the upstream credit from `README.md` only after both steps, or keep a voluntary "inspired by" note. Credit the Dribbble designer there too, if their name is known.
+- Remove the upstream credit from `README.md` only after both steps, or keep a voluntary "inspired by" note. Credit the Dribbble designer, Faza Dzikrulloh, there too.
 - **Done when:** the public repo has no upstream-derived code anywhere in its history.
 
 ### T13: Production launch
@@ -156,9 +158,11 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Keep the block that `next dev` adds to `AGENTS.md` | It points agents to docs matching the installed Next version, and committing it avoids a dirty diff after every dev run. |
 | Keep the GitHub repo public | Owner's choice. Everything committed is public, so private details stay out of the repo. |
 | Build our own design, and stop porting upstream (2026-11-04) | Copyright covers code, not ideas, so once no upstream-derived code remains, its permission and attribution terms no longer apply. It also avoids porting sections that a later redesign would throw away. |
-| Base the design on the style of a Dribbble shot, not its artwork (2026-11-05) | George's choice of look. A style is free to borrow, but the shot's artwork, wording, logo marks, and exact composition belong to its designer. |
+| Follow a Dribbble shot's composition closely, with our own artwork and words (2026-11-05) | George's choice. Layout and grid are design ideas, while the shot's artwork, wording, and logo belong to its designer, Faza Dzikrulloh, who is credited in the footer. Replaces that morning's decision to borrow the style only. |
+| Measure the grid lines from the hero headline's letters (2026-11-05) | It's what makes the reference look engineered, and George asked for it. Other display headings are sized so their letters land on the same lines. |
+| Keep English display words on the Chinese page, the hero title included (2026-11-05) | George's choice. The Chinese heading beside each graphic carries the meaning. Replaces setting the Chinese hero title on its own. |
 | Design in HTML first, then capture it into Figma (2026-11-05) | Figma's Starter plan caps MCP read calls at about 20 a month, but creating files and capturing pages aren't counted. The HTML page also serves as the reference for T5 and T8. |
-| No light/dark toggle (2026-11-05) | The design moves from light to dark down the page by itself. |
+| Light and dark themes with a switch (2026-11-05) | George asked for both. The page follows the system setting until the visitor picks one. Replaces that morning's decision to leave the toggle out. |
 | Replace Sanity with typed content files in the repo (2026-11-05) | One editor, little content, rare changes. Files need nothing running, keep pages fully static for mainland visitors, get version history and rollback from git, turn translation into a reviewable diff, and let the Chinese font be trimmed at build time. Payload CMS can sit on top later if a web admin is wanted. Replaces the 2026-11-03 decision to keep Sanity. |
 | Give the chat full context, not RAG (2026-11-05) | The content fits easily in `deepseek-flash`'s 1M-token context and caches cheaply. Retrieval can miss facts, and DeepSeek has no embeddings API. |
 | Keep the chat in TypeScript (2026-11-05) | One codebase and one deploy. A Python service can replace it later behind the same API. |
@@ -170,8 +174,7 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 |---|---|---|
 | Buy a `.com` domain through Vercel | T2b | George |
 | Find a tester on a mainland network without a VPN | T2b | George |
-| Share the resume and a photo, outside the repo | T10 | George |
-| Find the Dribbble designer's name, for an optional credit | T12 | George |
+| Share the resume, outside the repo | T10 | George |
 | Keep the upstream credit in `README.md` while upstream-derived code remains | Until T12 | Everyone |
 | Decide whether the chat stays on for mainland visitors, given China's rules on public AI services | T13 | George |
 | Delete the Clerk app and remove its keys from `.env.local` | Now | George |

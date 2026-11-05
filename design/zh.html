@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>首页，中文</title>
+    <script>
+      // Theme before first paint: ?theme= wins, then a saved choice, then the system setting.
+      (() => {
+        const params = new URLSearchParams(location.search);
+        let theme = params.get("theme");
+        if (theme !== "light" && theme !== "dark") {
+          try {
+            theme = localStorage.getItem("theme");
+          } catch {}
+        }
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.dataset.theme = theme;
+        }
+        if (params.has("grid")) document.documentElement.classList.add("show-grid");
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="ascii.js"></script>
+    <script src="site.js" defer></script>
+    <script src="koi.js" defer></script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="nav">
+        <div class="frame">
+          <span class="vline vline--l3 nav__line" aria-hidden="true"></span>
+          <a class="nav__brand" href="#top">
+            <span class="mark mark--sm"><span data-px="mark" data-size="12"></span></span>
+            <span><b class="zh-name">罗卓君</b> <span lang="en">George Luo</span></span>
+          </a>
+          <nav class="nav__links" aria-label="页面分区">
+            <a href="#work">项目</a>
+            <a href="#skills">技能</a>
+            <a href="#experience">经历</a>
+            <a href="#contact">联系</a>
+          </nav>
+          <div class="nav__tools">
+            <div class="lang" aria-label="语言">
+              <a href="index.html" lang="en">EN</a>
+              <a href="zh.html" aria-current="page">中文</a>
+            </div>
+            <button class="theme-toggle" type="button" data-theme-toggle data-label-dark="切换到深色模式" data-label-light="切换到浅色模式">
+              <span data-px="moon" data-size="14"></span>
+            </button>
+            <button class="nav__ask" type="button" data-chat>
+              <span data-px="chat" data-size="14"></span>
+              <span>问我的 AI 分身</span>
+            </button>
+            <button class="nav__menu" type="button" aria-label="菜单" aria-expanded="false" data-menu>
+              <span data-px="menu" data-size="16"></span>
+            </button>
+          </div>
+          <div class="nav__sheet">
+            <a href="#work">项目</a>
+            <a href="#skills">技能</a>
+            <a href="#experience">经历</a>
+            <a href="#contact">联系</a>
+            <div class="lang" aria-label="语言">
+              <a href="index.html" lang="en">English</a>
+              <a href="zh.html" aria-current="page">中文</a>
+            </div>
+            <a class="nav__sheet-ask" href="#twin" data-chat>
+              <span data-px="chat" data-size="14"></span> 问我的 AI 分身
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" id="top" aria-labelledby="hero-title">
+          <div class="frame">
+            <span class="hero__vline" aria-hidden="true"></span>
+            <span class="hero__vline hero__vline--2" aria-hidden="true"></span>
+            <span class="hero__vline hero__vline--3" aria-hidden="true"></span>
+
+            <h1 class="sr-only" id="hero-title">AI / 前端开发工程师</h1>
+            <p class="hero__title display" aria-hidden="true" lang="en">
+              <span class="hl hl--ai">AI <span class="slash">/</span></span>
+              <span class="hl hl--web">Web</span>
+              <span class="hl hl--eng">Engineer</span>
+            </p>
+
+            <ul class="hero__chips" aria-label="方向">
+              <li class="chip">AI 产品</li>
+              <li class="chip">前端开发</li>
+              <li class="chip">正在求职</li>
+            </ul>
+
+            <div class="hero__side">
+              <div class="hero__intro">
+                <div class="hero__intro-text">
+                  <p>
+                    我是罗卓君，一名 <mark>AI 与前端开发工程师</mark>。从模型调用、数据到每天被使用的界面，整条链路我都能做。
+                  </p>
+                </div>
+                <span class="mark hero__mark" aria-hidden="true">
+                  <span data-px="mark" data-size="42"></span>
+                </span>
+              </div>
+              <figure class="hero__art" data-koi data-state="koi" data-art="koi">
+                <div class="koi ascii-box">
+                  <canvas class="koi__mask" aria-hidden="true"></canvas>
+                  <pre class="ascii" aria-hidden="true"></pre>
+                  <img class="koi__photo" data-src="assets/george.jpg" alt="罗卓君戴着黑色毛线帽，在海边观景台竖起大拇指" width="1040" height="976" decoding="async" />
+                </div>
+                <button class="btn btn--signal koi__toggle" type="button" data-koi-toggle>
+                  <span data-when="koi"><span data-px="face" data-size="16"></span>我长啥样</span>
+                  <span data-when="face"><span data-px="fish" data-size="14"></span>把鱼叫回来</span>
+                </button>
+                <figcaption>
+                  <span data-when="koi"><b>图 1</b><span>用 <span data-koi-count></span> 个字符画成的两条锦鲤</span></span>
+                  <span data-when="face"><b>图 2</b><span>罗卓君本人</span></span>
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="hero__statement">
+              <p>从第一句提示词到最后一个像素，我做经得起真实用户检验的 AI 产品。</p>
+            </div>
+
+            <div class="hero__stage">
+              <svg class="stage__lines" aria-hidden="true"></svg>
+              <div class="stage__back stage__back--panel" aria-hidden="true"></div>
+              <div class="stage__back stage__back--signal" aria-hidden="true">
+                <span data-px="chat" data-size="16" style="color: #fff"></span>
+              </div>
+              <div class="twin" id="twin">
+                <div class="twin__head">
+                  <span class="twin__title">
+                    <span data-px="chat" data-size="14"></span>
+                    问我的 AI 分身
+                  </span>
+                  <span class="twin__state">在线</span>
+                </div>
+                <div class="twin__body">
+                  <div class="twin__input">
+                    <span class="twin__prompt">&gt;</span>
+                    <span class="twin__placeholder">罗卓君用 AI 做过什么？</span>
+                    <span class="caret" aria-hidden="true"></span>
+                  </div>
+                  <div class="twin__suggest">
+                    <button class="suggest" type="button" data-chat>近期项目</button>
+                    <button class="suggest" type="button" data-chat>技术栈</button>
+                    <button class="suggest" type="button" data-chat>何时到岗</button>
+                  </div>
+                  <div class="twin__foot">
+                    <span>回答来自我的简历和项目，可能有误。</span>
+                    <button class="btn btn--signal" type="button" data-chat>
+                      提问 <span data-px="send" data-size="11"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a class="hero__scroll" href="#work">
+              向下滚动 <span data-px="down" data-size="11"></span>
+            </a>
+          </div>
+        </section>
+
+        <section class="work" id="work" aria-labelledby="work-title">
+          <div class="frame">
+            <span class="vline vline--l3" aria-hidden="true"></span>
+            <header class="sec-head">
+              <span class="vline vline--local" aria-hidden="true"></span>
+              <p class="sec-head__title display" aria-hidden="true" lang="en">
+                <span class="s1">Selected</span>
+                <span class="s2">Work</span>
+              </p>
+              <div class="sec-head__aside">
+                <h2 class="zh-heading" id="work-title">精选项目</h2>
+                <p>三个项目，每个都写清楚我做了什么、带来了什么改变。</p>
+              </div>
+            </header>
+
+            <article class="project">
+              <p class="project__year">2026</p>
+              <div class="project__text">
+                <h3 class="project__title">AI 作品集分身</h3>
+                <p class="project__desc">
+                  就是本站的对话功能。它根据我的简历和项目回答招聘方的问题，并拒绝无关话题。
+                </p>
+                <ul class="chips" aria-label="技术">
+                  <li class="chip chip--muted">Next.js</li>
+                  <li class="chip chip--muted">AI SDK</li>
+                  <li class="chip chip--muted">DeepSeek</li>
+                </ul>
+                <div class="project__actions">
+                  <a class="btn btn--signal" href="#work">
+                    查看项目 <span data-px="external" data-size="10"></span>
+                  </a>
+                  <a class="btn btn--ghost" href="#work">源代码</a>
+                </div>
+              </div>
+              <div class="project__media project__media--pair">
+                <div class="screen screen--phone">
+                  <div class="screen__bar"><span>twin</span><span>9:41</span></div>
+                  <div class="screen__body ascii-box">
+                    <pre class="ascii" data-ascii="orbit" aria-hidden="true"></pre>
+                  </div>
+                </div>
+                <div class="screen">
+                  <div class="screen__bar"><span>ai-twin</span><span>/projects/ai-twin</span></div>
+                  <div class="screen__body ascii-box">
+                    <pre class="ascii" data-ascii="orbit" aria-hidden="true"></pre>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="project project--flip">
+              <p class="project__year">2025</p>
+              <div class="project__text">
+                <h3 class="project__title">项目二</h3>
+                <p class="project__desc">
+                  占位文字。用一两句话写问题、你做了什么和结果，有数字就写上数字。
+                </p>
+                <ul class="chips" aria-label="技术">
+                  <li class="chip chip--muted">TypeScript</li>
+                  <li class="chip chip--muted">PostgreSQL</li>
+                  <li class="chip chip--muted">AWS</li>
+                </ul>
+                <div class="project__actions">
+                  <a class="btn btn--signal" href="#work">
+                    查看项目 <span data-px="external" data-size="10"></span>
+                  </a>
+                  <a class="btn btn--ghost" href="#work">源代码</a>
+                </div>
+              </div>
+              <div class="project__media">
+                <div class="screen">
+                  <div class="screen__bar"><span>project-two</span><span>/projects/two</span></div>
+                  <div class="screen__body ascii-box">
+                    <pre class="ascii" data-ascii="cube" aria-hidden="true"></pre>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="project">
+              <p class="project__year">2024</p>
+              <div class="project__text">
+                <h3 class="project__title">项目三</h3>
+                <p class="project__desc">
+                  占位文字。保持同样的结构：问题、你做了什么、对使用者带来了什么改变。
+                </p>
+                <ul class="chips" aria-label="技术">
+                  <li class="chip chip--muted">Python</li>
+                  <li class="chip chip--muted">FastAPI</li>
+                  <li class="chip chip--muted">Docker</li>
+                </ul>
+                <div class="project__actions">
+                  <a class="btn btn--signal" href="#work">
+                    查看项目 <span data-px="external" data-size="10"></span>
+                  </a>
+                  <a class="btn btn--ghost" href="#work">源代码</a>
+                </div>
+              </div>
+              <div class="project__media">
+                <div class="screen">
+                  <div class="screen__bar"><span>project-three</span><span>/projects/three</span></div>
+                  <div class="screen__body ascii-box">
+                    <pre class="ascii" data-ascii="slabs" aria-hidden="true"></pre>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="skills" id="skills" aria-labelledby="skills-title">
+          <div class="frame">
+            <div class="skills__art skills__art--left ascii-box" aria-hidden="true">
+              <pre class="ascii ascii--faint" data-ascii="ring"></pre>
+            </div>
+            <div class="skills__art skills__art--right ascii-box" aria-hidden="true">
+              <pre class="ascii ascii--faint" data-ascii="orbit"></pre>
+            </div>
+            <h2 class="zh-heading skills__heading" id="skills-title">技能</h2>
+            <div class="skills__stack">
+              <span class="skills__deco skills__deco--spark" data-px="spark" data-size="40" aria-hidden="true"></span>
+              <span class="vline vline--l1" aria-hidden="true"></span>
+              <span class="vline vline--l2" aria-hidden="true"></span>
+              <span class="vline vline--l3" aria-hidden="true"></span>
+              <ul class="skill-lines" aria-hidden="true" lang="en">
+                <li>AI agents</li>
+                <li>
+                  <span>Full-stack</span>
+                  <span class="split" aria-hidden="true"></span>
+                  <span class="paren" aria-hidden="true">(</span>
+                  <span class="skill-thumb" aria-hidden="true">
+                    <span class="ascii-box"><pre class="ascii" data-ascii="cube"></pre></span>
+                  </span>
+                  <span class="paren" aria-hidden="true">)</span>
+                  <span>web</span>
+                  <span class="mark" aria-hidden="true"><span data-px="mark" data-size="22"></span></span>
+                </li>
+                <li>Data &amp; cloud</li>
+              </ul>
+              <span class="skills__deco skills__deco--carets" data-px="carets" data-size="44" aria-hidden="true"></span>
+              <span class="skills__deco skills__deco--brace" data-px="brace" data-size="64" aria-hidden="true"></span>
+            </div>
+            <ul class="skills__legend">
+              <li><b>AI 智能体</b>LLM 应用、检索、工具调用与评测</li>
+              <li><b>全栈网页</b>TypeScript、React、Next.js 与 Node</li>
+              <li><b>数据与云</b>Python、PostgreSQL、Docker 与 AWS</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="exp ink" id="experience" aria-labelledby="exp-title">
+          <div class="frame">
+            <span class="vline vline--l3" aria-hidden="true"></span>
+            <div class="exp__top">
+              <div class="exp__aside">
+                <h2 class="zh-heading" id="exp-title">经历</h2>
+                <p>按时间排列的职位，写清楚我负责什么、交付了什么。点开查看详情。</p>
+              </div>
+            </div>
+            <div class="exp__head">
+              <span class="vline vline--local" aria-hidden="true"></span>
+              <p class="exp__title display" aria-hidden="true" lang="en"><span>Experience</span></p>
+              <div class="exp__links">
+                <a class="chip chip--solid exp__chip" href="#experience">
+                  简历 PDF <span data-px="download" data-size="10"></span>
+                </a>
+                <a class="chip chip--solid exp__chip" href="#experience">
+                  LinkedIn <span data-px="external" data-size="10"></span>
+                </a>
+                <a class="chip chip--solid exp__chip" href="#experience">
+                  GitHub <span data-px="external" data-size="10"></span>
+                </a>
+              </div>
+            </div>
+            <div class="exp__body">
+              <div class="exp__art" aria-hidden="true">
+                <div class="ascii-box"><pre class="ascii ascii--faint" data-ascii="ring"></pre></div>
+                <span class="mark"><span data-px="mark" data-size="30"></span></span>
+              </div>
+              <div class="exp__list">
+                <p class="exp__lead">工作与教育经历</p>
+                <ol class="timeline">
+                  <li class="role is-open">
+                    <button class="role__head" type="button" aria-expanded="true">
+                      <span class="role__dates">2024 至今</span>
+                      <span class="role__title">软件工程师</span>
+                      <span class="role__org">公司名称</span>
+                      <span class="role__toggle" data-px="minus" data-size="12"></span>
+                    </button>
+                    <div class="role__body">
+                      <ul>
+                        <li>占位：每行写一个成果，以动词开头。</li>
+                        <li>有数字就写数字，比如节省的时间或覆盖的用户。</li>
+                      </ul>
+                      <ul class="chips" aria-label="用到的技术">
+                        <li class="chip chip--muted">TypeScript</li>
+                        <li class="chip chip--muted">React</li>
+                        <li class="chip chip--muted">AWS</li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="role">
+                    <button class="role__head" type="button" aria-expanded="false">
+                      <span class="role__dates">2022–2024</span>
+                      <span class="role__title">职位名称</span>
+                      <span class="role__org">公司名称</span>
+                      <span class="role__toggle" data-px="plus" data-size="12"></span>
+                    </button>
+                    <div class="role__body"><ul><li>占位成果。</li></ul></div>
+                  </li>
+                  <li class="role">
+                    <button class="role__head" type="button" aria-expanded="false">
+                      <span class="role__dates">2021–2022</span>
+                      <span class="role__title">职位名称</span>
+                      <span class="role__org">公司名称</span>
+                      <span class="role__toggle" data-px="plus" data-size="12"></span>
+                    </button>
+                    <div class="role__body"><ul><li>占位成果。</li></ul></div>
+                  </li>
+                  <li class="role">
+                    <button class="role__head" type="button" aria-expanded="false">
+                      <span class="role__dates">2017–2021</span>
+                      <span class="role__title">学位</span>
+                      <span class="role__org">大学</span>
+                      <span class="role__toggle" data-px="plus" data-size="12"></span>
+                    </button>
+                    <div class="role__body"><ul><li>占位详情。</li></ul></div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="cta ink" id="contact" aria-labelledby="cta-title">
+          <div class="frame">
+            <div class="cta__art ascii-box" aria-hidden="true">
+              <pre class="ascii ascii--faint" data-ascii="ripples"></pre>
+            </div>
+            <div class="cta__head" aria-hidden="true" lang="en">
+              <span class="cta__brace">{</span>
+              <p class="cta__title">
+                <span>
+                  Hiring an AI<span class="cta__spark" data-px="spark" data-size="28"></span>
+                </span>
+                <span>&amp; web engineer?</span>
+              </p>
+              <span class="cta__brace">}</span>
+            </div>
+            <h2 class="zh-heading cta__zh" id="cta-title">需要一位 AI 与前端开发工程师？</h2>
+            <p class="cta__text">全职，远程或驻场皆可。发邮件最快，AI 分身也随时可以回答基本问题。</p>
+            <div class="cta__actions">
+              <a class="btn btn--light" href="mailto:you@example.com">
+                <span data-px="mail" data-size="13"></span> 发邮件
+              </a>
+              <button class="btn btn--line" type="button" data-copy="your-wechat-id" data-done="已复制微信号">
+                <span data-px="copy" data-size="13"></span>
+                <span data-label>复制微信号</span>
+              </button>
+              <button class="btn btn--signal" type="button" data-chat>
+                <span data-px="chat" data-size="13"></span> 问我的 AI 分身
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer ink">
+        <div class="frame">
+          <div class="footer__head">
+            <span class="vline vline--l2" aria-hidden="true"></span>
+            <div class="footer__art ascii-box" aria-hidden="true">
+              <pre class="ascii ascii--faint" data-koi-still="58"></pre>
+            </div>
+            <p class="footer__name display" aria-hidden="true" lang="en">
+              <span class="n1">George</span>
+              <span class="n2">Luo</span>
+            </p>
+            <span class="chip chip--solid footer__chip footer__chip--1" aria-hidden="true">AI 产品</span>
+            <span class="chip chip--solid footer__chip footer__chip--2" aria-hidden="true">前端开发</span>
+            <span class="chip chip--solid footer__chip footer__chip--3" aria-hidden="true">正在求职</span>
+            <p class="zh-heading footer__zh">罗卓君</p>
+          </div>
+          <div class="footer__body">
+            <nav class="footer__nav" aria-label="本站">
+              <a href="#top">首页</a><span class="slash" aria-hidden="true">/</span>
+              <a href="#work">项目</a><span class="slash" aria-hidden="true">/</span>
+              <a href="#skills">技能</a><span class="slash" aria-hidden="true">/</span>
+              <a href="#experience">经历</a><span class="slash" aria-hidden="true">/</span>
+              <a href="#contact">联系</a>
+            </nav>
+            <div class="footer__col">
+              <h3>其他平台</h3>
+              <a href="#top">GitHub</a>
+              <a href="#top">LinkedIn</a>
+              <a href="#top">简历 PDF</a>
+            </div>
+            <div class="footer__col">
+              <h3>联系方式</h3>
+              <a href="mailto:you@example.com">you@example.com</a>
+              <span>微信：your-wechat-id</span>
+            </div>
+          </div>
+          <div class="footer__base">
+            <span>© 2026 罗卓君</span>
+            <span>版式参考 Faza Dzikrulloh 的 Hegia 概念设计</span>
+            <nav aria-label="语言">
+              <a href="index.html" lang="en">English</a>
+              <a href="zh.html" aria-current="page">中文</a>
+            </nav>
+            <a href="#top">回到顶部</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <div class="chat-scrim" hidden data-chat-close></div>
+    <aside class="chat" id="chat" role="dialog" aria-modal="true" aria-labelledby="chat-title" hidden>
+      <div class="chat__head">
+        <span class="chat__who" id="chat-title">
+          <span data-px="chat" data-size="14"></span> AI 分身
+          <span class="twin__state">在线</span>
+        </span>
+        <button class="chat__close" type="button" aria-label="关闭" data-chat-close>
+          <span data-px="close" data-size="12"></span>
+        </button>
+      </div>
+      <div class="chat__log">
+        <p class="msg msg--user">罗卓君用 AI 做过什么？</p>
+        <p class="msg msg--twin">
+          比如这个作品集的对话功能：它根据他的简历和项目回答问题。他还做过检索工具和智能体工作流。想了解哪一个？
+        </p>
+        <p class="msg msg--user">上海今天天气怎么样？</p>
+        <p class="msg msg--decline">我只回答关于罗卓君和他工作的问题。可以问问他的项目或技能。</p>
+      </div>
+      <div class="chat__suggest">
+        <button class="suggest" type="button">技术栈</button>
+        <button class="suggest" type="button">何时到岗</button>
+        <button class="suggest" type="button">怎么联系他</button>
+      </div>
+      <div class="chat__input">
+        <span class="twin__prompt">&gt;</span>
+        <span class="twin__placeholder">问问罗卓君的工作</span>
+        <button class="btn btn--signal" type="button">
+          发送 <span data-px="send" data-size="11"></span>
+        </button>
+      </div>
+      <p class="chat__note">回答来自罗卓君的简历和项目，可能有误。</p>
+    </aside>
+  </body>
+</html>
