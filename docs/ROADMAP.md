@@ -12,7 +12,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T1 | Upgrade dependencies, remove Clerk and `/dashboard` | Merged | `chore/t1-upgrade-deps` | `checkpoint/t1` |
 | T2a | Lint and CI | Merged | `chore/t2-lint-ci` | `checkpoint/t2a` |
 | T3 | Design in Figma | Merged | `docs/t3-design` | `checkpoint/t3` |
-| T4 | Remove upstream code and Sanity | In review | `chore/t4-remove-upstream` | |
+| T4 | Remove upstream code and Sanity | Merged | `chore/t4-remove-upstream` | `checkpoint/t4` |
 | T2b | Vercel deploy and mainland test | Not started | | |
 | T5 | Foundations | Not started | | |
 | T6 | Content files | Not started | | |
