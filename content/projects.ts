@@ -12,6 +12,13 @@ export const projects: readonly Project[] = [
     },
     stack: ["Next.js", "AI SDK", "DeepSeek"],
     links: { source: "https://github.com/GeorgeLuo404/AI-Portfolio" },
+    image: {
+      src: "/projects/placeholder.png",
+      alt: {
+        en: "Placeholder: a sketch of the AI twin's chat window",
+        zh: "占位图：AI 分身对话窗口的示意图",
+      },
+    },
   },
   {
     id: "project-two",

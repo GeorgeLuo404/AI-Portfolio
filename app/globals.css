@@ -273,4 +273,81 @@
     text-transform: uppercase;
     white-space: nowrap;
   }
+
+  /* ASCII art fills its box's width: the font size is the box width over
+     the number of columns, and JetBrains Mono advances 0.6em. */
+  .ascii-box {
+    display: block;
+    container-type: inline-size;
+    width: 100%;
+  }
+
+  .ascii {
+    display: block;
+    margin: 0;
+    font: 500 calc(100cqw / var(--cols, 72) / 0.6) / 1 var(--font-mono);
+    letter-spacing: 0;
+    white-space: pre;
+    color: var(--art);
+    user-select: none;
+  }
+
+  .ascii-faint {
+    color: var(--art-faint);
+  }
+
+  /* The dot grid behind the hero's art. */
+  .dot-grid {
+    background-image: radial-gradient(var(--dot) 0.8px, transparent 1.2px);
+    background-size: 8px 8px;
+    background-position: 4px 4px;
+  }
+
+  /* George's photo fades in over the koi. While hidden, it's out of the
+     accessibility tree as well as out of sight. */
+  .koi-photo {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.8s ease,
+      visibility 0s 0.8s;
+  }
+
+  .koi-photo[data-shown] {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s ease;
+  }
+
+  /* Until someone tries it, two square ripples run out from the art's button
+     every few seconds, like the rings on the water. Not with reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .koi-figure:not([data-tried])[data-state="koi"] .koi-toggle::before,
+    .koi-figure:not([data-tried])[data-state="koi"] .koi-toggle::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--signal);
+      opacity: 0;
+      pointer-events: none;
+      animation: koi-call 3.2s ease-out 1.6s infinite;
+    }
+
+    .koi-figure:not([data-tried])[data-state="koi"] .koi-toggle::after {
+      animation-delay: 1.95s;
+    }
+  }
+}
+
+@keyframes koi-call {
+  0% {
+    inset: -1px;
+    opacity: 0.9;
+  }
+
+  50%,
+  100% {
+    inset: -14px;
+    opacity: 0;
+  }
 }

@@ -17,10 +17,13 @@ const archivo = localFont({
   weight: "100 900",
 });
 
+// The ASCII art needs a monospace font while this one loads, so no
+// Arial-based fallback: the stack falls through to the system's monospace.
 const jetbrainsMono = localFont({
   src: "../../fonts/jetbrains-mono-latin-wght.woff2",
   variable: "--font-jetbrains",
   weight: "100 800",
+  adjustFontFallback: false,
 });
 
 export function generateStaticParams() {

@@ -1,11 +1,13 @@
 import { useLocale, useTranslations } from "next-intl";
 import { getContent } from "@/content";
+import { StillKoi } from "./ascii-art";
 import { LangSwitch } from "./lang-switch";
 
 const SECTIONS = ["work", "skills", "experience", "contact"] as const;
 
 // The footer stays dark in both themes: the name in giant type with chips
-// over it, links, contact details, the credit, and the language switch.
+// over it and a faint, still pair of koi behind, links, contact details, the
+// credit, and the language switch.
 export function Footer() {
   const t = useTranslations("footer");
   const header = useTranslations("header");
@@ -22,6 +24,7 @@ export function Footer() {
             aria-hidden="true"
             className="absolute inset-y-0 left-(--L2) w-px bg-rule"
           />
+          <StillKoi className="pointer-events-none absolute top-10 right-0 w-[80%] sm:top-auto sm:-bottom-10 sm:w-[56%] lg:w-[44%]" />
           {/* "Luo" starts on the stem of the R in "George", on L2. */}
           <p
             aria-hidden="true"

@@ -19,6 +19,15 @@
   "home": {
     "title": "AI / 前端开发工程师"
   },
+  "koi": {
+    "show": "我长啥样",
+    "hide": "把鱼叫回来",
+    "koiFigure": "图 1",
+    "koiCaption": "用 {count, number} 个字符画成的两条锦鲤",
+    "koiCaptionShort": "用字符画成的两条锦鲤",
+    "faceFigure": "图 2",
+    "faceCaption": "罗卓君本人"
+  },
   "footer": {
     "onThisSite": "本站",
     "home": "首页",
