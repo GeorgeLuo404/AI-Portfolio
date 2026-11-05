@@ -24,15 +24,9 @@
   },
   "home": {
     "display": "AI / Web Engineer",
-    "title": "AI / Web Engineer",
-    "placeholder": "George Luo's portfolio is being rebuilt. The new site is on its way."
+    "title": "AI / Web Engineer"
   },
   "footer": {
-    "chips": {
-      "ai": "AI products",
-      "frontend": "Frontend",
-      "open": "Open to roles"
-    },
     "onThisSite": "On this site",
     "home": "Home",
     "elsewhere": "Elsewhere",
@@ -41,7 +35,6 @@
     "wechat": "WeChat: {id}",
     "copyright": "© {year} George Luo",
     "credit": "Layout after Hegia, a concept by Faza Dzikrulloh",
-    "top": "Back to top",
-    "localName": ""
+    "top": "Back to top"
   }
 }
