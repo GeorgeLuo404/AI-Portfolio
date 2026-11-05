@@ -13,7 +13,7 @@
 (() => {
   const RAMP = " .:-=+*#%@";
   const NOISE = ".:-=+*#%@";
-  const COLS = 150;
+  const COLS = 180;
   // JetBrains Mono advances 0.6em, and the art sets line-height to 1.
   const CELL_W = 0.6;
 
@@ -22,28 +22,25 @@
   const TAU = 2 * Math.PI;
   // Each head circles at ORBIT, and the body spirals out behind it to OUTER,
   // so each tail sweeps around outside the other fish's head.
-  const ORBIT = 0.27;
-  const OUTER = 0.7;
-  const BODY = 1.0;
-  // The tail's two lobes reach this far past the end of the body.
-  const TAIL = 0.4;
+  const ORBIT = 0.25;
+  const OUTER = 0.64;
+  const BODY = 1.05;
+  // The tail reaches this far past the end of the body: two lobes over the
+  // first three quarters, and fine streamers trailing to the end.
+  const TAIL = 0.66;
   const LENGTH = BODY + TAIL;
-  const WIDTH = 0.22;
+  const WIDTH = 0.165;
   const SPINE = 84;
   // One lap every 26 seconds, and the ring turns with the fish.
   const SPEED = (TAU * ORBIT) / 26;
   const TURN = SPEED / ORBIT;
   // The solid fish's head starts near the top, as in a yin-yang.
   const START = (80 * Math.PI) / 180;
-  // The tancho spot: a round mark on the head, in the other fish's color.
-  const SPOT_AT = 0.17;
-  const SPOT_R = 0.06;
-  // The pelvic, then the pectoral fins: where each pair sits, its length and
-  // width, and how far it turns out from the body.
-  const FINS = [
-    [0.58 * BODY, 0.12, 0.035, 0.5],
-    [0.24 * BODY, 0.27, 0.062, 0.55],
-  ];
+  // The eye, in the other fish's color, doubles as the yin-yang's dot. It
+  // sits a little toward the back, `EYE_UP` from the middle of the body.
+  const EYE_AT = 0.12;
+  const EYE_UP = 0.025;
+  const EYE_R = 0.052;
 
   const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
   const mix = (a, b, t) => a + (b - a) * t;
@@ -84,12 +81,12 @@
   // blunt, round nose, the widest point a third of the way back, then a long
   // taper.
   function bodyWidth(s) {
-    if (s < 0.13) {
+    if (s < 0.14) {
       return (
-        WIDTH * 0.58 * Math.sqrt(Math.max(0, 1 - ((0.13 - s) / 0.13) ** 2))
+        WIDTH * 0.72 * Math.sqrt(Math.max(0, 1 - ((0.14 - s) / 0.14) ** 2))
       );
     }
-    if (s < 0.32) return WIDTH * mix(0.58, 1, smooth(0.13, 0.32, s));
+    if (s < 0.32) return WIDTH * mix(0.72, 1, smooth(0.14, 0.32, s));
     return WIDTH * (1 - 0.75 * smooth(0.32, 1, s) ** 1.15);
   }
 
@@ -109,6 +106,14 @@
   }
 
   const widthAt = (l) => bodyWidth(clamp(l / BODY, 0, 1));
+
+  // The fish are drawn side on, bent into the yin-yang with their backs to
+  // the ring and their bellies facing each other across the S-curve. The back
+  // arches higher above the middle of the body than the belly hangs below it.
+  // A positive offset is toward the back, on the fish's left as it swims
+  // clockwise.
+  const backAt = (l) => widthAt(l) * 1.1;
+  const bellyAt = (l) => widthAt(l) * 0.85;
 
   // For each point on the spine: how far the body sits outside the head's
   // circle, and how far back along that circle it is, so that the body keeps
@@ -390,18 +395,19 @@
     }
   }
 
-  function drawFin(f, fish, pts, at, length, width, spread, side) {
+  // A fin on the belly, rooted `root` below the middle of the body and swept
+  // back along it. It paddles a little as the fish swims.
+  function drawFin(f, fish, pts, at, length, width, spread, root) {
     const solid = fish.kind === "ink";
     const p = pointAt(pts, at);
-    const nx = -p.ty * side;
-    const ny = p.tx * side;
-    const w = widthAt(at);
-    const rx = p.x + nx * w * 0.7;
-    const ry = p.y + ny * w * 0.7;
-    const turn = spread + 0.16 * Math.sin(fish.fin + side * 0.6);
+    // Toward the belly, on the fish's right.
+    const nx = p.ty;
+    const ny = -p.tx;
+    const rx = p.x + nx * root;
+    const ry = p.y + ny * root;
+    const turn = spread + 0.14 * Math.sin(fish.fin + at * 5);
     const c = Math.cos(turn);
     const s = Math.sin(turn);
-    // Backward along the body, turned outward.
     const dx = -p.tx * c + nx * s;
     const dy = -p.ty * c + ny * s;
     const ex = rx + dx * length;
@@ -425,10 +431,10 @@
         const cov = clamp(0.5 - sd / f.aa, 0, 1);
         if (cov <= 0) return;
         const rays =
-          (0.5 + 0.5 * Math.cos(Math.atan2(v, u * length) * 24)) ** 4;
+          (0.5 + 0.5 * Math.cos(Math.atan2(v, u * length) * 20)) ** 4;
         const value = solid
-          ? 0.56 - 0.12 * uc + 0.12 * rays
-          : Math.max(0.74 * outline(f, sd), 0.1, 0.2 * rays * uc);
+          ? 0.52 - 0.12 * uc + 0.16 * rays
+          : Math.max(0.74 * outline(f, sd), 0.08, 0.26 * rays * uc);
         over(f, k, solid ? cov * 0.92 : cov, value);
       },
     );
@@ -501,64 +507,152 @@
 
   function drawBody(f, fish, pts) {
     const solid = fish.kind === "ink";
+    const middle = (l) => (backAt(l) - bellyAt(l)) / 2;
     strip(
       f,
       pts,
       0,
       BODY,
-      widthAt,
-      () => 0,
+      (l) => (backAt(l) + bellyAt(l)) / 2,
+      middle,
       (k, sd, l, lat) => {
-        const spot = Math.hypot(l - SPOT_AT, lat) - SPOT_R;
-        const inSpot = clamp(0.5 - spot / f.aa, 0, 1);
-        const scale = scales(l, lat);
-        // A line down the back, where the dorsal fin runs.
-        const back =
-          clamp(1 - Math.abs(lat) / (1.2 * f.aa), 0, 1) *
-          smooth(0.32, 0.4, l / BODY) *
-          (1 - smooth(0.72, 0.8, l / BODY));
+        // Measured from the middle of the body, positive toward the back.
+        const up = lat + middle(l);
+        const eye = Math.hypot(l - EYE_AT, up - EYE_UP) - EYE_R;
+        const inEye = clamp(0.5 - eye / f.aa, 0, 1);
+        // The gill cover: an arc behind the eye.
+        const w = widthAt(l) || 1;
+        const gill =
+          clamp(
+            1 - Math.abs(l - 0.22 - 0.07 * (up / w) ** 2) / (0.9 * f.aa),
+            0,
+            1,
+          ) * (Math.abs(up) < 0.75 * w ? 1 : 0);
+        const scale = scales(l, up);
         const value = solid
-          ? (0.96 - 0.16 * scale - 0.3 * back) * (1 - inSpot)
+          ? (0.96 - 0.18 * scale - 0.34 * gill) * (1 - inEye)
           : Math.max(
               0.88 * outline(f, sd),
               0.1 + 0.2 * scale,
-              0.45 * back,
-              inSpot,
+              0.6 * gill,
+              inEye,
             );
         over(f, k, clamp(0.5 - sd / f.aa, 0, 1), value);
       },
     );
   }
 
-  // The tail: two long lobes that part from the end of the body and trail
-  // behind it, fluttering a little out of step with each other.
+  // A fin that stands off the body along a stretch of it, like the dorsal fin
+  // on the back, with rays raked toward the tail and an edge that ripples.
+  function drawRidge(f, fish, pts, from, to, height, side) {
+    const solid = fish.kind === "ink";
+    const span = to - from;
+    const tall = (l) => {
+      const u = clamp((l - from) / span, 0, 1);
+      return (
+        height *
+        Math.sin(Math.PI * u) ** 0.65 *
+        (1 + 0.16 * Math.sin(u * 11 - fish.fin * 1.3))
+      );
+    };
+    const base = side > 0 ? backAt : bellyAt;
+    strip(
+      f,
+      pts,
+      from,
+      to,
+      (l) => tall(l) / 2 + 0.014,
+      (l) => side * (base(l) + tall(l) / 2 - 0.014),
+      (k, sd, l, lat) => {
+        const out = side * lat + tall(l) / 2;
+        const rays =
+          (0.5 + 0.5 * Math.cos(((l - 0.7 * out) / 0.034) * TAU)) ** 4;
+        const value = solid
+          ? 0.16 + 0.56 * rays
+          : Math.max(0.7 * outline(f, sd), 0.06, 0.42 * rays);
+        over(f, k, clamp(0.5 - sd / f.aa, 0, 1) * (solid ? 0.92 : 1), value);
+      },
+    );
+  }
+
+  // The tail: an upper and a lower lobe that part from the end of the body,
+  // then fine streamers that fan out behind them and wave as the fish swims.
   function drawTail(f, fish, pts) {
     const solid = fish.kind === "ink";
+    const at = (l) => (l - BODY) / TAIL;
     for (const side of [-1, 1]) {
-      const at = (l) => (l - BODY) / TAIL;
       const width = (l) =>
-        0.062 * Math.sin(Math.PI * clamp((at(l) + 0.15) / 1.15, 0, 1)) ** 0.6;
+        0.055 * Math.sin(Math.PI * clamp((at(l) + 0.12) / 0.87, 0, 1)) ** 0.6;
       const offset = (l) =>
         side *
-        smooth(-0.15, 1, at(l)) ** 1.2 *
-        (0.1 + 0.02 * Math.sin(fish.fin * 0.8 + side * 1.3));
-      strip(f, pts, BODY - 0.07, LENGTH, width, offset, (k, sd, l, lat) => {
-        const x = clamp(at(l), 0, 1);
-        const rays = (0.5 + 0.5 * Math.cos((lat / 0.07) * Math.PI * 2.5)) ** 3;
-        const value = solid
-          ? 0.6 - 0.2 * x + 0.12 * rays
-          : Math.max(0.74 * outline(f, sd), 0.1, 0.2 * rays * x);
-        over(f, k, clamp(0.5 - sd / f.aa, 0, 1) * (solid ? 0.92 : 1), value);
-      });
+        smooth(-0.12, 1, at(l)) ** 1.1 *
+        (0.13 + 0.02 * Math.sin(fish.fin * 0.8 + side * 1.3));
+      strip(
+        f,
+        pts,
+        BODY - 0.07,
+        BODY + 0.75 * TAIL,
+        width,
+        offset,
+        (k, sd, l, lat) => {
+          const x = clamp(at(l), 0, 1);
+          const rays =
+            (0.5 + 0.5 * Math.cos((lat / 0.06) * Math.PI * 2.5)) ** 3;
+          const value = solid
+            ? 0.6 - 0.2 * x + 0.14 * rays
+            : Math.max(0.74 * outline(f, sd), 0.08, 0.22 * rays * x);
+          over(f, k, clamp(0.5 - sd / f.aa, 0, 1) * (solid ? 0.92 : 1), value);
+        },
+      );
+      for (const [n, reach] of [0.5, 0.9, 1.3].entries()) {
+        const offset = (l) => {
+          const x = at(l);
+          return (
+            side * (0.05 + 0.14 * reach * x ** 0.9) +
+            0.022 * x * Math.sin(x * 8 - fish.fin * 1.2 + n * 2.1 + side)
+          );
+        };
+        strip(
+          f,
+          pts,
+          BODY + 0.25 * TAIL,
+          LENGTH,
+          () => 0.012,
+          offset,
+          (k, sd, l) => {
+            const fade = 1 - smooth(0.7, 1, at(l));
+            over(f, k, clamp(0.5 - sd / f.aa, 0, 1) * fade, 0.85);
+          },
+        );
+      }
     }
   }
 
   function drawFish(f, fish, pts) {
     drawTail(f, fish, pts);
-    for (const [at, length, width, spread] of FINS) {
-      drawFin(f, fish, pts, at, length, width, spread, -1);
-      drawFin(f, fish, pts, at, length, width, spread, 1);
-    }
+    // Dorsal fin on the back; pectoral, pelvic and anal fins on the belly.
+    drawRidge(f, fish, pts, 0.26 * BODY, 0.8 * BODY, 0.15, 1);
+    drawRidge(f, fish, pts, 0.72 * BODY, 0.88 * BODY, 0.06, -1);
+    drawFin(
+      f,
+      fish,
+      pts,
+      0.22 * BODY,
+      0.24,
+      0.065,
+      0.6,
+      bellyAt(0.22 * BODY) * 0.6,
+    );
+    drawFin(
+      f,
+      fish,
+      pts,
+      0.5 * BODY,
+      0.13,
+      0.034,
+      0.45,
+      bellyAt(0.5 * BODY) * 0.7,
+    );
     drawBody(f, fish, pts);
   }
 
