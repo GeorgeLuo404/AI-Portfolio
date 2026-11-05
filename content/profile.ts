@@ -18,6 +18,13 @@ export const profile: Profile = {
     en: "From the first prompt to the last pixel, I build AI products that hold up in front of real users.",
     zh: "从第一句提示词到最后一个像素，我做经得起真实用户检验的 AI 产品。",
   },
+  photo: {
+    src: "/george.jpg",
+    alt: {
+      en: "George Luo in a black beanie, giving a thumbs-up at a coastal lookout",
+      zh: "罗卓君戴着黑色毛线帽，在海边观景台竖起大拇指",
+    },
+  },
   availability: {
     en: "Placeholder: when George can start, and whether he wants full-time, remote, or on-site work.",
   },

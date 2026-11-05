@@ -20,10 +20,13 @@ Use pnpm.
 
 ## Where things live
 
-- `app/(portfolio)/[locale]/`: the public site in English (`/en`) and Chinese (`/zh`), with its root layout. The page is a placeholder until the sections are built (T8).
+- `app/(portfolio)/[locale]/`: the public site in English (`/en`) and Chinese (`/zh`), with its root layout. The page is a placeholder until the sections are built (T8): the headline, the intro, and the T7 art in a stack.
 - `app/globals.css`: the design tokens as Tailwind theme values, both themes, and the grid lengths measured from the headline.
 - `app/fonts/`: Archivo and JetBrains Mono, self-hosted, with their OFL licenses.
-- `components/`: the header, footer, and their parts, such as pixel icons and the language switch.
+- `components/`: the header, footer, and their parts, such as pixel icons and the language switch. `koi-figure.tsx` is the hero's koi and photo, and `ascii-art.tsx` renders the fixed art.
+- `lib/ascii/`: the ASCII art made while the site builds: the ripples and objects (`scenes.ts`) and the image converter (`image.ts`, using sharp). Visitors get the characters in the HTML and never download this code.
+- `lib/koi/engine.ts`: the koi drawing and the photo reveal, with no DOM code, so the server draws the footer's still pair and the browser animates the hero's.
+- `public/`: George's photo and the project images. Strip a photo's metadata before adding it, because the repo is public.
 - `content/`: every fact about George, such as projects, skills, roles, and contact details, typed in `content/types.ts` with English and Chinese side by side. Sections and the AI twin both read it through `getContent(locale)`, which falls back to English for any field without Chinese, until T11.
 - `i18n/` and `messages/`: next-intl routing and the English and Chinese interface text, such as headings, labels, and buttons. Chinese falls back to English for any message it lacks, until T11.
 - `proxy.ts`: sends `/` to `/en` or `/zh` from the visitor's language. Next 16 calls middleware "proxy".
@@ -86,6 +89,8 @@ If the dev server compiles for minutes or logs `Can't resolve 'tailwindcss'`, th
 If `tsc` reports a missing module in `.next/dev/types` after a route is deleted, the generated types are stale. Delete `.next` and run it again. Route types such as `PageProps` come from Next, so after deleting `.next`, run `pnpm exec next typegen` or a build before `tsc`.
 
 React clears every attribute on `<html>` that it didn't render itself whenever the layout remounts, such as after switching language. Anything a script sets there, like the theme, has to be set again from a client component (see `components/theme-toggle.tsx`).
+
+The koi only move while the page is visible. Some embedded browsers, such as Claude's preview pane, report a shown page as hidden and run almost no animation frames. In development, run `KOI.step(seconds)` in the console to move them on by hand.
 
 Check UI changes in a browser as well as with the build. A hydration error from the Next 16.4 upgrade passed the build, the type check, and `curl`, and only showed up in the browser console.
 

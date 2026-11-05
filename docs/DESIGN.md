@@ -142,7 +142,7 @@ All corners are square, borders are 1px, and nothing has a shadow. `design/found
 - **Chips:** panel (blue text on panel), solid (white on signal), and muted (small grey).
 - **Logo mark:** the pixel G on a signal square, 98px on desktop, 64px on tablets, and 52px on phones, on both pages. In the hero it sits in the intro's bottom-right corner, on the frame line and the art's top rule, however long the intro runs.
 - **Highlight:** a `mark` on the panel color with 0.1em padding. It reaches 0.1em into the space before it, so a phrase that starts a line keeps the line's edge. The role in the hero never breaks across lines.
-- **Art button:** a signal button, 30px tall, in the art's top-right corner, and beside the caption on phones. It says what it will do: a smiling face with "Show my face" or 我长啥样, then a fish with "Bring the fish back" or 把鱼叫回来. Hover darkens it, because the pixel icons bake in their color.
+- **Art button:** a signal button, 30px tall, in the art's top-right corner, and on phones in its bottom-right corner, just above the caption. Beside the caption, as first drawn, it covered the caption's end on a 375px phone. It says what it will do: a smiling face with "Show my face" or 我长啥样, then a fish with "Bring the fish back" or 把鱼叫回来. Hover darkens it, because the pixel icons bake in their color.
 - **Buttons:** signal, line, light, and ghost. Pixel icons only where they add meaning: external link, download, copy, mail, chat.
 - **AI twin window:** title and status, a terminal prompt with a blinking caret, three suggested questions, a note that answers can be wrong, and an Ask button. In the hero it stands in a room: lines from the stage corners to the window, a center line, a horizon, a grey panel and a signal panel behind it. `site.js` draws the lines from the window's position.
 - **Chat panel:** a 440px side panel on desktop and a full-width sheet on phones. Visitor messages are signal blocks, twin replies have an ink rule, and declined questions use a grey rule and text. Esc closes it.
@@ -182,7 +182,7 @@ Replace these with real content, in the files in `content/`:
 
 - The prototype loads Google Fonts, and loads Figma's capture script only when the URL has a `#figmacapture` hash. Neither ships in production.
 - URL options: `?static` draws one still frame of the koi, `?face` starts on the photo, `?theme=light` or `?theme=dark` forces a theme, and `?grid` shows the grid lines. In the console, `KOI.step(seconds)` moves the koi on by hand.
-- In production the koi become a client component that draws into a `pre`, with the same pause and reduced-motion rules, and `next/image` serves the photo from our own domain.
+- In the app (T7), `components/koi-figure.tsx` draws the koi into a `pre` from `lib/koi/engine.ts`, with the same pause and reduced-motion rules, and `next/image` serves the photo from our own domain. `lib/ascii/scenes.ts` renders the fixed art while the site builds, matching the prototype's character for character, and `lib/ascii/image.ts` converts project images. In development, `KOI.step(seconds)` works there too.
 - A small script in each page's head applies a saved theme before first paint, so the page doesn't flash. Production needs the same.
 - Pixel icons bake their color in when drawn, because a captured SVG doesn't inherit `currentColor`, so `site.js` redraws them when the theme changes. Production can use `currentColor`.
 - Rebuild the components in T5 and T8 rather than copying the prototype's CSS wholesale. Keep the tokens and the grid measurements in this file.

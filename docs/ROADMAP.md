@@ -16,7 +16,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T2b | Vercel deploy and mainland test | Not started | | |
 | T5 | Foundations | Merged | `feat/t5-foundations` | `checkpoint/t5` |
 | T6 | Content files | Merged | `feat/t6-content-files` | `checkpoint/t6` |
-| T7 | ASCII art | Not started | | |
+| T7 | ASCII art | Merged | `feat/t7-ascii-art` | `checkpoint/t7` |
 | T8 | Sections | Not started | | |
 | T9 | DeepSeek chat | Not started | | |
 | T10 | Real content | Not started | | |
@@ -99,6 +99,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Port the hero's koi and photo reveal from `design/koi.js` to a client component. Keep the load animation optional, pause the koi off screen, and hold them still with reduced motion.
 - Mark the art as decorative for screen readers, and give the photo alt text.
 - **Done when:** the koi, the ripples, and a converted placeholder image render at all three widths without layout shift.
+- Built as `lib/ascii/` (the fixed art and a converter using sharp, both run while the site builds), `lib/koi/engine.ts`, and `components/koi-figure.tsx`. The placeholder page stacks the art until T8 moves it into the sections, and the footer has its still koi. The placeholder image in `public/projects/` is our own sketch of a chat window. A converted image keeps its background blank and takes the ink color, like the other fixed art. The load animation is on by default, with an `intro` prop to turn it off, and off with reduced motion.
 
 ### T8: Sections
 - Build each section from the Figma file at desktop, tablet, and phone widths, with text from translation and content files, and images through `next/image`.
@@ -168,6 +169,7 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Give the chat full context, not RAG (2026-11-05) | The content fits easily in `deepseek-flash`'s 1M-token context and caches cheaply. Retrieval can miss facts, and DeepSeek has no embeddings API. |
 | Keep the chat in TypeScript (2026-11-05) | One codebase and one deploy. A Python service can replace it later behind the same API. |
 | Link to email and WeChat at launch, and add a contact form later (2026-11-05) | Less to build and to protect from spam. A later form sends email and stores nothing. Replaces the 2026-11-03 plan to build the form before launch. |
+| Convert images to ASCII art while the site builds, with sharp (2026-11-06) | George's choice. The art ships in the HTML, so visitors download no converter and see it before any script runs. Next already installs sharp for its own image resizing, so it adds no new package to the install. |
 
 ## Open items
 
@@ -252,3 +254,16 @@ Taken on 2026-11-06 on `feat/t6-content-files`.
 | `/zh` with the Chinese intro removed, then set to "" | Shows the English intro both times |
 | Content without Chinese yet | The start date and the résumé link, which fall back to English |
 | Saved theme after switching language | Kept both ways, with no console errors. Before this fix, the switch cleared it and React warned about the theme script |
+
+## After T7
+
+Taken on 2026-11-06 on `feat/t7-ascii-art`.
+
+| Check | Result |
+|---|---|
+| Build, type check, and Biome | Pass, 0 errors, 0 warnings |
+| Layout shift | None at 375, 768, and 1440: every element sits in the same place with scripts on and off |
+| Fixed art against the prototype | The ripples and the orbit object match `design/ascii.js` character for character |
+| Photo reveal | Works both ways in both languages and both themes. With reduced motion, the photo swaps in without the animation |
+| Page size | `/en` is 71 KB of HTML, 13 KB compressed, with the art. The koi code adds 32 KB of JavaScript before compression |
+| Third-party hosts contacted by the page | None. The photo comes from `/_next/image` about 2 seconds after load |

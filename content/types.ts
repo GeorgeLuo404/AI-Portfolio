@@ -24,6 +24,8 @@ export type Profile = {
   statement: Localized;
   /** When George can start, and what kind of work he's after. */
   availability: Localized;
+  /** The photo the hero's koi make way for, in `public/`. */
+  photo: { src: string; alt: Localized };
 };
 
 export type Project = {
@@ -34,7 +36,7 @@ export type Project = {
   summary: Localized;
   stack: readonly string[];
   links: { live?: string; source?: string };
-  /** A screenshot in `public/`, from T10. Until then the well shows ASCII art. */
+  /** A screenshot in `public/`, shown in characters. Placeholder until T10. */
   image?: { src: string; alt: Localized };
 };
 

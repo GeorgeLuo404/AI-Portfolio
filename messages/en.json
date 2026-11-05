@@ -26,6 +26,15 @@
     "display": "AI / Web Engineer",
     "title": "AI / Web Engineer"
   },
+  "koi": {
+    "show": "Show my face",
+    "hide": "Bring the fish back",
+    "koiFigure": "Fig. 1",
+    "koiCaption": "Two koi in {count, number} characters",
+    "koiCaptionShort": "Two koi in characters",
+    "faceFigure": "Fig. 2",
+    "faceCaption": "George himself"
+  },
   "footer": {
     "onThisSite": "On this site",
     "home": "Home",
