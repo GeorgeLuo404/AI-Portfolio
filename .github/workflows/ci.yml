@@ -12,9 +12,6 @@ jobs:
   check:
     runs-on: ubuntu-latest
     env:
-      # Public values, already visible in the site's HTML.
-      NEXT_PUBLIC_SANITY_PROJECT_ID: daraeryw
-      NEXT_PUBLIC_SANITY_DATASET: development
       NEXT_TELEMETRY_DISABLED: 1
     steps:
       - uses: actions/checkout@v7

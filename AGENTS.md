@@ -4,7 +4,7 @@ Personal portfolio with an AI twin chat, built with Next.js. Visitors are both i
 
 Read [docs/ROADMAP.md](docs/ROADMAP.md) before starting work. It holds the task list, each task's scope, and the decisions behind them.
 
-The code still uses Sanity, which T4 removes in favor of typed content files in the repo. Don't build anything new on Sanity.
+Content will live in typed content files in the repo (T6). Don't add a CMS or a database for content.
 
 ## Commands
 
@@ -17,21 +17,14 @@ Use pnpm.
 | `pnpm exec tsc --noEmit` | Type check |
 | `pnpm lint` | Biome check |
 | `pnpm format` | Biome format |
-| `pnpm typegen` | Regenerate `schema.json` and `sanity.types.ts` |
 
 ## Where things live
 
-- `app/(portfolio)/`: the public site, with its own root layout.
-- `app/(sanity)/studio/`: Sanity Studio at `/studio`, with its own root layout.
-- `components/sections/`: one Server Component per page section, each fetching its own data with `defineQuery` and `sanityFetch`.
-- `components/ui/`: shadcn components, plus two Aceternity components that T4 removes.
-- `sanity/schemaTypes/`: the content schema.
-- `sanity/lib/`: Sanity client, image URLs, and live content helpers.
+- `app/(portfolio)/`: the public site, with its own root layout. For now it holds a placeholder page, until the sections are built (T8).
+- `app/globals.css`: Tailwind and the placeholder's styles. T5 turns the design tokens into the theme.
 - `design/`: the T3 HTML prototype that the Figma file is captured from. App code doesn't import from it. See `docs/DESIGN.md`.
 
 There is no `app/layout.tsx`. Every page must sit inside a route group that has a root layout, because Next 16.4 fails the build otherwise.
-
-Run `pnpm typegen` after changing a schema or a GROQ query. Don't edit `schema.json` or `sanity.types.ts` by hand.
 
 ## Rules
 
@@ -46,8 +39,7 @@ Run `pnpm typegen` after changing a schema or a GROQ query. Don't edit `schema.j
 - Keep the site non-commercial: no paid services, ads, affiliate links, or payment flows. The Vercel Hobby plan doesn't allow them.
 
 **Data and secrets**
-- The repo and the Sanity dataset are both public. Never put visitor data or private details, such as a phone number or home address, in content, prompts, or commits.
-- Never pass a Sanity write token to the browser. Use a viewer-only token where the browser needs one.
+- The repo is public. Never put visitor data or private details, such as a phone number or home address, in content, prompts, or commits.
 - Server-only values must not use the `NEXT_PUBLIC_` prefix.
 - Add every new environment variable to `.env.example` in the same change.
 
@@ -66,7 +58,7 @@ Run `pnpm typegen` after changing a schema or a GROQ query. Don't edit `schema.j
 - Once T3 is approved, build UI from `docs/DESIGN.md` and its Figma file, including its rules for Chinese text and both themes.
 
 **Upstream**
-- This project started from [an upstream repo](https://github.com/sonnysangha/next-gen-ai-portfolio-openai-agentkit-sanity-clerk-nextjs-16) whose README limits use of its code. T4 removes all upstream-derived code, and T12 cleans the public history.
+- This project started from [an upstream repo](https://github.com/sonnysangha/next-gen-ai-portfolio-openai-agentkit-sanity-clerk-nextjs-16) whose README limits use of its code. T4 removed the upstream-derived code, and T12 cleans the public history.
 - Don't copy, paraphrase, or port code, schemas, prompts, or sample content from upstream. Build from `docs/DESIGN.md` and the project's own requirements instead.
 - Keep the upstream credit in `README.md` until T12 confirms no derived code remains.
 
