@@ -15,7 +15,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T4 | Remove upstream code and Sanity | Merged | `chore/t4-remove-upstream` | `checkpoint/t4` |
 | T2b | Vercel deploy and mainland test | Not started | | |
 | T5 | Foundations | Merged | `feat/t5-foundations` | `checkpoint/t5` |
-| T6 | Content files | In review | `feat/t6-content-files` | |
+| T6 | Content files | Merged | `feat/t6-content-files` | `checkpoint/t6` |
 | T7 | ASCII art | Not started | | |
 | T8 | Sections | Not started | | |
 | T9 | DeepSeek chat | Not started | | |
