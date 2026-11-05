@@ -12,7 +12,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T1 | Upgrade dependencies, remove Clerk and `/dashboard` | Merged | `chore/t1-upgrade-deps` | `checkpoint/t1` |
 | T2a | Lint and CI | Merged | `chore/t2-lint-ci` | `checkpoint/t2a` |
 | T3 | Design in Figma | Merged | `docs/t3-design` | `checkpoint/t3` |
-| T4 | Remove upstream code and Sanity | Not started | | |
+| T4 | Remove upstream code and Sanity | Merged | `chore/t4-remove-upstream` | `checkpoint/t4` |
 | T2b | Vercel deploy and mainland test | Not started | | |
 | T5 | Foundations | Not started | | |
 | T6 | Content files | Not started | | |
@@ -178,7 +178,7 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Keep the upstream credit in `README.md` while upstream-derived code remains | Until T12 | Everyone |
 | Decide whether the chat stays on for mainland visitors, given China's rules on public AI services | T13 | George |
 | Delete the Clerk app and remove its keys from `.env.local` | Now | George |
-| Delete the Sanity project and remove its values from `.env.local` | After T4 | George |
+| Delete the Sanity project and remove its values from `.env.local` | Now that T4 is done | George |
 
 ## Baseline measurements
 
@@ -215,3 +215,17 @@ Taken on 2026-11-03 on `chore/t2-lint-ci`.
 | Biome | 0 errors, 0 warnings |
 | CI steps in a fresh clone with only the workflow's values | Install, lint, build, and type check pass |
 | CI on GitHub | Pass, on commit `6e42f8f` |
+
+## After T4
+
+Taken on 2026-11-06 on `chore/t4-remove-upstream`.
+
+| Check | Result |
+|---|---|
+| Build, type check, and Biome | Pass, 0 errors, 0 warnings |
+| Production audit | No known vulnerabilities |
+| Full audit, including dev dependencies | No known vulnerabilities |
+| Dependencies | `next`, `react`, `react-dom`, plus dev tools. Sanity, `styled-components`, shadcn, Radix, Motion, and their helpers are gone, along with the `pnpm.overrides` for the Sanity CLI |
+| Third-party hosts contacted by the public page | None. The placeholder uses system fonts |
+| Routes | `/` only. `/studio` is gone |
+

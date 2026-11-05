@@ -13,8 +13,6 @@
       "!.next",
       "!dist",
       "!build",
-      "!sanity.types.ts",
-      "!schema.json",
       "!design/ascii.js"
     ]
   },

@@ -1,23 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { SanityLive } from "@/sanity/lib/live";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
-  title: "George AI Portfolio",
-  description: "George AI Portfolio",
+  title: "George Luo, AI and web engineer",
+  description: "George Luo's portfolio, being rebuilt.",
 };
 
 export default function RootLayout({
@@ -27,27 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <SidebarProvider>
-          <SidebarInset>{children}</SidebarInset>
-
-          <AppSidebar side="right" />
-
-          {/* <FloatingDock />
-          <SidebarToggle /> */}
-
-          {/* Mode Toggle - Desktop: bottom right next to AI chat, Mobile: top right next to burger menu */}
-          {/* <div className="fixed md:bottom-6 md:right-24 top-4 right-18 md:top-auto md:left-auto z-20">
-            <div className="w-10 h-10 md:w-12 md:h-12">
-              <ModeToggle />
-            </div>
-          </div> */}
-        </SidebarProvider>
-
-        <SanityLive />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
