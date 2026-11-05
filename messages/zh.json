@@ -39,6 +39,25 @@
     "view": "查看项目",
     "source": "源代码"
   },
+  "skills": {
+    "heading": "技能"
+  },
+  "experience": {
+    "heading": "经历",
+    "aside": "按时间排列的职位，写清楚我负责什么、交付了什么。点开查看详情。",
+    "resume": "简历 PDF",
+    "lead": "工作与教育经历",
+    "used": "技术",
+    "range": "{start}–{end}",
+    "current": "{start} 至今"
+  },
+  "contact": {
+    "heading": "需要一位 AI 与前端开发工程师？",
+    "text": "全职，远程或驻场皆可。发邮件最快，AI 分身也随时可以回答基本问题。",
+    "email": "发邮件",
+    "copy": "复制微信号",
+    "copied": "已复制微信号"
+  },
   "koi": {
     "show": "我长啥样",
     "hide": "把鱼叫回来",

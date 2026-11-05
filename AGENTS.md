@@ -20,10 +20,11 @@ Use pnpm.
 
 ## Where things live
 
-- `app/(portfolio)/[locale]/`: the public site in English (`/en`) and Chinese (`/zh`), with its root layout. The page is a placeholder until the sections are built (T8): the headline, the intro, and the T7 art in a stack.
+- `app/(portfolio)/[locale]/`: the public site in English (`/en`) and Chinese (`/zh`), with its root layout. The home page renders the sections in order.
 - `app/globals.css`: the design tokens as Tailwind theme values, both themes, and the grid lengths measured from the headline.
 - `app/fonts/`: Archivo and JetBrains Mono, self-hosted, with their OFL licenses.
 - `components/`: the header, footer, and their parts, such as pixel icons and the language switch. `koi-figure.tsx` is the hero's koi and photo, and `ascii-art.tsx` renders the fixed art.
+- `components/sections/`: the home page's sections, from the hero to Contact. Each matches the T3 prototype at 375, 768, and 1440 pixels wide.
 - `lib/ascii/`: the ASCII art made while the site builds: the ripples and objects (`scenes.ts`) and the image converter (`image.ts`, using sharp). Visitors get the characters in the HTML and never download this code.
 - `lib/koi/engine.ts`: the koi drawing and the photo reveal, with no DOM code, so the server draws the footer's still pair and the browser animates the hero's.
 - `public/`: George's photo and the project images. Strip a photo's metadata before adding it, because the repo is public.
@@ -65,6 +66,8 @@ There is no `app/layout.tsx`. Every page must sit inside a route group that has 
 - The layout closely follows a Dribbble concept by Faza Dzikrulloh, by George's choice (see T3 in `docs/ROADMAP.md`). Never reproduce its artwork, wording, or logo marks, and keep the credit to its designer.
 - The grid lines are measured from the hero headline's letters, and display heading sizes are solved against them. If a display heading's words change, solve its size again (see `docs/DESIGN.md`).
 - Once T3 is approved, build UI from `docs/DESIGN.md` and its Figma file, including its rules for Chinese text and both themes.
+- Tailwind's `text-xs` and `text-sm` set their own line height. For body text, write the size, such as `text-[14px]`, so the design's 1.55 line height carries through.
+- On the Chinese page, an English display heading is a graphic (`aria-hidden`, `lang="en"`), and a Chinese `h2` beside it carries the section's name.
 
 **Upstream**
 - This project started from [an upstream repo](https://github.com/sonnysangha/next-gen-ai-portfolio-openai-agentkit-sanity-clerk-nextjs-16) whose README limits use of its code. T4 removed the upstream-derived code, and T12 cleans the public history.

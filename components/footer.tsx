@@ -78,8 +78,8 @@ export function Footer() {
               </span>
             ))}
           </nav>
-          <div className="flex flex-col gap-1.5 pl-3 text-sm text-muted lg:pl-7">
-            <h3 className="mb-2 text-sm font-semibold text-fg">
+          <div className="flex flex-col gap-1.5 pl-3 text-[14px] text-muted lg:pl-7">
+            <h3 className="mb-2 text-[14px] font-semibold text-fg">
               {t("elsewhere")}
             </h3>
             <a href={contact.github} className="hover:text-signal-text">
@@ -92,8 +92,8 @@ export function Footer() {
               {t("resume")}
             </a>
           </div>
-          <div className="flex flex-col gap-1.5 pl-3 text-sm text-muted lg:pl-7">
-            <h3 className="mb-2 text-sm font-semibold text-fg">
+          <div className="flex flex-col gap-1.5 pl-3 text-[14px] text-muted lg:pl-7">
+            <h3 className="mb-2 text-[14px] font-semibold text-fg">
               {t("contact")}
             </h3>
             <a

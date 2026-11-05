@@ -17,7 +17,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T5 | Foundations | Merged | `feat/t5-foundations` | `checkpoint/t5` |
 | T6 | Content files | Merged | `feat/t6-content-files` | `checkpoint/t6` |
 | T7 | ASCII art | Merged | `feat/t7-ascii-art` | `checkpoint/t7` |
-| T8 | Sections | Not started | | |
+| T8 | Sections | In review | `feat/t8-sections` | |
 | T9 | DeepSeek chat | Not started | | |
 | T10 | Real content | Not started | | |
 | T11 | Chinese translation | Not started | | |
@@ -105,6 +105,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Build each section from the Figma file at desktop, tablet, and phone widths, with text from translation and content files, and images through `next/image`.
 - No services section, because the site doesn't advertise paid work.
 - **Done when:** each section matches the Figma file at all three widths, and the browser makes no third-party requests.
+- Built in `components/sections/`, with each element's position measured against the T3 prototype, which the Figma file was captured from. The AI twin's window and its buttons are a picture until T9 wires them up, and the contact panel's AI twin button goes to that window until then. Project links, project two and three, and the screenshots stay placeholders until T10.
 
 ### T9: DeepSeek chat
 - Add an `/api/chat` route using the AI SDK and `deepseek-flash`, with the model ID in an environment variable.
@@ -267,3 +268,16 @@ Taken on 2026-11-06 on `feat/t7-ascii-art`.
 | Photo reveal | Works both ways in both languages and both themes. With reduced motion, the photo swaps in without the animation |
 | Page size | `/en` is 71 KB of HTML, 13 KB compressed, with the art. The koi code adds 32 KB of JavaScript before compression |
 | Third-party hosts contacted by the page | None. The photo comes from `/_next/image` about 2 seconds after load |
+
+## After T8
+
+Taken on 2026-11-06 on `feat/t8-sections`.
+
+| Check | Result |
+|---|---|
+| Build, type check, and Biome | Pass, 0 errors, 0 warnings |
+| Sections against the prototype | Every measured element in the hero, Selected work, Skills, Experience, Contact, and the footer sits at the same position and size at 375, 768, and 1440. The exceptions are on purpose: the first project's placeholder screenshots, and the art button on phones (see T7) |
+| Layout shift | None: with scripts off, every section starts where it does with scripts on |
+| Chinese page | One `h1` and an `h2` per section, all in Chinese, with the English display words hidden from screen readers. No duplicate IDs |
+| Page size | 175 KB of HTML, 27 KB compressed, with all the art |
+| Third-party hosts contacted by the page | None |
