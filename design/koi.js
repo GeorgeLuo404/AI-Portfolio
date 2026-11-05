@@ -18,17 +18,17 @@
   const CELL_W = 0.6;
 
   // Lengths are in units of the ring's radius.
-  const RING = 1;
+  const RING = 0.915;
   const TAU = 2 * Math.PI;
   // Each head circles at ORBIT, and the body spirals out behind it to OUTER,
   // so each tail sweeps around outside the other fish's head.
-  const ORBIT = 0.38;
-  const OUTER = 0.79;
+  const ORBIT = 0.27;
+  const OUTER = 0.7;
   const BODY = 1.0;
   // The tail's two lobes reach this far past the end of the body.
   const TAIL = 0.4;
   const LENGTH = BODY + TAIL;
-  const WIDTH = 0.205;
+  const WIDTH = 0.22;
   const SPINE = 84;
   // One lap every 26 seconds, and the ring turns with the fish.
   const SPEED = (TAU * ORBIT) / 26;
@@ -257,7 +257,7 @@
   // ring's center in the middle of the grid; `s` is one unit in em.
   function makeField(cols, rows) {
     const w = cols * CELL_W;
-    const s = 0.43 * Math.min(w, rows);
+    const s = 0.47 * Math.min(w, rows);
     const n = cols * rows;
     const f = {
       cols,
