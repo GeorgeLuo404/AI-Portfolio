@@ -5,6 +5,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { ThemeScript } from "@/components/theme-script";
 import { htmlLang, routing } from "@/i18n/routing";
 import "../../globals.css";
 
@@ -21,19 +22,6 @@ const jetbrainsMono = localFont({
   variable: "--font-jetbrains",
   weight: "100 800",
 });
-
-// Applies a saved or forced theme before first paint, so the page doesn't
-// flash. ?theme=light or ?theme=dark wins over a saved choice.
-const themeScript = `(() => {
-  const params = new URLSearchParams(location.search);
-  let theme = params.get("theme");
-  if (theme !== "light" && theme !== "dark") {
-    try { theme = localStorage.getItem("theme"); } catch {}
-  }
-  if (theme === "light" || theme === "dark") {
-    document.documentElement.dataset.theme = theme;
-  }
-})();`;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -62,10 +50,7 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <head>
-        <script
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: a fixed script of our own, with no outside input.
-          dangerouslySetInnerHTML={{ __html: themeScript }}
-        />
+        <ThemeScript />
       </head>
       <body>
         <NextIntlClientProvider>

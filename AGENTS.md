@@ -85,6 +85,8 @@ If the dev server compiles for minutes or logs `Can't resolve 'tailwindcss'`, th
 
 If `tsc` reports a missing module in `.next/dev/types` after a route is deleted, the generated types are stale. Delete `.next` and run it again. Route types such as `PageProps` come from Next, so after deleting `.next`, run `pnpm exec next typegen` or a build before `tsc`.
 
+React clears every attribute on `<html>` that it didn't render itself whenever the layout remounts, such as after switching language. Anything a script sets there, like the theme, has to be set again from a client component (see `components/theme-toggle.tsx`).
+
 Check UI changes in a browser as well as with the build. A hydration error from the Next 16.4 upgrade passed the build, the type check, and `curl`, and only showed up in the browser console.
 
 <!-- BEGIN:nextjs-agent-rules -->

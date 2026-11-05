@@ -251,3 +251,4 @@ Taken on 2026-11-06 on `feat/t6-content-files`.
 | A project title with only Chinese | Fails the type check: `Property 'en' is missing` |
 | `/zh` with the Chinese intro removed, then set to "" | Shows the English intro both times |
 | Content without Chinese yet | The start date and the résumé link, which fall back to English |
+| Saved theme after switching language | Kept both ways, with no console errors. Before this fix, the switch cleared it and React warned about the theme script |

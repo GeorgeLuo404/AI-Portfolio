@@ -1,16 +1,20 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { PixelIcon } from "./pixel-icon";
+import { applySavedTheme } from "./theme";
 
 // The page follows the system setting until someone picks a theme here, and
-// the choice is saved. The script in the layout applies it before first paint.
+// the choice is saved. `ThemeScript` applies it before first paint.
 export function ThemeToggle({ className }: { className?: string }) {
   const t = useTranslations("header");
   const [dark, setDark] = useState(false);
 
-  useEffect(() => {
+  // React clears the attributes on <html> when it remounts the layout, such
+  // as after switching language, so apply the theme again before paint.
+  useLayoutEffect(() => {
+    applySavedTheme();
     const root = document.documentElement;
     const system = matchMedia("(prefers-color-scheme: dark)");
     const read = () =>
