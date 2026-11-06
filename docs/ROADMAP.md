@@ -320,13 +320,14 @@ Taken on 2026-11-06 on `feat/t9-chat`.
 
 ## After T9b
 
-Taken on 2026-11-07 on `fix/t9b-phone-fixes`, in a desktop browser at phone and desktop sizes. Not yet checked on an iPhone: this Mac has no iOS Simulator.
+Taken on 2026-11-07 on `fix/t9b-phone-fixes`, in a desktop browser at phone and desktop sizes, and in Safari on an iPhone 17 simulator (iOS 27.2) from the command line. This Mac's Xcode has no Simulator app, so taps, the keyboard, and "Show my face" weren't tried on iOS.
 
 | Check | Result |
 |---|---|
 | Build, type check, and Biome | Pass, 0 errors, 0 warnings |
 | Koi on a 375px phone | 106 columns instead of 180, so about a third of the characters each frame. A frame took 2.9 ms here, against 5.1 ms for the full desktop grid |
-| Ring | Rows land exactly where the art expects in Chrome, so it needs no stretch there. Browsers that round tiny fonts get stretched back onto the grid |
+| Ring | Rows land exactly where the art expects in Chrome, so it needs no stretch there. Browsers that round tiny fonts get stretched back onto the grid. In iOS Safari the ring comes out round, where George's iPhone showed it about 10% wider than tall |
+| Chat page on iOS | Header, close button, chips, and the Send square line up as in Chrome, on the Chinese page |
 | "Show my face" | The ring fades with the fish, and the photo shows about a second after the press |
 | Chat | Opens as its own page from the hero, header, menu, and contact panel. A question asked in the hero arrives and is answered, with no sideways scrolling at phone width and no console errors. Section links and the language switch work from it |
 | Home page scripts | The AI SDK's chunk loads only on the chat page |
