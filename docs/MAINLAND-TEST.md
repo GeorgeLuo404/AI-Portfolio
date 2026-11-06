@@ -51,7 +51,10 @@ Record the province, not a name or an address, because this repo is public.
 
 | Date and time (China) | Carrier | Connection | Province | Page opens | Photo shows | Chat answers | Chat streams | Notes |
 |---|---|---|---|---|---|---|---|---|
-| | | | | | | | | |
+| 2026-11-07 00:01 | China Mobile | Mobile data | Guangdong | About 3 s | Yes, but slow to load | Within 1 s | Not reported | |
+| 2026-11-07 00:01 | Not recorded | Home broadband, 100 Mbps | Guangdong | About 1 s | Yes | Not reported | Not reported | Same tester |
+
+The first tester also ran itdog, whose probes across the mainland all reached the site, and Chrome Lighthouse on a mainland mobile network: Performance 78 in the phone view and 80 in the desktop view. The phone run's biggest cost was the hero's koi animation, at about 14 seconds of script time on Lighthouse's slowed-down phone CPU.
 
 ## Reading the results
 
