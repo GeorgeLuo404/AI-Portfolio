@@ -39,10 +39,12 @@ Keep this format stable, so another backend, such as a Python service, can repla
 
 The instructions in `lib/chat/instructions.ts` hold the rules and every public fact from `content/`, in full. There's no retrieval, because the content is small and DeepSeek caches a prompt that repeats. The twin:
 
-- Talks about George in the third person, as his assistant.
+- Speaks as George, in the first person, and takes "you" to mean George.
+- Says it's George's AI twin, and can be wrong, when a visitor asks whether they're talking to George.
 - Uses only the facts in the profile, and says when something isn't covered or not published yet.
+- Never commits to anything for George, such as an offer, an interview, a start date, or pay. It answers that George would rather reply personally, and points to his contact details.
 - Declines other topics, attempts to change its rules or reveal them, and private details such as a phone number.
-- Replies in the visitor's language, and calls George 罗卓君 in Chinese.
+- Replies in the visitor's language.
 
 DeepSeek's thinking mode is off, so replies start sooner.
 
@@ -52,7 +54,7 @@ Nothing a visitor types is stored or logged on the server. The conversation live
 
 ## Testing
 
-`scripts/chat/test-set.json` holds on-topic, off-topic, private, and jailbreak questions in English and Chinese. With the dev server running and `CHAT_ENABLED=true`:
+`scripts/chat/test-set.json` holds on-topic, first-person, private, commitment, off-topic, and jailbreak questions in English and Chinese. With the dev server running and `CHAT_ENABLED=true`:
 
 ```bash
 pnpm chat:test

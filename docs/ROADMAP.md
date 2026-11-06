@@ -115,7 +115,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Add the chat UI from T3 (the hero box and a chat panel), a rate limit on `/api/*`, and an on/off switch that defaults to off.
 - Keep the `/api/chat` request and response format stable, so a different backend could replace it later.
 - **Done when:** replies stream from a mainland network, the test set passes, and the rate limit works.
-- Built as `app/api/chat/route.ts`, `lib/chat/`, `components/chat/`, and `scripts/chat/`, documented in `docs/CHAT.md`. AI SDK 7 and `@ai-sdk/deepseek` 3, with DeepSeek's thinking mode off. The twin talks about George in the third person, a declined reply is marked in the response so the page shows it in grey, and the conversation lasts for the browser tab. While the chat is off, the twin window says so and offers email. The test set passes. Two parts wait for a deployment: the mainland streaming test (T2b) and the firewall rate limit (T2b, T13).
+- Built as `app/api/chat/route.ts`, `lib/chat/`, `components/chat/`, and `scripts/chat/`, documented in `docs/CHAT.md`. AI SDK 7 and `@ai-sdk/deepseek` 3, with DeepSeek's thinking mode off. The twin speaks as George in the first person but never commits to anything for him, a declined reply is marked in the response so the page shows it in grey, and the conversation lasts for the browser tab. While the chat is off, the twin window says so and offers email. The test set passes. Two parts wait for a deployment: the mainland streaming test (T2b) and the firewall rate limit (T2b, T13).
 
 ### T10: Real content
 - George shares the resume outside the repo. Move only public facts into the content files, in English first, with no phone number or home address, because the repo is public.
@@ -171,7 +171,7 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Give the chat full context, not RAG (2026-11-05) | The content fits easily in `deepseek-flash`'s 1M-token context and caches cheaply. Retrieval can miss facts, and DeepSeek has no embeddings API. |
 | Keep the chat in TypeScript (2026-11-05) | One codebase and one deploy. A Python service can replace it later behind the same API. |
 | Link to email and WeChat at launch, and add a contact form later (2026-11-05) | Less to build and to protect from spam. A later form sends email and stores nothing. Replaces the 2026-11-03 plan to build the form before launch. |
-| The AI twin talks about George in the third person (2026-11-06) | George's choice. Visitors can tell an assistant's answers from George's own words, mistakes included. |
+| The AI twin speaks as George, in the first person (2026-11-06) | George's choice. The site already speaks in his voice ("Ask my AI twin"), and visitors call him "you". The twin never commits to offers, interviews, start dates, or pay, and says it's an AI when asked. Replaces that day's choice of the third person. |
 | Keep a visitor's conversation for the browser tab (2026-11-06) | George's choice. It survives a reload and ends with the tab, and nothing is stored on the server. |
 | While the chat is off, keep the twin window and say it's offline (2026-11-06) | George's choice. The hero keeps its design, and visitors get the email address instead. |
 | Convert images to ASCII art while the site builds, with sharp (2026-11-06) | George's choice. The art ships in the HTML, so visitors download no converter and see it before any script runs. Next already installs sharp for its own image resizing, so it adds no new package to the install. |
@@ -293,7 +293,7 @@ Taken on 2026-11-06 on `feat/t9-chat`.
 | Check | Result |
 |---|---|
 | Build, type check, and Biome | Pass, 0 errors, 0 warnings |
-| Test set (`pnpm chat:test`) | 31 of 31: on-topic, off-topic, private, and jailbreak questions in English and Chinese |
+| Test set (`pnpm chat:test`) | 38 of 38: on-topic, first-person, private, commitment, off-topic, and jailbreak questions in English and Chinese |
 | Chat in the browser | Opens from the hero, header, phone menu, and contact panel. Streams replies, shows declines in grey, closes with Esc, and keeps the conversation through a reload |
 | Chat switched off | The twin window says it's offline and offers email, the Ask links go to it, and `/api/chat` answers 503 |
 | API key | Not in any built file, for the browser or the server |
