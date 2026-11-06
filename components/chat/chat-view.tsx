@@ -49,6 +49,9 @@ export function ChatView() {
     regenerate,
   } = useChat<TwinMessage>({ transport });
   const busy = status === "submitted" || status === "streaming";
+  // Waiting for the first words of a reply, which can take a moment.
+  const last = messages.at(-1);
+  const waiting = busy && !(last?.role === "assistant" && textOf(last));
   const loaded = useRef(false);
   const input = useRef<HTMLTextAreaElement>(null);
   const [draft, setDraft] = useState("");
@@ -86,12 +89,27 @@ export function ChatView() {
     } catch {}
   }, [messages, busy]);
 
-  // Keep the newest message in view as it streams in.
+  // Follow a reply as it streams in, unless the visitor has scrolled up to
+  // read: then stay put until they come back down or ask something new.
+  const following = useRef(true);
+  useEffect(() => {
+    const onScroll = () => {
+      following.current =
+        innerHeight + scrollY >= document.documentElement.scrollHeight - 120;
+    };
+    addEventListener("scroll", onScroll, { passive: true });
+    return () => removeEventListener("scroll", onScroll);
+  }, []);
+
   // biome-ignore lint/correctness/useExhaustiveDependencies: scroll whenever the messages change.
   useEffect(() => {
-    if (messages.length) {
-      scrollTo({ top: document.documentElement.scrollHeight });
-    }
+    if (!messages.length) return;
+    if (last?.role === "user") following.current = true;
+    if (!following.current) return;
+    const frame = requestAnimationFrame(() =>
+      scrollTo({ top: document.documentElement.scrollHeight }),
+    );
+    return () => cancelAnimationFrame(frame);
   }, [messages, status]);
 
   function submit(event: FormEvent) {
@@ -173,13 +191,18 @@ export function ChatView() {
             </p>
           );
         })}
-        {status === "submitted" && (
-          <p className="flex h-6 items-center border-l-2 border-fg pl-3">
-            <span className="sr-only">{t("thinking")}</span>
-            <span
-              aria-hidden="true"
-              className="h-4 w-2 bg-signal motion-safe:animate-[blink_1.1s_steps(1)_infinite]"
-            />
+        {waiting && (
+          <p className="flex h-6 items-center gap-2.5 border-l-2 border-fg pl-3 text-[14px] text-muted">
+            {t("thinking")}
+            <span aria-hidden="true" className="flex items-center gap-1">
+              {[0, 1, 2].map((n) => (
+                <span
+                  key={n}
+                  style={{ animationDelay: `${n * 0.15}s` }}
+                  className="size-1.5 bg-signal motion-safe:animate-[wave_1.1s_ease-in-out_infinite]"
+                />
+              ))}
+            </span>
           </p>
         )}
         {error && (
@@ -197,44 +220,47 @@ export function ChatView() {
       </div>
 
       <div className="sticky bottom-0 z-10 flex-none border-x border-rule bg-bg pb-[env(safe-area-inset-bottom)] lg:border-x-0">
-        <div className="flex flex-wrap gap-1.5 px-4 pb-3">
-          {(["stack", "start", "contact"] as const).map((key) => (
-            <button
-              key={key}
-              type="button"
-              disabled={busy}
-              onClick={() => ask(twin(`questions.${key}`))}
-              className="h-[26px] bg-panel px-[9px] text-xs font-medium hover:text-signal-text disabled:opacity-50"
-            >
-              {twin(`suggest.${key}`)}
+        {/* The question on top, growing with its text; the suggestions and
+            Send share the row under it, so a long question never squeezes
+            them. */}
+        <form onSubmit={submit} className="-mx-px border-y border-fg lg:mx-0">
+          <label className="flex cursor-text gap-2.5 px-4 font-mono text-[14px] leading-[1.4] font-medium">
+            <span aria-hidden="true" className="pt-3.5 text-signal-text">
+              &gt;
+            </span>
+            <textarea
+              ref={input}
+              rows={1}
+              value={draft}
+              onChange={(event) => setDraft(event.target.value)}
+              onKeyDown={onKeyDown}
+              maxLength={MAX_QUESTION}
+              aria-label={t("question")}
+              placeholder={t("placeholder")}
+              className="max-h-[33svh] min-w-0 flex-1 resize-none bg-transparent pt-3.5 pb-2 outline-none placeholder:text-muted [&:lang(zh)]:font-sans"
+            />
+          </label>
+          <div className="flex items-center gap-3">
+            {/* On narrow screens the suggestions scroll sideways rather
+                than wrap, fading out at the edge to show there's more. */}
+            <div className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto pr-6 pl-4 [mask-image:linear-gradient(to_right,#000_calc(100%-24px),transparent)] [scrollbar-width:none]">
+              {(["stack", "start", "contact"] as const).map((key) => (
+                <button
+                  key={key}
+                  type="button"
+                  disabled={busy}
+                  onClick={() => ask(twin(`questions.${key}`))}
+                  className="h-[26px] flex-none bg-panel px-[9px] text-xs font-medium whitespace-nowrap hover:text-signal-text disabled:opacity-50"
+                >
+                  {twin(`suggest.${key}`)}
+                </button>
+              ))}
+            </div>
+            <button type="submit" className="btn btn-signal h-11 flex-none">
+              {busy ? t("stop") : t("send")}
+              <PixelIcon name={busy ? "close" : "send"} size={11} />
             </button>
-          ))}
-        </div>
-        <form
-          onSubmit={submit}
-          className="-mx-px flex items-end gap-2.5 border-y border-fg pl-4 font-mono text-[14px] leading-[1.4] font-medium lg:mx-0"
-        >
-          <span
-            aria-hidden="true"
-            className="self-start py-[15px] text-signal-text"
-          >
-            &gt;
-          </span>
-          <textarea
-            ref={input}
-            rows={1}
-            value={draft}
-            onChange={(event) => setDraft(event.target.value)}
-            onKeyDown={onKeyDown}
-            maxLength={MAX_QUESTION}
-            aria-label={t("question")}
-            placeholder={t("placeholder")}
-            className="max-h-[33svh] min-w-0 flex-1 resize-none bg-transparent py-[15px] outline-none placeholder:text-muted [&:lang(zh)]:font-sans"
-          />
-          <button type="submit" className="btn btn-signal h-[51px] flex-none">
-            {busy ? t("stop") : t("send")}
-            <PixelIcon name={busy ? "close" : "send"} size={11} />
-          </button>
+          </div>
         </form>
         <p className="px-4 pt-2.5 pb-3.5 text-[12px] text-muted">{t("note")}</p>
       </div>

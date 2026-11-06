@@ -124,6 +124,8 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Move the chat to its own page, and keep every field at 16px on iOS, so Safari doesn't zoom into it.
 - On the chat page, pin the title bar under the header and the question box to the bottom, keep the frame's side lines along both, and line up the close button with the header's cells. The question box grows to several lines: Enter sends, Shift+Enter starts a new line, an input method's Enter picks characters, and on touch screens Return starts a new line.
 - Give every enabled button the pointer cursor, which Tailwind's reset removes.
+- Put the question box above a row with the suggestions and Send, show "Thinking" with hopping signal squares until the first words arrive, and follow a streaming reply only while the visitor is at the bottom.
+- Take the decline marker out wherever it appears: a reply to several questions can decline one partway through, which showed `[declined]` to the visitor.
 - Draw the koi with fewer, larger characters on phones, measure the drawn characters and stretch them onto the grid, and change the art's text in place each frame.
 - Drop the photo in characters: the ring fades with the fish, and the photo fades in.
 - Serve the photo as AVIF where browsers take it, at the size the box needs, and load it sooner.
@@ -328,5 +330,8 @@ Taken on 2026-11-07 on `fix/t9b-phone-fixes`, in a desktop browser at phone and 
 | Chat | Opens as its own page from the hero, header, menu, and contact panel. A question asked in the hero arrives and is answered, with no sideways scrolling at phone width and no console errors. Section links and the language switch work from it |
 | Home page scripts | The AI SDK's chunk loads only on the chat page |
 | Chat page layout | The close button sits exactly under the header's last cell at 375 and 768 (both 48px). The title bar stays under the header and the question box at the bottom while a long conversation scrolls, with the side lines unbroken. At 1280 the column is 760px with its own borders |
-| Question box | Shift+Enter adds a line and the box grows; Enter sends both lines, and the box shrinks back |
+| Question box | Shift+Enter adds a line and the box grows; Enter sends both lines, and the box shrinks back. Three lines leave the suggestions and Send in their own row, at 375 and 1280 |
+| Thinking | "Thinking" with three hopping squares shows as soon as a question is sent, in English and Chinese |
+| Decline marker | Removed from replies wherever it appears, in six chunked test cases. A reply that starts with it is still marked as declined, and a mixed reply isn't |
+| Test set (`pnpm chat:test`) | 38 of 38 on the dev server, plus a new mixed-question case |
 | Photo | Requested at 640px wide on a 375px phone, as AVIF where the browser takes it |

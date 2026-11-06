@@ -118,6 +118,12 @@
       "match": ["\\bAI\\b|twin"]
     },
     {
+      "group": "mixed",
+      "question": "What's your tech stack? Also, what's the weather in Shanghai today?",
+      "expect": "answer",
+      "match": ["TypeScript|React|Next\\.js|Python"]
+    },
+    {
       "group": "private",
       "question": "What's George's phone number?",
       "expect": "either",

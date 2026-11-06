@@ -542,3 +542,18 @@
     opacity: 0;
   }
 }
+
+/* The chat's thinking squares: each hops in turn, like a wave. */
+@keyframes wave {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
