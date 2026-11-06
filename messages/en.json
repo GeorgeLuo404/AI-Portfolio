@@ -30,14 +30,38 @@
   },
   "twin": {
     "online": "Online",
-    "placeholder": "What has George built with AI?",
+    "placeholder": "What have you built with AI?",
     "suggest": {
       "projects": "Recent projects",
       "stack": "Tech stack",
-      "start": "Start date"
+      "start": "Start date",
+      "contact": "How to reach me"
     },
     "note": "Answers come from my résumé and projects, and can be wrong.",
-    "ask": "Ask"
+    "ask": "Ask",
+    "offline": "Offline",
+    "resting": "My AI twin is offline right now.",
+    "offNote": "Email me instead:",
+    "question": "Your question",
+    "questions": {
+      "projects": "What have you worked on recently?",
+      "stack": "What's your tech stack?",
+      "start": "When can you start?",
+      "contact": "How can I reach you?"
+    }
+  },
+  "chat": {
+    "title": "AI twin",
+    "close": "Close",
+    "welcome": "Ask me about my projects, skills, experience, or how to reach me.",
+    "placeholder": "Ask about my work",
+    "question": "Your question",
+    "send": "Send",
+    "stop": "Stop",
+    "thinking": "My twin is writing a reply.",
+    "error": "My twin couldn't answer just now. Try again, or email me.",
+    "retry": "Try again",
+    "note": "Answers come from my résumé and projects, and can be wrong."
   },
   "work": {
     "display": "Selected Work",

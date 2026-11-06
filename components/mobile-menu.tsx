@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { AskLink } from "./chat/ask-link";
 import { LangSwitch } from "./lang-switch";
 import { PixelIcon } from "./pixel-icon";
 
@@ -42,13 +43,13 @@ export function MobileMenu() {
           </a>
         ))}
         <LangSwitch className={`${row} gap-4`} linkClassName="text-[17px]" />
-        <a
-          href="#twin"
-          className={`${row} gap-2.5 border-b-0 bg-panel text-signal-text`}
+        <AskLink
+          onOpen={() => setOpen(false)}
+          className={`${row} w-full gap-2.5 border-b-0 bg-panel text-signal-text`}
         >
           <PixelIcon name="chat" />
           {t("ask")}
-        </a>
+        </AskLink>
       </div>
     </>
   );

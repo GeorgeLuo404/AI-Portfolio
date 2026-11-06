@@ -2,7 +2,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { getContent } from "@/content";
 import { KoiFigure } from "../koi-figure";
 import { PixelIcon } from "../pixel-icon";
-import { TwinStage } from "../twin-window";
+import { TwinStage } from "../twin-stage";
 
 // The hero, on the grid measured from its own headline: "AI / Web Engineer"
 // in giant type, three chips in a staircase, the intro with the logo mark in

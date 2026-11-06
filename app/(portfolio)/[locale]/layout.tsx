@@ -3,10 +3,13 @@ import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { ChatProvider } from "@/components/chat/chat-provider";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { ThemeScript } from "@/components/theme-script";
+import { getContent } from "@/content";
 import { htmlLang, routing } from "@/i18n/routing";
+import { chatEnabled } from "@/lib/chat/config";
 import "../../globals.css";
 
 // Self-hosted, so no visitor's browser fetches fonts from another host. The
@@ -57,11 +60,16 @@ export default async function LocaleLayout({
       </head>
       <body>
         <NextIntlClientProvider>
-          <div className="page">
-            <Header />
-            {children}
-            <Footer />
-          </div>
+          <ChatProvider
+            enabled={chatEnabled()}
+            email={getContent(locale).contact.email}
+          >
+            <div className="page">
+              <Header />
+              {children}
+              <Footer />
+            </div>
+          </ChatProvider>
         </NextIntlClientProvider>
       </body>
     </html>
