@@ -46,7 +46,7 @@ There is no `app/layout.tsx`. Every page must sit inside a route group that has 
 - Check that any new script, font, image host, or API is reachable from the mainland before adding it.
 
 **Hosting**
-- Keep Vercel-specific APIs out of app code, because hosting may have to move after the T2b test.
+- Keep Vercel-specific APIs out of app code, so hosting can still move. The T2b mainland test passed, so the site stays on Vercel for now.
 - Hosting stays outside mainland China for now, so no ICP filing is needed. The domain is `georgeluo.dev`, bought through Vercel. A `.dev` can't be used for an ICP filing, so a move into the mainland would need another domain.
 - Check mainland reachability with `docs/MAINLAND-TEST.md`, at T2b and again at T13.
 - Keep the site non-commercial: no paid services, ads, affiliate links, or payment flows. The Vercel Hobby plan doesn't allow them.
