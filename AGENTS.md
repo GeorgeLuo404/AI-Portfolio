@@ -33,6 +33,7 @@ Use pnpm.
 - `i18n/` and `messages/`: next-intl routing and the English and Chinese interface text, such as headings, labels, and buttons. Chinese falls back to English for any message it lacks, until T11.
 - `app/api/chat/` and `lib/chat/`: the AI twin's route, its instructions, and its switches. `components/chat/` has the chat panel and the twin window, and `scripts/chat/` the test set. See `docs/CHAT.md`.
 - `proxy.ts`: sends `/` to `/en` or `/zh` from the visitor's language. Next 16 calls middleware "proxy".
+- `vercel.json`: runs the functions in Hong Kong (`hkg1`). It's the only Vercel-specific file.
 - `design/`: the T3 HTML prototype that the Figma file is captured from. App code doesn't import from it. See `docs/DESIGN.md`.
 
 There is no `app/layout.tsx`. Every page must sit inside a route group that has a root layout, because Next 16.4 fails the build otherwise.
@@ -46,7 +47,7 @@ There is no `app/layout.tsx`. Every page must sit inside a route group that has 
 
 **Hosting**
 - Keep Vercel-specific APIs out of app code, because hosting may have to move after the T2b test.
-- Hosting stays outside mainland China for now, so no ICP filing is needed.
+- Hosting stays outside mainland China for now, so no ICP filing is needed. The domain is `georgeluo.dev`, bought through Vercel. A `.dev` can't be used for an ICP filing, so a move into the mainland would need another domain.
 - Keep the site non-commercial: no paid services, ads, affiliate links, or payment flows. The Vercel Hobby plan doesn't allow them.
 
 **Data and secrets**
