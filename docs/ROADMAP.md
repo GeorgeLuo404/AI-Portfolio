@@ -13,7 +13,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T2a | Lint and CI | Merged | `chore/t2-lint-ci` | `checkpoint/t2a` |
 | T3 | Design in Figma | Merged | `docs/t3-design` | `checkpoint/t3` |
 | T4 | Remove upstream code and Sanity | Merged | `chore/t4-remove-upstream` | `checkpoint/t4` |
-| T2b | Vercel deploy and mainland test | Not started | | |
+| T2b | Vercel deploy and mainland test | In progress | `chore/t2b-vercel-deploy` | |
 | T5 | Foundations | Merged | `feat/t5-foundations` | `checkpoint/t5` |
 | T6 | Content files | Merged | `feat/t6-content-files` | `checkpoint/t6` |
 | T7 | ASCII art | Merged | `feat/t7-ascii-art` | `checkpoint/t7` |
@@ -75,8 +75,8 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - **Done when:** the build, type check, and lint pass, no Sanity package or upstream-derived file remains, and the audit is re-measured.
 
 ### T2b: Vercel deploy and mainland test
-- George buys a `.com` domain through Vercel. A `.com` can move to a mainland registrar later if an ICP filing is ever needed.
-- Connect the repo to Vercel, run functions in `hkg1` (Hong Kong), and deploy the site on the custom domain.
+- George bought `georgeluo.dev` through Vercel on 2026-11-06, after `georgeluo.com` turned out to be taken. Unlike a `.com`, a `.dev` can't be used for an ICP filing: it isn't on the ministry's list of approved suffixes, as Alibaba Cloud publishes it. So a move into the mainland would need another domain.
+- Connect the repo to Vercel, run functions in `hkg1` (Hong Kong) with `vercel.json`, and deploy the site on the custom domain.
 - Test it on China Telecom, Unicom, and Mobile networks without a VPN, on several different days.
 - Finish T9's two deployed checks: chat replies stream on those networks (with `DEEPSEEK_API_KEY` and `CHAT_ENABLED=true` set in Vercel), and a firewall rate limit on `/api/*` works.
 - **Done when:** the result is recorded here. If it fails, try a no-ICP option first, such as a static copy of the site on a host with better routing into China, which Vercel itself suggests. Hosting in the mainland isn't planned. The test can run at any point after T4, because the app stays free of Vercel-specific code.
@@ -176,12 +176,13 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Keep a visitor's conversation for the browser tab (2026-11-06) | George's choice. It survives a reload and ends with the tab, and nothing is stored on the server. |
 | While the chat is off, keep the twin window and say it's offline (2026-11-06) | George's choice. The hero keeps its design, and visitors get the email address instead. |
 | Convert images to ASCII art while the site builds, with sharp (2026-11-06) | George's choice. The art ships in the HTML, so visitors download no converter and see it before any script runs. Next already installs sharp for its own image resizing, so it adds no new package to the install. |
+| Use `georgeluo.dev` as the domain (2026-11-06) | George's choice, after `georgeluo.com` turned out to be taken. Hosting in Hong Kong needs no ICP filing, so the missing ICP route only matters if the site ever moves into the mainland. Replaces the plan to buy a `.com`. |
 
 ## Open items
 
 | Item | Needed by | Owner |
 |---|---|---|
-| Buy a `.com` domain through Vercel | T2b | George |
+| Add `DEEPSEEK_API_KEY` to the Vercel project's environment variables | T2b | George |
 | Find a tester on a mainland network without a VPN | T2b | George |
 | Share the resume, outside the repo | T10 | George |
 | Keep the upstream credit in `README.md` while upstream-derived code remains | Until T12 | Everyone |
