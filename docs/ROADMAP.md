@@ -18,7 +18,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T6 | Content files | Merged | `feat/t6-content-files` | `checkpoint/t6` |
 | T7 | ASCII art | Merged | `feat/t7-ascii-art` | `checkpoint/t7` |
 | T8 | Sections | Merged | `feat/t8-sections` | `checkpoint/t8` |
-| T9 | DeepSeek chat | In review | `feat/t9-chat` | |
+| T9 | DeepSeek chat | Merged | `feat/t9-chat` | `checkpoint/t9` |
 | T10 | Real content | Not started | | |
 | T11 | Chinese translation | Not started | | |
 | T12 | Clean public history | Not started | | |
@@ -76,8 +76,9 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 
 ### T2b: Vercel deploy and mainland test
 - George buys a `.com` domain through Vercel. A `.com` can move to a mainland registrar later if an ICP filing is ever needed.
-- Connect the repo to Vercel, run functions in `hkg1` (Hong Kong), and deploy the T4 placeholder page on the custom domain.
+- Connect the repo to Vercel, run functions in `hkg1` (Hong Kong), and deploy the site on the custom domain.
 - Test it on China Telecom, Unicom, and Mobile networks without a VPN, on several different days.
+- Finish T9's two deployed checks: chat replies stream on those networks (with `DEEPSEEK_API_KEY` and `CHAT_ENABLED=true` set in Vercel), and a firewall rate limit on `/api/*` works.
 - **Done when:** the result is recorded here. If it fails, try a no-ICP option first, such as a static copy of the site on a host with better routing into China, which Vercel itself suggests. Hosting in the mainland isn't planned. The test can run at any point after T4, because the app stays free of Vercel-specific code.
 
 ### T5: Foundations
