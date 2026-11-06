@@ -164,6 +164,13 @@
     }
   }
 
+  /* Tailwind's reset gives buttons the plain arrow; anything clickable
+     shows the hand. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
   body {
     font: 400 17px / 1.55 var(--font-sans);
     -webkit-font-smoothing: antialiased;

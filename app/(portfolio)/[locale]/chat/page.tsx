@@ -36,7 +36,7 @@ export default async function ChatPage({
   const email = getContent(locale).contact.email;
   return (
     <main className="frame flex min-h-[calc(100svh-49px)] flex-col">
-      <div className="mx-auto flex w-full max-w-[760px] flex-1 flex-col border-x border-rule">
+      <div className="flex w-full flex-1 flex-col lg:mx-auto lg:max-w-[760px] lg:border-x lg:border-rule">
         {chatEnabled() ? (
           <ChatView />
         ) : (
