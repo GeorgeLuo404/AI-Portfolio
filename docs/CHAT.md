@@ -12,6 +12,8 @@ Visitors chat on the twin's own page, `/en/chat` or `/zh/chat`, in `components/c
 | `DEEPSEEK_MODEL` | The model. Empty means `deepseek-flash`. |
 | `CHAT_ENABLED` | `true` turns the chat on. Anything else keeps it off. |
 
+On the live site, the key and `CHAT_ENABLED=true` are set for Production only in the Vercel project, with the key marked sensitive. Preview builds of other branches have neither, so their chat stays off.
+
 The page reads `CHAT_ENABLED` while the site builds, so changing it takes a redeploy. While it's off, the hero's twin window says the twin is offline and offers email, the Ask buttons go to that window, and `/api/chat` answers `503`.
 
 ## Request and response
@@ -64,7 +66,9 @@ pnpm chat:test
 
 Each case is a real DeepSeek call, so a run costs a little. Run it after any change to the instructions or the content, and before turning the chat on in production.
 
+Run it against the dev server. The live site's rate limit allows 20 requests a minute per IP, and the set sends more than that, so a full run there gets `429` answers. To check the live site, send a few questions one at a time.
+
 ## Limits
 
-- The firewall rate limit on `/api/*` is a Vercel setting, added when the site is deployed (T2b, T13).
+- The firewall rate limit is a Vercel setting, not code: one rule on `/api/` that allows 20 requests a minute per IP and answers `429` above that (added in T2b). Visitors who share an IP, as many mobile users in the mainland do, share that budget, so raise it if testers report `429`. T13 settles the final value.
 - The prepaid DeepSeek balance caps what the chat can cost.

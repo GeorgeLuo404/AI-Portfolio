@@ -13,7 +13,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T2a | Lint and CI | Merged | `chore/t2-lint-ci` | `checkpoint/t2a` |
 | T3 | Design in Figma | Merged | `docs/t3-design` | `checkpoint/t3` |
 | T4 | Remove upstream code and Sanity | Merged | `chore/t4-remove-upstream` | `checkpoint/t4` |
-| T2b | Vercel deploy and mainland test | In progress | `chore/t2b-vercel-deploy` | |
+| T2b | Vercel deploy and mainland test | In progress | `chore/t2b-vercel-deploy`, `docs/t2b-results` | |
 | T5 | Foundations | Merged | `feat/t5-foundations` | `checkpoint/t5` |
 | T6 | Content files | Merged | `feat/t6-content-files` | `checkpoint/t6` |
 | T7 | ASCII art | Merged | `feat/t7-ascii-art` | `checkpoint/t7` |
@@ -78,8 +78,9 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 ### T2b: Vercel deploy and mainland test
 - George bought `georgeluo.dev` through Vercel on 2026-11-06, after `georgeluo.com` turned out to be taken. Unlike a `.com`, a `.dev` can't be used for an ICP filing: it isn't on the ministry's list of approved suffixes, as Alibaba Cloud publishes it. So a move into the mainland would need another domain.
 - Connect the repo to Vercel, run functions in `hkg1` (Hong Kong) with `vercel.json`, and deploy the site on the custom domain.
-- Test it on China Telecom, Unicom, and Mobile networks without a VPN, on several different days.
+- Test it on China Telecom, Unicom, and Mobile networks without a VPN, on several different days. The method, a message for the tester, and a results log are in [MAINLAND-TEST.md](MAINLAND-TEST.md).
 - Finish T9's two deployed checks: chat replies stream on those networks (with `DEEPSEEK_API_KEY` and `CHAT_ENABLED=true` set in Vercel), and a firewall rate limit on `/api/*` works.
+- **Result so far:** deployed on `georgeluo.dev` with functions in Hong Kong. The rate limit works, and the chat is on and answers from the live site (see After T2b). The mainland tests remain, and need a tester.
 - **Done when:** the result is recorded here. If it fails, try a no-ICP option first, such as a static copy of the site on a host with better routing into China, which Vercel itself suggests. Hosting in the mainland isn't planned. The test can run at any point after T4, because the app stays free of Vercel-specific code.
 
 ### T5: Foundations
@@ -199,7 +200,6 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 
 | Item | Needed by | Owner |
 |---|---|---|
-| Add `DEEPSEEK_API_KEY` to the Vercel project's environment variables | T2b | George |
 | Find a tester on a mainland network without a VPN | T2b | George |
 | Share the resume, outside the repo | T10 | George |
 | Keep the upstream credit in `README.md` while upstream-derived code remains | Until T12 | Everyone |
@@ -317,6 +317,20 @@ Taken on 2026-11-06 on `feat/t9-chat`.
 | Chat switched off | The twin window says it's offline and offers email, the Ask links go to it, and `/api/chat` answers 503 |
 | API key | Not in any built file, for the browser or the server |
 | Still to do | Stream replies from a mainland network, and add the firewall rate limit, once the site is deployed (T2b) |
+
+## After T2b (so far)
+
+Taken on 2026-11-06 on `main` at `3d2e41e`. The mainland tests are still to do.
+
+| Check | Result |
+|---|---|
+| Deployment | `georgeluo.dev` on Vercel's Hobby plan, built from `main` in about a minute. `www.georgeluo.dev` redirects to it, and `/` redirects by language |
+| Functions | Run in `hkg1` (Hong Kong), set by `vercel.json`. The `x-vercel-id` header on `/api/chat` shows it |
+| Pages | `/en` and `/zh` load over HTTPS |
+| Third-party hosts contacted by the page | None. A real browser load made 16 requests, all to `georgeluo.dev`, with no console errors |
+| Rate limit | One rule on `/api/`: 20 requests a minute per IP. Of 30 quick requests, 20 got through and 10 got `429` |
+| Chat | On in production, with the key set for Production only. A 5-question check from outside the mainland passed: an answer, a Chinese reply, the AI disclosure, two declines, and no leaked instructions. Replies streamed in 25 to 41 chunks, and the first words came after about 2 seconds. The full 38-question set can't run against the live site because of the rate limit, and it passes on the dev server |
+| Mainland networks | One tester so far, in Guangdong on 2026-11-07: China Mobile data opened the page in about 3 seconds and broadband in about 1, and the chat answered within a second. Telecom and Unicom are still to test. The method and the results log are in [MAINLAND-TEST.md](MAINLAND-TEST.md) |
 
 ## After T9b
 
