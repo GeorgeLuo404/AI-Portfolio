@@ -304,7 +304,7 @@ export function makeField(cols: number, rows: number) {
     y: new Float32Array(n),
     r: new Float32Array(n),
     a: new Float32Array(n),
-    // Water, ring and portrait under the fish.
+    // Water and ring under the fish.
     bg: new Float32Array(n),
     // The fish, premultiplied by their coverage.
     ink: new Float32Array(n),
@@ -316,8 +316,6 @@ export function makeField(cols: number, rows: number) {
     // When each cell settles during the load animation, from 0 to 1.
     reveal: new Float32Array(n),
     ringCells: [] as number[],
-    /** George's photo in tones, once it has loaded. */
-    portrait: null as Float32Array | null,
   };
   f.aa = 0.7 * Math.sqrt(f.cu * f.cv);
   for (let j = 0; j < rows; j++) {
@@ -718,10 +716,6 @@ type Scene = {
   time: number;
   turn?: number;
   ringDrawn?: number;
-  /** A ripple front's radius in units, or -1 for none. */
-  front?: number;
-  /** What shows inside the front. */
-  inside?: "portrait" | "water";
   /** How far the load animation has got, from 0 to 1. */
   decode?: number;
   ripples?: boolean;
@@ -736,14 +730,7 @@ export type Frame = {
 };
 
 function render(f: Field, scene: Scene): Frame {
-  const {
-    fish,
-    time,
-    ringDrawn = 1,
-    front = -1,
-    inside = "portrait",
-    decode,
-  } = scene;
+  const { fish, time, ringDrawn = 1, decode } = scene;
   f.bg.fill(0);
   f.ink.fill(0);
   f.cov.fill(0);
@@ -764,16 +751,6 @@ function render(f: Field, scene: Scene): Frame {
     });
   });
   if (ringDrawn > 0) drawRing(f, scene.turn ?? 0, time, tails, ringDrawn);
-  if (front >= 0 && f.portrait) {
-    const band = 0.16;
-    for (let k = 0; k < f.n; k++) {
-      const r = f.r[k];
-      const within = r < front - band;
-      const showPortrait = (inside === "portrait") === within;
-      if (r >= front - band && r < front) f.bg[k] = -1;
-      else if (showPortrait) f.bg[k] = f.portrait[k];
-    }
-  }
   fish.forEach((one, n) => {
     const pts = spines[n];
     if (pts) drawFish(f, one, pts);
@@ -821,8 +798,9 @@ type Mode = "koi" | "leaving" | "face" | "returning";
 
 /**
  * The hero's koi and photo reveal, as a state machine with no DOM. The
- * component sizes the field, feeds it the portrait, steps it with `update`,
- * and draws each `frame`.
+ * component sizes the field, steps it with `update`, and draws each
+ * `frame`. The photo itself is the component's: the engine only says when
+ * it should show.
  */
 export function createKoi({
   still,
@@ -840,8 +818,6 @@ export function createKoi({
   let fish = still ? stillPair() : swimmingPair();
   let ringDrawn = 1;
   let front = -1;
-  let inside: "portrait" | "water" = "portrait";
-  let frontFrom = -1;
   let decode = still || !intro ? undefined : 0;
   let art: Art = "koi";
   let photo = false;
@@ -849,7 +825,6 @@ export function createKoi({
   function startLeaving() {
     mode = "leaving";
     since = 0;
-    frontFrom = -1;
     for (const one of fish) {
       one.track = leaving(one);
       one.spiral = 0;
@@ -861,7 +836,6 @@ export function createKoi({
     mode = "returning";
     since = 0;
     photo = false;
-    inside = "water";
     front = 0;
     ringDrawn = 0;
     for (const one of fish) one.gone = true;
@@ -871,8 +845,7 @@ export function createKoi({
   function finish() {
     if (mode === "leaving") {
       for (const one of fish) one.gone = true;
-      front = 9;
-      inside = "portrait";
+      ringDrawn = 0;
       photo = true;
       art = "face";
       mode = "face";
@@ -915,16 +888,15 @@ export function createKoi({
     }
     const rMax = Math.hypot(field.halfW, field.halfH) + 0.25;
     if (mode === "leaving") {
-      if (frontFrom < 0 && since > 0.75 && field.portrait) {
-        frontFrom = since;
+      // The ring fades as the fish dart off, and the photo fades in over
+      // them, or as soon as it has loaded.
+      ringDrawn = 1 - smooth(0, 0.6, since);
+      if (since > 0.45) {
         art = "face";
+        photo = true;
       }
-      if (frontFrom >= 0) {
-        const p = clamp((since - frontFrom) / 1.5, 0, 1);
-        front = (rMax + 0.16) * (1 - (1 - p) ** 2);
-        if (p >= 1 && since - frontFrom > 1.85) photo = true;
-        if (since - frontFrom > 2.7) mode = "face";
-      }
+      if (since > 2.5) for (const one of fish) one.gone = true;
+      if (since > 0.6 && fish.every((one) => one.gone)) mode = "face";
     } else if (mode === "returning") {
       const p = clamp((since - 0.35) / 1.4, 0, 1);
       front = (rMax + 0.16) * (1 - (1 - p) ** 2);
@@ -962,9 +934,9 @@ export function createKoi({
     get photo() {
       return photo;
     },
-    /** The ripple front's radius in units and what's inside it, if any. */
+    /** The returning ripple front's radius in units, or -1 for none. */
     get front() {
-      return { radius: front, inside };
+      return front;
     },
     /** Whether the koi are circling, with nothing else under way. */
     get settled() {
@@ -974,13 +946,12 @@ export function createKoi({
     get moving() {
       return !still && mode !== "face";
     },
-    /** Size the grid. A new size keeps the portrait out until it's rebuilt. */
-    resize(rows: number) {
-      if (!field || field.rows !== rows) field = makeField(COLS, rows);
+    /** Size the grid. Phones use fewer columns than COLS. */
+    resize(rows: number, cols = COLS) {
+      if (!field || field.rows !== rows || field.cols !== cols) {
+        field = makeField(cols, rows);
+      }
       return field;
-    },
-    setPortrait(tones: Float32Array | null) {
-      if (field) field.portrait = tones;
     },
     update,
     frame(): Frame | null {
@@ -990,8 +961,6 @@ export function createKoi({
         time,
         turn: time * TURN,
         ringDrawn,
-        front,
-        inside,
         decode,
       });
     },

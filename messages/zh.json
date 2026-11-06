@@ -46,6 +46,7 @@
   "chat": {
     "title": "AI 分身",
     "close": "关闭",
+    "back": "返回作品集",
     "welcome": "可以问我的项目、技能、经历，或者怎么联系我。",
     "placeholder": "问问我的工作",
     "question": "你的问题",

@@ -8,12 +8,12 @@ import { useTwin } from "./chat-provider";
 
 // The AI twin's window in the hero: a title and status, a prompt with a
 // blinking caret, suggested questions, a note that answers can be wrong, and
-// an Ask button. Asking opens the chat panel. While the chat is off, the
+// an Ask button. Asking goes to the chat page. While the chat is off, the
 // window says so and offers email instead.
 export function TwinWindow({ className = "" }: { className?: string }) {
   const t = useTranslations("twin");
   const header = useTranslations("header");
-  const { enabled, email, busy, ask } = useTwin();
+  const { enabled, email, ask } = useTwin();
   const [draft, setDraft] = useState("");
 
   function submit(event: FormEvent) {
@@ -66,7 +66,6 @@ export function TwinWindow({ className = "" }: { className?: string }) {
               <button
                 key={key}
                 type="button"
-                disabled={busy}
                 onClick={() => ask(t(`questions.${key}`))}
                 className="h-[26px] bg-panel px-[9px] text-xs font-medium hover:text-signal-text disabled:opacity-50"
               >

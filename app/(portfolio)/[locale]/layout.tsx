@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ChatProvider } from "@/components/chat/chat-provider";
-import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { ThemeScript } from "@/components/theme-script";
 import { getContent } from "@/content";
@@ -67,7 +66,6 @@ export default async function LocaleLayout({
             <div className="page">
               <Header />
               {children}
-              <Footer />
             </div>
           </ChatProvider>
         </NextIntlClientProvider>

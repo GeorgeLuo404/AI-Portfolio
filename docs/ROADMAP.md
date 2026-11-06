@@ -19,6 +19,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T7 | ASCII art | Merged | `feat/t7-ascii-art` | `checkpoint/t7` |
 | T8 | Sections | Merged | `feat/t8-sections` | `checkpoint/t8` |
 | T9 | DeepSeek chat | Merged | `feat/t9-chat` | `checkpoint/t9` |
+| T9b | Phone fixes and performance | In progress | `fix/t9b-phone-fixes` | |
 | T10 | Real content | Not started | | |
 | T11 | Chinese translation | Not started | | |
 | T12 | Clean public history | Not started | | |
@@ -118,6 +119,14 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - **Done when:** replies stream from a mainland network, the test set passes, and the rate limit works.
 - Built as `app/api/chat/route.ts`, `lib/chat/`, `components/chat/`, and `scripts/chat/`, documented in `docs/CHAT.md`. AI SDK 7 and `@ai-sdk/deepseek` 3, with DeepSeek's thinking mode off. The twin speaks as George in the first person but never commits to anything for him, a declined reply is marked in the response so the page shows it in grey, and the conversation lasts for the browser tab. While the chat is off, the twin window says so and offers email. The test set passes. Two parts wait for a deployment: the mainland streaming test (T2b) and the firewall rate limit (T2b, T13).
 
+### T9b: Phone fixes and performance
+- From the first mainland test and George's iPhone: the chat pop-up broke on phones, the koi ring looked squashed, the ring hung on after "Show my face", and Lighthouse on a mainland mobile network put about 14 seconds of script time on the koi.
+- Move the chat to its own page, and keep every field at 16px on iOS, so Safari doesn't zoom into it.
+- Draw the koi with fewer, larger characters on phones, measure the drawn characters and stretch them onto the grid, and change the art's text in place each frame.
+- Drop the photo in characters: the ring fades with the fish, and the photo fades in.
+- Serve the photo as AVIF where browsers take it, at the size the box needs, and load it sooner.
+- **Done when:** the chat page and the hero work on George's iPhone, and the build, type check, and lint pass.
+
 ### T10: Real content
 - George shares the resume outside the repo. Move only public facts into the content files, in English first, with no phone number or home address, because the repo is public.
 - Replace the placeholder project images with screenshots.
@@ -175,6 +184,9 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | The AI twin speaks as George, in the first person (2026-11-06) | George's choice. The site already speaks in his voice ("Ask my AI twin"), and visitors call him "you". The twin never commits to offers, interviews, start dates, or pay, and says it's an AI when asked. Replaces that day's choice of the third person. |
 | Keep a visitor's conversation for the browser tab (2026-11-06) | George's choice. It survives a reload and ends with the tab, and nothing is stored on the server. |
 | While the chat is off, keep the twin window and say it's offline (2026-11-06) | George's choice. The hero keeps its design, and visitors get the email address instead. |
+| The chat gets its own page, not a pop-up (2026-11-07) | On phones the pop-up fought the keyboard and the page behind it. A page scrolls normally, the back button leaves it, and the AI SDK loads only there. Replaces T9's side panel. |
+| Drop the photo in characters (2026-11-07) | George's choice. It waited for the photo to load, which left the ring hanging on slow networks. The ring now fades with the fish and the photo fades in. |
+| No shadcn/ui for now (2026-11-07) | The phone bugs were iOS zoom, keyboard, and tiny-font quirks that a component library doesn't fix, and the chat page needs no dialog. |
 | Convert images to ASCII art while the site builds, with sharp (2026-11-06) | George's choice. The art ships in the HTML, so visitors download no converter and see it before any script runs. Next already installs sharp for its own image resizing, so it adds no new package to the install. |
 | Use `georgeluo.dev` as the domain (2026-11-06) | George's choice, after `georgeluo.com` turned out to be taken. Hosting in Hong Kong needs no ICP filing, so the missing ICP route only matters if the site ever moves into the mainland. Replaces the plan to buy a `.com`. |
 
@@ -300,3 +312,17 @@ Taken on 2026-11-06 on `feat/t9-chat`.
 | Chat switched off | The twin window says it's offline and offers email, the Ask links go to it, and `/api/chat` answers 503 |
 | API key | Not in any built file, for the browser or the server |
 | Still to do | Stream replies from a mainland network, and add the firewall rate limit, once the site is deployed (T2b) |
+
+## After T9b
+
+Taken on 2026-11-07 on `fix/t9b-phone-fixes`, in a desktop browser at phone and desktop sizes. Not yet checked on an iPhone: this Mac has no iOS Simulator.
+
+| Check | Result |
+|---|---|
+| Build, type check, and Biome | Pass, 0 errors, 0 warnings |
+| Koi on a 375px phone | 106 columns instead of 180, so about a third of the characters each frame. A frame took 2.9 ms here, against 5.1 ms for the full desktop grid |
+| Ring | Rows land exactly where the art expects in Chrome, so it needs no stretch there. Browsers that round tiny fonts get stretched back onto the grid |
+| "Show my face" | The ring fades with the fish, and the photo shows about a second after the press |
+| Chat | Opens as its own page from the hero, header, menu, and contact panel. A question asked in the hero arrives and is answered, with no sideways scrolling at phone width and no console errors. Section links and the language switch work from it |
+| Home page scripts | The AI SDK's chunk loads only on the chat page |
+| Photo | Requested at 640px wide on a 375px phone, as AVIF where the browser takes it |

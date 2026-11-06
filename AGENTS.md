@@ -31,7 +31,7 @@ Use pnpm.
 - `public/`: George's photo and the project images. Strip a photo's metadata before adding it, because the repo is public.
 - `content/`: every fact about George, such as projects, skills, roles, and contact details, typed in `content/types.ts` with English and Chinese side by side. Sections and the AI twin both read it through `getContent(locale)`, which falls back to English for any field without Chinese, until T11.
 - `i18n/` and `messages/`: next-intl routing and the English and Chinese interface text, such as headings, labels, and buttons. Chinese falls back to English for any message it lacks, until T11.
-- `app/api/chat/` and `lib/chat/`: the AI twin's route, its instructions, and its switches. `components/chat/` has the chat panel and the twin window, and `scripts/chat/` the test set. See `docs/CHAT.md`.
+- `app/api/chat/` and `lib/chat/`: the AI twin's route, its instructions, and its switches. `app/(portfolio)/[locale]/chat/` is the chat page, `components/chat/` has its view and the hero's twin window, and `scripts/chat/` the test set. See `docs/CHAT.md`.
 - `proxy.ts`: sends `/` to `/en` or `/zh` from the visitor's language. Next 16 calls middleware "proxy".
 - `vercel.json`: runs the functions in Hong Kong (`hkg1`). It's the only Vercel-specific file.
 - `design/`: the T3 HTML prototype that the Figma file is captured from. App code doesn't import from it. See `docs/DESIGN.md`.
@@ -71,6 +71,7 @@ There is no `app/layout.tsx`. Every page must sit inside a route group that has 
 - The layout closely follows a Dribbble concept by Faza Dzikrulloh, by George's choice (see T3 in `docs/ROADMAP.md`). Never reproduce its artwork, wording, or logo marks, and keep the credit to its designer.
 - The grid lines are measured from the hero headline's letters, and display heading sizes are solved against them. If a display heading's words change, solve its size again (see `docs/DESIGN.md`).
 - Once T3 is approved, build UI from `docs/DESIGN.md` and its Figma file, including its rules for Chinese text and both themes.
+- iOS Safari zooms the whole page into a field whose text is under 16px. `app/globals.css` raises fields to 16px on iOS only, so don't override a field's font size there.
 - Tailwind's `text-xs` and `text-sm` set their own line height. For body text, write the size, such as `text-[14px]`, so the design's 1.55 line height carries through.
 - On the Chinese page, an English display heading is a graphic (`aria-hidden`, `lang="en"`), and a Chinese `h2` beside it carries the section's name.
 

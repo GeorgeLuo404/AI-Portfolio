@@ -53,6 +53,7 @@
   "chat": {
     "title": "AI twin",
     "close": "Close",
+    "back": "Back to the portfolio",
     "welcome": "Ask me about my projects, skills, experience, or how to reach me.",
     "placeholder": "Ask about my work",
     "question": "Your question",

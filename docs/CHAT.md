@@ -2,6 +2,8 @@
 
 The AI twin answers visitors' questions about George from the content files, and declines anything else. It runs on DeepSeek through the AI SDK, in `app/api/chat/route.ts`.
 
+Visitors chat on the twin's own page, `/en/chat` or `/zh/chat`, in `components/chat/chat-view.tsx`. The hero's window, the header, the phone menu, and the contact panel all go there. A page rather than a pop-up, because on phones a pop-up fought the keyboard and the page behind it, and because the AI SDK then loads only on that page. The page scrolls like any other, with the question box pinned to the bottom of the screen.
+
 ## Switches
 
 | Variable | Purpose |
@@ -50,7 +52,7 @@ DeepSeek's thinking mode is off, so replies start sooner.
 
 ## Privacy
 
-Nothing a visitor types is stored or logged on the server. The conversation lives in the visitor's browser tab (`sessionStorage`), so it survives a reload and ends when the tab closes.
+Nothing a visitor types is stored or logged on the server. The conversation lives in the visitor's browser tab (`sessionStorage`), so it survives a reload and ends when the tab closes. A question asked in the hero's window travels to the chat page the same way, under `twin-ask`, never in the address, so it can't end up in request logs.
 
 ## Testing
 

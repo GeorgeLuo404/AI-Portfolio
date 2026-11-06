@@ -47,9 +47,9 @@ export function Header() {
           className="hidden items-center gap-4 border-l border-rule pl-4 text-sm font-medium sm:flex lg:gap-[22px] lg:pl-6 lg:text-nav"
         >
           {SECTIONS.map((id) => (
-            <a key={id} href={`#${id}`} className="hover:text-signal-text">
+            <Link key={id} href={`/#${id}`} className="hover:text-signal-text">
               {t(id)}
-            </a>
+            </Link>
           ))}
         </nav>
         <div className="flex items-stretch">

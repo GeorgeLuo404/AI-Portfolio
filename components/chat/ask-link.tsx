@@ -1,38 +1,29 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { Link } from "@/i18n/navigation";
 import { useTwin } from "./chat-provider";
 
-// "Ask my AI twin": a button that opens the chat panel. While the chat is
-// off, it's a link to the hero's twin window, which says so.
+// "Ask my AI twin": a link to the chat page. While the chat is off, it goes
+// to the hero's twin window, which says so.
 export function AskLink({
   className,
   onOpen,
   children,
 }: {
   className?: string;
-  /** Called as the panel opens, such as to close the phone menu. */
+  /** Called on the way to the chat, such as to close the phone menu. */
   onOpen?: () => void;
   children: ReactNode;
 }) {
-  const { enabled, open } = useTwin();
-  if (!enabled) {
-    return (
-      <a href="#twin" className={className}>
-        {children}
-      </a>
-    );
-  }
+  const { enabled } = useTwin();
   return (
-    <button
-      type="button"
-      onClick={() => {
-        onOpen?.();
-        open();
-      }}
+    <Link
+      href={enabled ? "/chat" : "/#twin"}
+      onClick={onOpen}
       className={className}
     >
       {children}
-    </button>
+    </Link>
   );
 }
