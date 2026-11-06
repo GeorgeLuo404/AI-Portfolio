@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { brightnessToTones, CELL_ASPECT } from "@/lib/ascii/tones";
+import { CELL_ASPECT } from "@/lib/ascii/tones";
 import { type Art, COLS, createKoi, type Koi } from "@/lib/koi/engine";
 import { PixelIcon } from "./pixel-icon";
 
@@ -19,14 +19,12 @@ type Controls = {
   still: boolean;
   play: () => void;
   draw: () => void;
-  buildPortrait: () => void;
   /** Count the characters again once the koi are back. */
   recount: () => void;
 };
 
 // The hero's art: two koi circling in characters over a dot grid, and a
-// button that sends them away and shows George's photo, first in characters,
-// then the photo itself. The koi pause off screen and in a hidden tab, and
+// button that sends them away and fades in George's photo. The koi pause off screen and in a hidden tab, and
 // hold still with reduced motion. The box's size comes from CSS alone, so
 // nothing shifts as the art draws.
 export function KoiFigure({
@@ -43,6 +41,7 @@ export function KoiFigure({
   const figureRef = useRef<HTMLElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const preRef = useRef<HTMLPreElement>(null);
+  const probeRef = useRef<HTMLSpanElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const koiRef = useRef<Koi | null>(null);
@@ -56,14 +55,14 @@ export function KoiFigure({
   const [photoShown, setPhotoShown] = useState(false);
   const [count, setCount] = useState<number | null>(null);
   const [tried, setTried] = useState(false);
-  // The photo loads once the page has settled, or as soon as someone reaches
+  // The photo loads just after the page has, or as soon as someone reaches
   // for the button, so it doesn't slow the first screen.
   const [wantPhoto, setWantPhoto] = useState(false);
 
   useEffect(() => {
     let timer = 0;
     const later = () => {
-      timer = window.setTimeout(() => setWantPhoto(true), 1200);
+      timer = window.setTimeout(() => setWantPhoto(true), 300);
     };
     if (document.readyState === "complete") later();
     else addEventListener("load", later, { once: true });
@@ -77,8 +76,9 @@ export function KoiFigure({
     const figure = figureRef.current;
     const box = boxRef.current;
     const pre = preRef.current;
+    const probe = probeRef.current;
     const canvas = canvasRef.current;
-    if (!figure || !box || !pre || !canvas) return;
+    if (!figure || !box || !pre || !probe || !canvas) return;
     const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const koi = createKoi({ still, intro });
     koiRef.current = koi;
@@ -91,51 +91,7 @@ export function KoiFigure({
     const background = () =>
       getComputedStyle(figure).getPropertyValue("--bg").trim();
 
-    // The photo in characters, with the same crop as the photo itself.
-    function buildPortrait() {
-      const img = imgRef.current;
-      const field = koi.field;
-      if (!field || !img?.complete || !img.naturalWidth) return;
-      const { cols, rows } = field;
-      const sx = 2;
-      const sy = 3;
-      const c = document.createElement("canvas");
-      c.width = cols * sx;
-      c.height = rows * sy;
-      const ctx = c.getContext("2d", { willReadFrequently: true });
-      if (!ctx) return;
-      const scale = Math.max(
-        width / img.naturalWidth,
-        height / img.naturalHeight,
-      );
-      const dw = img.naturalWidth * scale;
-      const dh = img.naturalHeight * scale;
-      // The photo's object-position: 60% 20%.
-      const ox = (width - dw) * 0.6;
-      const oy = (height - dh) * 0.2;
-      const kx = c.width / width;
-      const ky = c.height / (rows * font);
-      ctx.imageSmoothingQuality = "high";
-      ctx.drawImage(img, ox * kx, (oy - top) * ky, dw * kx, dh * ky);
-      const data = ctx.getImageData(0, 0, c.width, c.height).data;
-      const brightness = new Float32Array(cols * rows);
-      for (let j = 0; j < rows; j++) {
-        for (let i = 0; i < cols; i++) {
-          let sum = 0;
-          for (let b = 0; b < sy; b++) {
-            for (let a = 0; a < sx; a++) {
-              const p = ((j * sy + b) * c.width + i * sx + a) * 4;
-              sum += data[p] + data[p + 1] + data[p + 2];
-            }
-          }
-          brightness[j * cols + i] = sum / (sx * sy * 3 * 255);
-        }
-      }
-      const dark = background().toLowerCase() === "#000";
-      koi.setPortrait(brightnessToTones(brightness, cols, rows, dark));
-    }
-
-    // Clear the dot grid behind the fish, inside the ripple front, and
+    // Clear the dot grid behind the fish, outside the returning ripple, and
     // behind any noise.
     function paintMask(mask: Uint8Array) {
       const field = koi.field;
@@ -144,23 +100,19 @@ export function KoiFigure({
       ctx.setTransform(canvas.width / width, 0, 0, canvas.width / width, 0, 0);
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = background();
-      const { radius, inside } = koi.front;
+      const radius = koi.front;
       if (radius >= 0) {
         const r = radius * field.s * font;
         ctx.beginPath();
-        if (inside === "portrait") {
-          ctx.arc(width / 2, height / 2, r, 0, 2 * Math.PI);
-        } else {
-          ctx.rect(0, 0, width, height);
-          ctx.arc(
-            width / 2,
-            height / 2,
-            Math.max(0, r - 0.16 * field.s * font),
-            0,
-            2 * Math.PI,
-            true,
-          );
-        }
+        ctx.rect(0, 0, width, height);
+        ctx.arc(
+          width / 2,
+          height / 2,
+          Math.max(0, r - 0.16 * field.s * font),
+          0,
+          2 * Math.PI,
+          true,
+        );
         ctx.fill();
       }
       const cw = font * CELL_ASPECT;
@@ -187,7 +139,11 @@ export function KoiFigure({
     function draw() {
       const frame = koi.frame();
       if (!frame || !pre) return;
-      pre.textContent = frame.text;
+      // Change the one text node in place: cheaper than a new node each
+      // frame, and the browser doesn't take every frame for new content.
+      const text = pre.firstChild;
+      if (text instanceof Text) text.data = frame.text;
+      else pre.textContent = frame.text;
       paintMask(frame.mask);
       setArt(koi.art);
       setPhotoShown(koi.photo);
@@ -200,20 +156,39 @@ export function KoiFigure({
     }
 
     function measure() {
-      if (!box || !pre || !canvas) return;
+      if (!box || !pre || !probe || !canvas) return;
       width = box.clientWidth;
       height = box.clientHeight;
       if (!width || !height) return;
-      font = width / COLS / CELL_ASPECT;
+      // About 3px a column: on phones that's fewer, larger characters than
+      // COLS, and far less to draw each frame.
+      const cols = Math.min(COLS, Math.max(96, Math.round(width / 3)));
+      font = width / cols / CELL_ASPECT;
       const rows = Math.max(12, Math.floor(height / font));
       top = (height - rows * font) / 2;
       pre.style.top = `${top}px`;
-      koi.resize(rows);
+      pre.style.setProperty("--cols", String(cols));
+      koi.resize(rows, cols);
       const dpr = devicePixelRatio || 1;
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
-      buildPortrait();
+      fit(cols);
       draw();
+    }
+
+    // The art assumes cells exactly 0.6 by 1 of the font size. At a few
+    // pixels per character some browsers round the line height or advance,
+    // which squashes the ring, so measure two lines and stretch to fit.
+    function fit(cols: number) {
+      if (!pre || !probe) return;
+      probe.style.setProperty("--cols", String(cols));
+      probe.textContent = `${"0".repeat(cols)}\n0`;
+      const drawn = probe.getBoundingClientRect();
+      const sx = (cols * font * CELL_ASPECT) / drawn.width;
+      const sy = (2 * font) / drawn.height;
+      const off = (k: number) => !Number.isFinite(k) || Math.abs(k - 1) < 0.003;
+      pre.style.transform =
+        off(sx) && off(sy) ? "" : `scale(${sx.toFixed(4)}, ${sy.toFixed(4)})`;
     }
 
     let raf = 0;
@@ -243,7 +218,6 @@ export function KoiFigure({
       still,
       play,
       draw,
-      buildPortrait,
       recount: () => {
         counted = false;
       },
@@ -263,10 +237,7 @@ export function KoiFigure({
     // so check once a second whether the koi should be moving.
     const poll = window.setInterval(play, 1000);
     // The portrait's tones and the mask's color follow the theme.
-    const retheme = () => {
-      buildPortrait();
-      draw();
-    };
+    const retheme = () => draw();
     const themeAttr = new MutationObserver(retheme);
     themeAttr.observe(document.documentElement, {
       attributes: true,
@@ -291,6 +262,8 @@ export function KoiFigure({
 
     measure();
     play();
+    // Measure again once the art's font has loaded.
+    document.fonts?.ready.then(measure);
     return () => {
       pause();
       resize.disconnect();
@@ -313,8 +286,6 @@ export function KoiFigure({
 
   function onPhotoLoad(event: SyntheticEvent<HTMLImageElement>) {
     imgRef.current = event.currentTarget;
-    controlsRef.current?.buildPortrait();
-    controlsRef.current?.draw();
     if (pendingRef.current) {
       pendingRef.current = false;
       swap(true);
@@ -361,8 +332,12 @@ export function KoiFigure({
           <canvas ref={canvasRef} className="absolute inset-0 size-full" />
           <pre
             ref={preRef}
-            className="ascii absolute top-0 left-0 w-full font-extrabold"
+            className="ascii absolute top-0 left-0 w-full origin-top-left font-extrabold"
             style={{ "--cols": COLS } as CSSProperties}
+          />
+          <span
+            ref={probeRef}
+            className="ascii invisible absolute top-0 left-0 w-max font-extrabold"
           />
         </div>
         {wantPhoto && (
@@ -370,7 +345,7 @@ export function KoiFigure({
             src={photo.src}
             alt={photo.alt}
             fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            sizes="(min-width: 1024px) 50vw, calc(100vw - 72px)"
             onLoad={onPhotoLoad}
             onError={onPhotoError}
             data-shown={photoShown ? "" : undefined}
@@ -384,6 +359,7 @@ export function KoiFigure({
         type="button"
         onClick={onClick}
         onPointerEnter={reach}
+        onPointerDown={reach}
         onFocus={reach}
         className="koi-toggle absolute right-5 bottom-[51px] z-1 inline-flex h-[30px] items-center gap-2 bg-signal px-3 text-[12px] font-semibold tracking-[0.05em] whitespace-nowrap text-white uppercase hover:brightness-[0.82] sm:top-3 sm:right-5 sm:bottom-auto lg:right-7 [&:lang(zh)]:tracking-[0.04em]"
       >

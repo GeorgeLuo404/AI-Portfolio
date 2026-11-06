@@ -154,6 +154,23 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  /* iOS Safari zooms the whole page into a field whose text is under 16px,
+     so fields there never go below it. */
+  @supports (-webkit-touch-callout: none) {
+    input,
+    textarea,
+    select {
+      font-size: max(16px, 1em);
+    }
+  }
+
+  /* Tailwind's reset gives buttons the plain arrow; anything clickable
+     shows the hand. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
   body {
     font: 400 17px / 1.55 var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -523,5 +540,20 @@
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}
+
+/* The chat's thinking squares: each hops in turn, like a wave. */
+@keyframes wave {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
   }
 }

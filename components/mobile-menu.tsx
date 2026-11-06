@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { Link } from "@/i18n/navigation";
 import { AskLink } from "./chat/ask-link";
 import { LangSwitch } from "./lang-switch";
 import { PixelIcon } from "./pixel-icon";
@@ -38,9 +39,14 @@ export function MobileMenu() {
         className={`absolute top-full right-[calc(-1*var(--g))] left-[calc(-1*var(--g))] flex-col border-y border-rule bg-bg sm:hidden ${open ? "flex" : "hidden"}`}
       >
         {SECTIONS.map((id) => (
-          <a key={id} href={`#${id}`} className={row}>
+          <Link
+            key={id}
+            href={`/#${id}`}
+            onClick={() => setOpen(false)}
+            className={row}
+          >
             {t(id)}
-          </a>
+          </Link>
         ))}
         <LangSwitch className={`${row} gap-4`} linkClassName="text-[17px]" />
         <AskLink

@@ -47,9 +47,9 @@ export function Header() {
           className="hidden items-center gap-4 border-l border-rule pl-4 text-sm font-medium sm:flex lg:gap-[22px] lg:pl-6 lg:text-nav"
         >
           {SECTIONS.map((id) => (
-            <a key={id} href={`#${id}`} className="hover:text-signal-text">
+            <Link key={id} href={`/#${id}`} className="hover:text-signal-text">
               {t(id)}
-            </a>
+            </Link>
           ))}
         </nav>
         <div className="flex items-stretch">
@@ -60,7 +60,7 @@ export function Header() {
           />
           <ThemeToggle className={`${tool} w-12 justify-center`} />
           <AskLink
-            className={`${tool} hidden gap-2.5 bg-panel px-3.5 text-sm font-semibold tracking-[0.03em] text-signal-text uppercase sm:flex lg:px-5 [&:lang(zh)]:tracking-[0.04em]`}
+            className={`${tool} hidden gap-2.5 bg-panel text-sm font-semibold tracking-[0.03em] text-signal-text uppercase sm:flex sm:w-12 sm:justify-center lg:w-auto lg:px-5 [&:lang(zh)]:tracking-[0.04em]`}
           >
             <PixelIcon name="chat" />
             <span className="hidden lg:inline">{t("ask")}</span>
