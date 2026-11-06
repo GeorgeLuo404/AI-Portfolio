@@ -67,7 +67,7 @@ export function TwinWindow({ className = "" }: { className?: string }) {
                 key={key}
                 type="button"
                 onClick={() => ask(t(`questions.${key}`))}
-                className="h-[26px] bg-panel px-[9px] text-xs font-medium hover:text-signal-text disabled:opacity-50"
+                className="h-[26px] border border-rule bg-panel px-2 text-xs font-medium text-signal-text hover:border-signal"
               >
                 {t(`suggest.${key}`)}
               </button>

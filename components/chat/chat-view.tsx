@@ -241,24 +241,31 @@ export function ChatView() {
             />
           </label>
           <div className="flex items-center gap-3">
-            {/* On narrow screens the suggestions scroll sideways rather
-                than wrap, fading out at the edge to show there's more. */}
-            <div className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto pr-6 pl-4 [mask-image:linear-gradient(to_right,#000_calc(100%-24px),transparent)] [scrollbar-width:none]">
+            {/* Very narrow screens scroll the suggestions sideways rather
+                than wrap them. */}
+            <div className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto pl-4 [scrollbar-width:none]">
               {(["stack", "start", "contact"] as const).map((key) => (
                 <button
                   key={key}
                   type="button"
                   disabled={busy}
                   onClick={() => ask(twin(`questions.${key}`))}
-                  className="h-[26px] flex-none bg-panel px-[9px] text-xs font-medium whitespace-nowrap hover:text-signal-text disabled:opacity-50"
+                  className="h-[26px] flex-none border border-rule bg-panel px-2 text-xs font-medium whitespace-nowrap text-signal-text hover:border-signal disabled:opacity-50"
                 >
                   {twin(`suggest.${key}`)}
                 </button>
               ))}
             </div>
-            <button type="submit" className="btn btn-signal h-11 flex-none">
-              {busy ? t("stop") : t("send")}
-              <PixelIcon name={busy ? "close" : "send"} size={11} />
+            {/* On phones Send is a square with its arrow alone, so the
+                suggestions keep their room. */}
+            <button
+              type="submit"
+              className="btn btn-signal h-11 flex-none max-sm:w-11 max-sm:px-0"
+            >
+              <span className="max-sm:sr-only">
+                {busy ? t("stop") : t("send")}
+              </span>
+              <PixelIcon name={busy ? "close" : "up"} size={11} />
             </button>
           </div>
         </form>
