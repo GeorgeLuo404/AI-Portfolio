@@ -53,8 +53,25 @@ Record the province, not a name or an address, because this repo is public.
 |---|---|---|---|---|---|---|---|---|
 | 2026-11-07 00:01 | China Mobile | Mobile data | Guangdong | About 3 s | Yes, but slow to load | Within 1 s | Not reported | |
 | 2026-11-07 00:01 | Not recorded | Home broadband, 100 Mbps | Guangdong | About 1 s | Yes | Not reported | Not reported | Same tester |
+| 2026-11-07 07:00 | China Mobile | Mobile data | Guangdong | Works well | Not reported | About 1 s | Not reported | Same tester, in the morning |
 
-The first tester also ran itdog, whose probes across the mainland all reached the site, and Chrome Lighthouse on a mainland mobile network: Performance 78 in the phone view and 80 in the desktop view. The phone run's biggest cost was the hero's koi animation, at about 14 seconds of script time on Lighthouse's slowed-down phone CPU.
+The first tester also ran itdog (see below), and Chrome Lighthouse on a mainland mobile network: Performance 78 in the phone view and 80 in the desktop view. The phone run's biggest cost was the hero's koi animation, at about 14 seconds of script time on Lighthouse's slowed-down phone CPU.
+
+### itdog, 2026-11-07
+
+[itdog](https://www.itdog.cn) fetched `https://georgeluo.dev` from 324 probes on China Telecom, Unicom, and Mobile, plus Hong Kong, Macau, and Taiwan. It times the HTML document only, after the redirect to a language, not the fonts, scripts, photo, or chat.
+
+| Check | Result |
+|---|---|
+| Reached the site | 316 of 324 (97.5%), with every province green on the map |
+| Average time | 0.73 s overall: Telecom 0.84 s, Unicom 0.71 s, Mobile 0.71 s, Hong Kong, Macau, and Taiwan 0.39 s |
+| Slowest | 4.85 s, Qinghai Telecom |
+| Failures | 8 home-broadband probes (2 Telecom, 1 Unicom, 5 Mobile) connected and then timed out at 10 s. All 8 used one of Vercel's `.1` addresses, which served most other probes fine, so it isn't a block |
+| Redirect | `/` to `/en` or `/zh` cost 0.3 to 1.5 s on slower probes, so shared links should point at `/zh` or `/en` directly |
+
+## Verdict for T2b
+
+Passed on 2026-11-07, by George's call: the site and the chat work on mainland networks without a VPN, so it stays on Vercel. Short of the bar below, the results so far come from one day, with no evening test, and the chat has only been tried on China Mobile. T13 repeats the test on the finished site and covers both gaps.
 
 ## Reading the results
 
