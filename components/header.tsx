@@ -60,7 +60,7 @@ export function Header() {
           />
           <ThemeToggle className={`${tool} w-12 justify-center`} />
           <AskLink
-            className={`${tool} hidden gap-2.5 bg-panel px-3.5 text-sm font-semibold tracking-[0.03em] text-signal-text uppercase sm:flex lg:px-5 [&:lang(zh)]:tracking-[0.04em]`}
+            className={`${tool} hidden gap-2.5 bg-panel text-sm font-semibold tracking-[0.03em] text-signal-text uppercase sm:flex sm:w-12 sm:justify-center lg:w-auto lg:px-5 [&:lang(zh)]:tracking-[0.04em]`}
           >
             <PixelIcon name="chat" />
             <span className="hidden lg:inline">{t("ask")}</span>

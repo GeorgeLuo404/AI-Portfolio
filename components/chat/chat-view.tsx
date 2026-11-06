@@ -3,7 +3,13 @@
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { useLocale, useTranslations } from "next-intl";
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import {
+  type FormEvent,
+  type KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Link } from "@/i18n/navigation";
 import { MAX_QUESTION, type TwinMessage } from "@/lib/chat/shared";
 import { PixelIcon } from "../pixel-icon";
@@ -11,8 +17,10 @@ import { PENDING_KEY } from "./chat-provider";
 
 // The chat page's conversation. It lasts for the browser tab, in that tab's
 // own storage, and nothing is kept on the server. The page scrolls like any
-// other, with the composer pinned to the bottom of the screen, so phones
-// need no scroll locking and the back button leaves the chat.
+// other, with the title bar pinned under the header and the composer pinned
+// to the bottom of the screen, so phones need no scroll locking and the back
+// button leaves the chat. Both bars draw the frame's side lines themselves,
+// since their background would hide them.
 
 const STORAGE_KEY = "twin-chat";
 const KEEP = 40;
@@ -42,7 +50,7 @@ export function ChatView() {
   } = useChat<TwinMessage>({ transport });
   const busy = status === "submitted" || status === "streaming";
   const loaded = useRef(false);
-  const input = useRef<HTMLInputElement>(null);
+  const input = useRef<HTMLTextAreaElement>(null);
   const [draft, setDraft] = useState("");
 
   function ask(question: string) {
@@ -97,9 +105,29 @@ export function ChatView() {
     setDraft("");
   }
 
+  // Enter sends and Shift+Enter starts a new line, but not mid-way through
+  // an input method's composition, such as picking Chinese characters. On
+  // touch screens Return starts a new line, and the Send button sends.
+  function onKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key !== "Enter" || event.shiftKey) return;
+    if (event.nativeEvent.isComposing || event.keyCode === 229) return;
+    if (matchMedia("(pointer: coarse)").matches) return;
+    event.preventDefault();
+    event.currentTarget.form?.requestSubmit();
+  }
+
+  // The box grows with its text, up to a third of the screen, then scrolls.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: resize whenever the text changes.
+  useEffect(() => {
+    const box = input.current;
+    if (!box) return;
+    box.style.height = "auto";
+    box.style.height = `${box.scrollHeight}px`;
+  }, [draft]);
+
   return (
     <>
-      <div className="flex h-12 flex-none items-center justify-between border-b border-rule pl-4">
+      <div className="sticky top-[49px] z-10 flex h-[49px] flex-none items-center justify-between border-x border-b border-rule bg-bg pl-4 lg:border-x-0">
         <h1 className="flex items-center gap-2.5 text-[13px] font-semibold tracking-[0.04em] uppercase">
           <PixelIcon name="chat" />
           {t("title")}
@@ -110,7 +138,7 @@ export function ChatView() {
         <Link
           href="/"
           aria-label={t("back")}
-          className="grid size-12 place-items-center border-l border-rule"
+          className="-mr-px grid size-12 place-items-center border-l border-rule lg:mr-0"
         >
           <PixelIcon name="close" size={12} />
         </Link>
@@ -168,7 +196,7 @@ export function ChatView() {
         )}
       </div>
 
-      <div className="sticky bottom-0 z-10 flex-none bg-bg pb-[env(safe-area-inset-bottom)]">
+      <div className="sticky bottom-0 z-10 flex-none border-x border-rule bg-bg pb-[env(safe-area-inset-bottom)] lg:border-x-0">
         <div className="flex flex-wrap gap-1.5 px-4 pb-3">
           {(["stack", "start", "contact"] as const).map((key) => (
             <button
@@ -184,22 +212,26 @@ export function ChatView() {
         </div>
         <form
           onSubmit={submit}
-          className="flex min-h-[52px] items-center gap-2.5 border-y border-fg pl-4 font-mono text-[14px] leading-[1.4] font-medium"
+          className="-mx-px flex items-end gap-2.5 border-y border-fg pl-4 font-mono text-[14px] leading-[1.4] font-medium lg:mx-0"
         >
-          <span aria-hidden="true" className="text-signal-text">
+          <span
+            aria-hidden="true"
+            className="self-start py-[15px] text-signal-text"
+          >
             &gt;
           </span>
-          <input
+          <textarea
             ref={input}
+            rows={1}
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
+            onKeyDown={onKeyDown}
             maxLength={MAX_QUESTION}
-            enterKeyHint="send"
             aria-label={t("question")}
             placeholder={t("placeholder")}
-            className="min-w-0 flex-1 bg-transparent outline-none placeholder:text-muted [&:lang(zh)]:font-sans"
+            className="max-h-[33svh] min-w-0 flex-1 resize-none bg-transparent py-[15px] outline-none placeholder:text-muted [&:lang(zh)]:font-sans"
           />
-          <button type="submit" className="btn btn-signal h-[52px] flex-none">
+          <button type="submit" className="btn btn-signal h-[51px] flex-none">
             {busy ? t("stop") : t("send")}
             <PixelIcon name={busy ? "close" : "send"} size={11} />
           </button>

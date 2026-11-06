@@ -2,7 +2,7 @@
 
 The AI twin answers visitors' questions about George from the content files, and declines anything else. It runs on DeepSeek through the AI SDK, in `app/api/chat/route.ts`.
 
-Visitors chat on the twin's own page, `/en/chat` or `/zh/chat`, in `components/chat/chat-view.tsx`. The hero's window, the header, the phone menu, and the contact panel all go there. A page rather than a pop-up, because on phones a pop-up fought the keyboard and the page behind it, and because the AI SDK then loads only on that page. The page scrolls like any other, with the question box pinned to the bottom of the screen.
+Visitors chat on the twin's own page, `/en/chat` or `/zh/chat`, in `components/chat/chat-view.tsx`. The hero's window, the header, the phone menu, and the contact panel all go there. A page rather than a pop-up, because on phones a pop-up fought the keyboard and the page behind it, and because the AI SDK then loads only on that page. The page scrolls like any other, with the title bar pinned under the header and the question box pinned to the bottom of the screen. The box grows to several lines. Enter sends and Shift+Enter starts a new line, except while an input method is composing, such as picking Chinese characters. On touch screens Return starts a new line and the Send button sends.
 
 ## Switches
 
