@@ -53,6 +53,8 @@ export function ChatView() {
   const last = messages.at(-1);
   const waiting = busy && !(last?.role === "assistant" && textOf(last));
   const loaded = useRef(false);
+  /** A question asked on another page, until it's sent here. */
+  const pending = useRef<string | null>(null);
   const input = useRef<HTMLTextAreaElement>(null);
   const [draft, setDraft] = useState("");
 
@@ -70,13 +72,27 @@ export function ChatView() {
       if (Array.isArray(saved) && saved.length) setMessages(saved);
     } catch {}
     loaded.current = true;
-    let pending: string | null = null;
-    try {
-      pending = sessionStorage.getItem(PENDING_KEY);
-      sessionStorage.removeItem(PENDING_KEY);
-    } catch {}
-    if (pending) sendMessage({ text: pending });
-    else if (matchMedia("(pointer: fine)").matches) input.current?.focus();
+    if (pending.current === null) {
+      try {
+        pending.current = sessionStorage.getItem(PENDING_KEY) ?? "";
+        sessionStorage.removeItem(PENDING_KEY);
+      } catch {
+        pending.current = "";
+      }
+    }
+    const text = pending.current;
+    if (!text) {
+      if (matchMedia("(pointer: fine)").matches) input.current?.focus();
+      return;
+    }
+    // Send once the page has settled. In development React mounts every
+    // component twice, and the chat stops whatever started before the
+    // second mount, which used to drop the question.
+    const timer = setTimeout(() => {
+      pending.current = "";
+      sendMessage({ text });
+    });
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
