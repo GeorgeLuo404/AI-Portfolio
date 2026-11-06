@@ -48,6 +48,7 @@ There is no `app/layout.tsx`. Every page must sit inside a route group that has 
 **Hosting**
 - Keep Vercel-specific APIs out of app code, because hosting may have to move after the T2b test.
 - Hosting stays outside mainland China for now, so no ICP filing is needed. The domain is `georgeluo.dev`, bought through Vercel. A `.dev` can't be used for an ICP filing, so a move into the mainland would need another domain.
+- Check mainland reachability with `docs/MAINLAND-TEST.md`, at T2b and again at T13.
 - Keep the site non-commercial: no paid services, ads, affiliate links, or payment flows. The Vercel Hobby plan doesn't allow them.
 
 **Data and secrets**
@@ -59,7 +60,7 @@ There is no `app/layout.tsx`. Every page must sit inside a route group that has 
 - Use the AI SDK with `@ai-sdk/deepseek`. Don't use OpenAI ChatKit or Agent Builder, which shuts down on November 30, 2026.
 - Give the model public portfolio content only, in full in the system prompt rather than through RAG.
 - Keep the `/api/chat` request and response format stable, so a different backend could replace it later. `docs/CHAT.md` documents it.
-- Run `pnpm chat:test` after changing the instructions or the content, and before turning the chat on in production.
+- Run `pnpm chat:test` after changing the instructions or the content, and before turning the chat on in production. Run it against the dev server: the live site's rate limit (20 requests a minute per IP) blocks a full run.
 - Don't store or log what visitors type.
 
 **Translations**
