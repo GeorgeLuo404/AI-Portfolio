@@ -1148,6 +1148,7 @@ mark {
 .project__media {
   display: grid;
   place-items: center;
+  align-self: start;
   padding: 40px;
   background: var(--well);
 }
@@ -1165,7 +1166,7 @@ mark {
 .project--flip .project__year {
   grid-column: 2;
   grid-row: 1;
-  padding-left: 32px;
+  padding-left: 40px;
 }
 
 .project--flip .project__text {

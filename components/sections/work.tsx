@@ -81,7 +81,9 @@ function Head() {
 
 // Selected work: the heading and its aside, then a row per project that
 // alternates sides. As in the concept, the image wells stay inside the
-// frame's hairlines, and no rules run between the rows.
+// frame's hairlines and hug their screens from the top of the row, and no
+// rules run between the rows. In flipped rows the year starts 40px in from
+// L3, in line with the screenshots above and below it.
 export function Work() {
   const t = useTranslations("work");
   const locale = useLocale();
@@ -102,7 +104,7 @@ export function Work() {
               className={`grid grid-cols-[var(--L1)_1fr] lg:min-h-[440px] ${flip ? "lg:grid-cols-[var(--L3)_var(--L1)_1fr]" : "lg:grid-cols-[var(--L1)_calc(var(--L3)-var(--L1))_1fr]"}`}
             >
               <p
-                className={`col-start-1 row-start-1 pt-9 text-[18px] leading-[1.15] font-medium tracking-[-0.02em] after:mt-5 after:block after:size-3 after:bg-signal sm:pt-10 sm:text-[26px] lg:pt-5 lg:text-[30px] lg:after:mt-7 lg:after:size-4 ${flip ? "lg:col-start-2 lg:pl-8" : ""}`}
+                className={`col-start-1 row-start-1 pt-9 text-[18px] leading-[1.15] font-medium tracking-[-0.02em] after:mt-5 after:block after:size-3 after:bg-signal sm:pt-10 sm:text-[26px] lg:pt-5 lg:text-[30px] lg:after:mt-7 lg:after:size-4 ${flip ? "lg:col-start-2 lg:pl-10" : ""}`}
               >
                 {project.start.slice(0, 4)}
               </p>
@@ -151,7 +153,7 @@ export function Work() {
                 )}
               </div>
               <div
-                className={`col-span-full row-start-2 grid place-items-center bg-well p-4 sm:p-10 lg:row-start-1 ${flip ? "lg:col-[1]" : "lg:col-[3]"}`}
+                className={`col-span-full row-start-2 grid place-items-center self-start bg-well p-4 sm:p-10 lg:row-start-1 ${flip ? "lg:col-[1]" : "lg:col-[3]"}`}
               >
                 <Screen object={!project.image}>
                   {project.image ? (
