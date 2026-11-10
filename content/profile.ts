@@ -15,7 +15,7 @@ export const profile: Profile = {
     en: "I'm George Luo, an {role} in Shenzhen. I've built product landing pages at Meizu and admin systems at Seasun Games, and now I bring LLMs into web apps.",
   },
   statement: {
-    en: "I build web products end to end, from the database to the scroll animation, and I bring language models into them.",
+    en: "I build web products end to end, from the database to the scroll animation, and I integrate AI into them.",
   },
   photo: {
     src: "/george.jpg",

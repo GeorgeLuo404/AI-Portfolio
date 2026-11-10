@@ -239,7 +239,7 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Decide whether the chat stays on for mainland visitors, given China's rules on public AI services | T13 | George |
 | Delete the Clerk app and remove its keys from `.env.local` | Now | George |
 | Delete the Sanity project and remove its values from `.env.local` | Now that T4 is done | George |
-| Capture Selected work into Figma again, from the prototype, once the Starter plan's MCP limit resets: the frames captured on 2026-11-10 still show the wells bleeding to the page edge and rules between the rows | Before T10b | Claude |
+| Capture the hero and Selected work into Figma again, from the prototype, once the Starter plan's MCP limit resets: the frames captured on 2026-11-10 still show the wells bleeding to the page edge and rules between the rows, and the hero's old placeholder statement | Before T10b | Claude |
 | Delete the five empty text layers that the 2026-11-10 capture left beside the Figma frames | Any time | George |
 
 ## Baseline measurements
