@@ -26,7 +26,8 @@ Use pnpm.
 - `app/fonts/`: Archivo and JetBrains Mono, self-hosted, with their OFL licenses.
 - `components/`: the header, footer, and their parts, such as pixel icons and the language switch. `koi-figure.tsx` is the hero's koi and photo, and `ascii-art.tsx` renders the fixed art.
 - `components/sections/`: the home page's sections, from the hero to Contact. Each matches the T3 prototype at 375, 768, and 1440 pixels wide.
-- `lib/ascii/`: the ASCII art made while the site builds: the ripples and objects (`scenes.ts`) and the image converter (`image.ts`, using sharp). Visitors get the characters in the HTML and never download this code.
+- `lib/ascii/`: the ASCII art made while the site builds: the ripples and objects (`scenes.ts`). Visitors get the characters in the HTML and never download this code.
+- `lib/pixel/image.ts`: turns project screenshots into pixel art with sharp while the site builds. `components/project-shot.tsx` shows it, with the real screenshot on hover or tap.
 - `lib/koi/engine.ts`: the koi drawing and the photo reveal, with no DOM code, so the server draws the footer's still pair and the browser animates the hero's.
 - `public/`: George's photo and the project images. Strip a photo's metadata before adding it, because the repo is public.
 - `content/`: every fact about George, such as projects, skills, roles, and contact details, typed in `content/types.ts` with English and Chinese side by side. Sections and the AI twin both read it through `getContent(locale)`, which falls back to English for any field without Chinese, until T11.

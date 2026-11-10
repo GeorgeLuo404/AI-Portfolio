@@ -1,6 +1,7 @@
 import type { Locale } from "next-intl";
 import { contact } from "./contact";
 import { education, roles } from "./experience";
+import { notes } from "./notes";
 import { profile } from "./profile";
 import { projects } from "./projects";
 import { skills } from "./skills";
@@ -15,7 +16,14 @@ export const content: Content = {
   roles,
   education,
   contact,
+  notes,
 };
+
+// The home page's Selected work is laid out for three projects.
+const featured = projects.filter((project) => project.featured).length;
+if (featured !== 3) {
+  throw new Error(`Feature exactly three projects, not ${featured}.`);
+}
 
 /** Content with every `Localized` field turned into the text for one locale. */
 export type Resolved<T> = T extends Localized<infer S>

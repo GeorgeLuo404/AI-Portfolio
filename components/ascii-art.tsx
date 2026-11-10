@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { imageToAscii } from "@/lib/ascii/image";
 import { getScene, type SceneName } from "@/lib/ascii/scenes";
 import { COLS, stillKoi } from "@/lib/koi/engine";
 
@@ -49,26 +48,6 @@ export function AsciiScene({
         text={text}
         className={faint ? "ascii-faint" : ""}
       />
-    </div>
-  );
-}
-
-/** An image from `public/` in characters. Screen readers get the alt text. */
-export async function AsciiImage({
-  src,
-  alt,
-  cols = 72,
-  className = "",
-}: {
-  src: string;
-  alt: string;
-  cols?: number;
-  className?: string;
-}) {
-  const art = await imageToAscii(src, cols);
-  return (
-    <div role="img" aria-label={alt} className={`ascii-box ${className}`}>
-      <AsciiText cols={cols} rows={art.rows} text={art.text} />
     </div>
   );
 }

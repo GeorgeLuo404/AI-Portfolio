@@ -24,6 +24,10 @@ export type Profile = {
   statement: Localized;
   /** When George can start, and what kind of work he's after. */
   availability: Localized;
+  /** Where George lives, for the AI twin. */
+  location: Localized;
+  /** The languages George speaks, for the AI twin. */
+  languages: readonly Localized[];
   /** The photo the hero's koi make way for, in `public/`. */
   photo: { src: string; alt: Localized };
 };
@@ -31,18 +35,28 @@ export type Profile = {
 export type Project = {
   /** Used for anchors and image paths. */
   id: string;
-  year: number;
+  start: YearMonth;
+  /** Leave out while the project is still going. */
+  end?: YearMonth;
+  /** Exactly three projects are featured on the home page. */
+  featured?: boolean;
+  /** The projects page lists web work and AI work apart (T10b). */
+  group: "web" | "ai";
   title: Localized;
+  /** One sentence on what the project is and does. */
   summary: Localized;
+  /** George's part: solo, client, or team, and his share of a team's work. */
+  part: Localized;
+  /** More facts that only the AI twin reads. */
+  notes?: readonly Localized[];
   stack: readonly string[];
   links: { live?: string; source?: string };
   /**
-   * Screenshots in `public/`, shown in characters in the project's well: a
-   * wide one, and optionally a phone one beside it. Without a screenshot,
-   * the well shows an ASCII object. Placeholders until T10.
+   * A desktop screenshot in `public/`, shown as pixel art in the project's
+   * well, with the real one on hover. Without a screenshot, the well shows
+   * an ASCII object. Strip a screenshot's metadata first.
    */
   image?: { src: string; alt: Localized };
-  phoneImage?: { src: string; alt: Localized };
 };
 
 export type SkillArea = {
@@ -68,7 +82,8 @@ export type Education = {
   end?: YearMonth;
   degree: Localized;
   school: Localized;
-  detail?: Localized;
+  /** One line per fact, such as grades, awards, or an exchange. */
+  details?: readonly Localized[];
 };
 
 /** Public contact details only. No phone number or home address. */
@@ -88,4 +103,6 @@ export type Content = {
   roles: readonly Role[];
   education: readonly Education[];
   contact: Contact;
+  /** Facts about George that only the AI twin reads, one per line. */
+  notes: readonly Localized[];
 };

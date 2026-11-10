@@ -9,7 +9,7 @@
   --muted: #6e6e6e;
   --rule: #e6e6e6;
   --panel: #f4f4f4;
-  --well: #e9e9e9;
+  --well: #d7d7d7;
   --dot: #d2d2d2;
   --signal: #1b2bff;
   --signal-text: #1b2bff;
@@ -236,10 +236,10 @@
     --L3: calc(var(--f) * 3.702);
     --mid: calc((var(--L3) + var(--C)) / 2);
     /* Other display headings, sized so their letters land on the lines. */
-    --f-head: calc(var(--f) * 0.7302);
+    --f-head: calc(var(--f) * 0.7425);
     --f-exp: calc(var(--f) * 1.4288);
     --f-name: calc(var(--f) * 1.1207);
-    --f-skill: calc(var(--f) * 0.5029);
+    --f-skill: calc(var(--f) * 0.5268);
   }
 
   @media (width < 64rem) {
@@ -257,7 +257,7 @@
       --L1: calc(var(--f) * 0.989);
       --L2: calc(var(--f) * 2.259);
       --L3: calc(var(--f) * 4.107);
-      --f-head: calc(var(--C) / 5.07);
+      --f-head: calc(var(--C) / 4.986);
       --f-exp: calc(var(--C) / 6.185);
       --f-name: calc(var(--f) * 1.041);
       --f-skill: calc(var(--C) / 8);
@@ -299,6 +299,14 @@
     white-space: nowrap;
   }
 
+  /* Section headings in a staircase, such as "Selected work": Archivo 500,
+     like the skills stack, as in the concept. */
+  .display-medium {
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
   /* The real heading beside an English display graphic on the Chinese page. */
   .zh-heading {
     font-size: clamp(26px, 2.5vw, 36px);
@@ -334,9 +342,10 @@
   }
 
   .chip-muted {
-    height: 24px;
-    padding-inline: 9px;
-    font-size: 11px;
+    height: 26px;
+    padding-inline: 11px;
+    font-size: 12px;
+    font-weight: 400;
     color: var(--muted);
     border: 0;
   }
@@ -356,6 +365,15 @@
     text-transform: uppercase;
     white-space: nowrap;
     border: 1px solid transparent;
+  }
+
+  /* Large: a project's links. Bigger, lighter type, as in the concept. */
+  .btn-lg {
+    height: 40px;
+    padding-inline: 18px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
   }
 
   .btn:lang(zh) {

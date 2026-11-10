@@ -1,33 +1,39 @@
 import type { SkillArea } from "./types";
 
-// Placeholder until T10. The giant words in the skills stack are English
+// One area per line of the skills stack, whose giant words are English
 // graphics in the section itself, solved against the grid (docs/DESIGN.md).
+// Each tool here is backed by a role or a project.
 export const skills: readonly SkillArea[] = [
   {
     id: "ai",
-    name: { en: "AI agents", zh: "AI 智能体" },
+    name: { en: "AI apps" },
     summary: {
-      en: "LLM apps, retrieval, tool use, and evaluation",
-      zh: "LLM 应用、检索、工具调用与评测",
+      en: "Streaming chat grounded in my own content, test sets for it, and an editor panel for local models",
     },
-    tools: ["AI SDK", "DeepSeek"],
+    tools: ["AI SDK", "DeepSeek", "OpenAI API", "LangChain", "PyTorch"],
   },
   {
     id: "web",
-    name: { en: "Full-stack web", zh: "全栈网页" },
+    name: { en: "Full-stack web" },
     summary: {
-      en: "TypeScript, React, Next.js, and Node",
-      zh: "TypeScript、React、Next.js 与 Node",
+      en: "React and Next.js in front, Node, Prisma, PostgreSQL, and Redis behind",
     },
-    tools: ["TypeScript", "React", "Next.js", "Node"],
+    tools: [
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Node.js",
+      "Prisma",
+      "PostgreSQL",
+      "Redis",
+    ],
   },
   {
-    id: "data",
-    name: { en: "Data and cloud", zh: "数据与云" },
+    id: "motion",
+    name: { en: "Motion & UI" },
     summary: {
-      en: "Python, PostgreSQL, Docker, and AWS",
-      zh: "Python、PostgreSQL、Docker 与 AWS",
+      en: "Scroll-driven product pages, responsive layouts, and art drawn in characters",
     },
-    tools: ["Python", "PostgreSQL", "Docker", "AWS"],
+    tools: ["GSAP", "ScrollMagic", "Tailwind CSS", "Ant Design"],
   },
 ];

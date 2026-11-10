@@ -20,7 +20,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T8 | Sections | Merged | `feat/t8-sections` | `checkpoint/t8` |
 | T9 | DeepSeek chat | Merged | `feat/t9-chat` | `checkpoint/t9` |
 | T9b | Phone fixes and performance | Merged | `fix/t9b-phone-fixes` | `checkpoint/t9b` |
-| T10 | Real content | Not started | | |
+| T10 | Real content | Merged | `feat/t10-real-content` | `checkpoint/t10` |
 | T10b | Projects page | Not started | | |
 | T11 | Chinese translation | Not started | | |
 | T12 | Clean public history | Not started | | |
@@ -146,6 +146,9 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Leave the résumé chip until George's PDFs exist (see Later).
 - Run `pnpm chat:test`, and add cases for the new facts.
 - **Done when:** no placeholder content remains, apart from the résumé link, and the test set passes.
+- Built on 2026-11-09. Projects gained a start and end month, `featured`, `group`, `part`, and twin-only `notes`; the profile gained `location` and `languages`; education gained `details`; and `content/notes.ts` holds facts only the twin reads. `getContent` throws unless exactly three projects are featured. Selected work shows each project's part, Experience shows years and the twin gets months. The skills words became "AI apps" and "Motion & UI", solved again at `0.5268 f`. The screenshots are captures of the Starlink site and this site, and the final interface figure from CodeArmour's report. The Chinese text for the new content waits for T11, so `/zh` shows it in English until then.
+- Revised on 2026-11-10 after George's review. The employers read "Seasun Games" and "Starose AI", the intro is shorter, and the twin declines questions about the 2025 break as off topic. The project screens show pixel art instead of characters, fill the well, and show the real screenshot on hover or tap. Only desktop screenshots are shown, captured at 2× so the hover stays sharp. The Starlink capture is the site's still frame with the production cell assembled.
+- Revised again on 2026-11-10, after George compared Selected work with the concept. The heading is Archivo 500, re-solved at `0.7425 f`, and the project rows follow the concept's type scale: a 30px year and title, an 18px lead in ink, and large buttons placed below the chips. Screens have no frame or bar, the light well is the concept's `#D7D7D7`, and the muted chips are a little larger. As in the concept, the wells stay inside the frame's hairlines, with 40px around the screenshot, and no rules run between the rows. Links to other sites open in a new tab. The prototype and the Figma frames were updated to match, and so were the prototype's skills words, which still had the T3 wording.
 
 ### T10b: Projects page
 - Add `/en/projects` and `/zh/projects`, listing every project from `content/` in two groups: web, and AI and machine learning.
@@ -215,6 +218,14 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Convert images to ASCII art while the site builds, with sharp (2026-11-06) | George's choice. The art ships in the HTML, so visitors download no converter and see it before any script runs. Next already installs sharp for its own image resizing, so it adds no new package to the install. |
 | Feature three projects on the home page, and list the rest on a projects page (2026-11-09) | George's choice. Recruiters skim the home page, while engineers who want more open the list. Each project shows George's part, so the longer list doesn't read as padding. The AI twin knows every project either way. |
 | The consolidated profile is a source for the site, not a résumé (2026-11-09) | George will write a résumé for each role he applies for. The profile lists what he did and what the evidence supports. |
+| Feature Starlink, this site, and CodeArmour (2026-11-09) | George's choice. A client project, an AI product, and a team project with a different kind of build. PigStar moves to the projects page. |
+| Restyle Selected work closer to the concept (2026-11-10) | George's request after comparing them. The structure was already the concept's; the heading weight, the row type scale, the plain screens, and the well's grey were not. The display typeface stays Archivo, because the grid is measured from it. |
+| Open links to other sites in a new tab (2026-11-10) | George's request. Visitors keep their place on the portfolio, and screen readers hear that a new tab opens. |
+| Draw project screenshots as pixel art, with the real one on hover (2026-11-10) | George's choice. Characters were too rough at this size to show a screenshot. The pixel art keeps the site's look, and the real screenshot is a hover or a tap away. |
+| Show the independent AI support work in Experience (2026-11-09) | George's choice. It fills 2026, and it's described as past work that is paused, so it doesn't advertise a service. |
+| Replace the skills words "AI agents" and "Data & cloud" with "AI apps" and "Motion & UI" (2026-11-09) | The profile has no agent work beyond a learning notebook, and no cloud work. Motion is shown by the Meizu pages and this site's koi. |
+| Open to remote and overseas roles as well as on-site in Shenzhen (2026-11-09) | George's answer. The profile and the twin say so. |
+| Link PigStar's source only (2026-11-09) | George's choice. Its demo sits behind a Vercel login. |
 | Leave the résumé chip until the PDFs exist (2026-11-09) | George's choice. He'll provide an English and a Chinese résumé later, and an admin may generate them from content. |
 | Use `georgeluo.dev` as the domain (2026-11-06) | George's choice, after `georgeluo.com` turned out to be taken. Hosting in Hong Kong needs no ICP filing, so the missing ICP route only matters if the site ever moves into the mainland. Replaces the plan to buy a `.com`. |
 
@@ -223,16 +234,13 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Item | Needed by | Owner |
 |---|---|---|
 | Find testers on China Telecom and Unicom, without a VPN | T13 | George |
-| Choose the third featured project: CodeArmour or PigStar | T10 | George |
-| Decide whether the independent AI support work (2026) shows in Experience or only in the AI twin | T10 | George |
-| Approve replacing the skills words "AI agents" and "Data & cloud", which the profile doesn't support | T10 | George |
-| Say whether he's open to remote or overseas roles, as well as on-site in Shenzhen | T10 | George |
-| Make PigStar's demo public, or link its source only (the demo asks for a Vercel login) | T10 | George |
 | Provide an English and a Chinese résumé PDF for the download chip | Later | George |
 | Keep the upstream credit in `README.md` while upstream-derived code remains | Until T12 | Everyone |
 | Decide whether the chat stays on for mainland visitors, given China's rules on public AI services | T13 | George |
 | Delete the Clerk app and remove its keys from `.env.local` | Now | George |
 | Delete the Sanity project and remove its values from `.env.local` | Now that T4 is done | George |
+| Capture the hero and Selected work into Figma again, from the prototype, once the Starter plan's MCP limit resets: the frames captured on 2026-11-10 still show the wells bleeding to the page edge and rules between the rows, and the hero's old placeholder statement | Before T10b | Claude |
+| Delete the five empty text layers that the 2026-11-10 capture left beside the Figma frames | Any time | George |
 
 ## Baseline measurements
 
@@ -380,3 +388,16 @@ Taken on 2026-11-07 on `fix/t9b-phone-fixes`, in a desktop browser at phone and 
 | Decline marker | Removed from replies wherever it appears, in six chunked test cases. A reply that starts with it is still marked as declined, and a mixed reply isn't |
 | Test set (`pnpm chat:test`) | 38 of 38 on the dev server, plus a new mixed-question case |
 | Photo | Requested at 640px wide on a 375px phone, as AVIF where the browser takes it |
+
+## After T10
+
+Taken on 2026-11-09 on `feat/t10-real-content`, and again on 2026-11-10 after the review changes.
+
+| Check | Result |
+|---|---|
+| Build, type check, and Biome | Pass, 0 errors, 0 warnings |
+| Test set (`pnpm chat:test`) | 51 of 51 on the dev server, with 12 new cases: location, remote work, Meizu, George's part in CodeArmour, Starlink built solo, languages, education, two on the 2025 break (declined), Starose AI, an invented speed-up it must not give, and Starlink in Chinese. In 4 of 5 runs after the review; the fifth declined the speed-up question instead of answering it |
+| Skills stack | At 1440 and 768, the A of "Apps" is on L2, its second P on L3, and the M of "Motion" on L1, each within 0.03px. No sideways scroll at 375 |
+| Selected work | The three featured projects with their parts and screenshots, at 1440 and 375, in both languages |
+| Experience | Four roles and two degrees, newest first, with years |
+| Third-party hosts contacted by the page | None |
