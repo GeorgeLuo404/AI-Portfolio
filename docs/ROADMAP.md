@@ -21,6 +21,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T9 | DeepSeek chat | Merged | `feat/t9-chat` | `checkpoint/t9` |
 | T9b | Phone fixes and performance | Merged | `fix/t9b-phone-fixes` | `checkpoint/t9b` |
 | T10 | Real content | Not started | | |
+| T10b | Projects page | Not started | | |
 | T11 | Chinese translation | Not started | | |
 | T12 | Clean public history | Not started | | |
 | T13 | Production launch | Not started | | |
@@ -134,9 +135,24 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - **Done when:** the chat page and the hero work on George's iPhone, and the build, type check, and lint pass.
 
 ### T10: Real content
-- George shares the resume outside the repo. Move only public facts into the content files, in English first, with no phone number or home address, because the repo is public.
-- Replace the placeholder project images with screenshots.
-- **Done when:** no placeholder content remains.
+- George shared a consolidated profile of his experience outside the repo on 2026-11-09, as a source for the site rather than a résumé. Move only public facts into the content files, in English first, with no phone number or home address, because the repo is public.
+- Keep only what the profile supports. Leave out the older résumés' unmeasured numbers, such as page-speed percentages and launch traffic, and the skills it gives no example for.
+- Mark each project's part honestly: solo, client, team size and George's share, coursework, or learning.
+- Put every project worth showing in `content/`, not just three: Starlink, this site, PigStar, CodeArmour, Squad404, Visionary Unicorns, Agents-Demo, and AI-Gen-Image (archived). Three are featured on the home page, and T10b lists the rest. Coursework repositories whose scope isn't confirmed stay out.
+- Add the fields this needs: featured or not, George's part, and dates. Add facts that only the AI twin reads, such as languages, location, and coursework details.
+- Keep employer work in Experience, not on the projects list, because its code is private and was built in teams.
+- Rewrite the profile's wording so it claims only what the work shows. Keep the "AI / Web Engineer" headline, because the grid is measured from it. If a skills display word changes, solve its size again (see `docs/DESIGN.md`).
+- Replace the placeholder images with screenshots of the featured projects.
+- Leave the résumé chip until George's PDFs exist (see Later).
+- Run `pnpm chat:test`, and add cases for the new facts.
+- **Done when:** no placeholder content remains, apart from the résumé link, and the test set passes.
+
+### T10b: Projects page
+- Add `/en/projects` and `/zh/projects`, listing every project from `content/` in two groups: web, and AI and machine learning.
+- Use one compact row per project: year, title, one sentence, George's part, the stack, and links. Only the featured projects have screenshots.
+- Build it from the existing row and chip styles in `docs/DESIGN.md`, because the Figma file has no such page. Check it at 375, 768, and 1440 in both themes.
+- Link to it under Selected work and from the header and phone menu.
+- **Done when:** the page renders in both languages at all three widths, the build, type check, and lint pass, and the browser makes no third-party requests.
 
 ### T11: Chinese translation
 - Translate the UI and content. Claude drafts the Chinese, and George reviews the diff.
@@ -160,7 +176,9 @@ Optional, after launch:
 - **Agentic chat:** tools that let the chat open a project card or jump to a section, plus retrieval only if long-form content outgrows the prompt.
 - **Contact form:** send messages by email without storing them, with validation and rate limiting.
 - **Python chat service:** a FastAPI or LangGraph version behind the same `/api/chat` format, as a showcase.
-- **Web admin:** Payload CMS on top of the T6 content model, if editing files gets in the way.
+- **Résumé download:** the Experience chip serves an English PDF on `/en` and a Chinese one on `/zh`, once George provides them. `contact.resume` already holds one link per language.
+- **Web admin:** a dashboard to configure the site and manage content, such as Payload CMS on top of the T6 content model.
+- **Résumé builder:** in the admin, pick which content fills a résumé template, and generate the PDF in each language for the download chip.
 
 ## Decisions
 
@@ -195,6 +213,9 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Drop the photo in characters (2026-11-07) | George's choice. It waited for the photo to load, which left the ring hanging on slow networks. The ring now fades with the fish and the photo fades in. |
 | No shadcn/ui for now (2026-11-07) | The phone bugs were iOS zoom, keyboard, and tiny-font quirks that a component library doesn't fix, and the chat page needs no dialog. |
 | Convert images to ASCII art while the site builds, with sharp (2026-11-06) | George's choice. The art ships in the HTML, so visitors download no converter and see it before any script runs. Next already installs sharp for its own image resizing, so it adds no new package to the install. |
+| Feature three projects on the home page, and list the rest on a projects page (2026-11-09) | George's choice. Recruiters skim the home page, while engineers who want more open the list. Each project shows George's part, so the longer list doesn't read as padding. The AI twin knows every project either way. |
+| The consolidated profile is a source for the site, not a résumé (2026-11-09) | George will write a résumé for each role he applies for. The profile lists what he did and what the evidence supports. |
+| Leave the résumé chip until the PDFs exist (2026-11-09) | George's choice. He'll provide an English and a Chinese résumé later, and an admin may generate them from content. |
 | Use `georgeluo.dev` as the domain (2026-11-06) | George's choice, after `georgeluo.com` turned out to be taken. Hosting in Hong Kong needs no ICP filing, so the missing ICP route only matters if the site ever moves into the mainland. Replaces the plan to buy a `.com`. |
 
 ## Open items
@@ -202,7 +223,12 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Item | Needed by | Owner |
 |---|---|---|
 | Find testers on China Telecom and Unicom, without a VPN | T13 | George |
-| Share the resume, outside the repo | T10 | George |
+| Choose the third featured project: CodeArmour or PigStar | T10 | George |
+| Decide whether the independent AI support work (2026) shows in Experience or only in the AI twin | T10 | George |
+| Approve replacing the skills words "AI agents" and "Data & cloud", which the profile doesn't support | T10 | George |
+| Say whether he's open to remote or overseas roles, as well as on-site in Shenzhen | T10 | George |
+| Make PigStar's demo public, or link its source only (the demo asks for a Vercel login) | T10 | George |
+| Provide an English and a Chinese résumé PDF for the download chip | Later | George |
 | Keep the upstream credit in `README.md` while upstream-derived code remains | Until T12 | Everyone |
 | Decide whether the chat stays on for mainland visitors, given China's rules on public AI services | T13 | George |
 | Delete the Clerk app and remove its keys from `.env.local` | Now | George |
