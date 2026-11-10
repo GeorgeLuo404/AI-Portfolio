@@ -80,7 +80,8 @@ function Head() {
 }
 
 // Selected work: the heading and its aside, then a row per project that
-// alternates sides, with an image well that bleeds to the page edge.
+// alternates sides. As in the concept, the image wells stay inside the
+// frame's hairlines, and no rules run between the rows.
 export function Work() {
   const t = useTranslations("work");
   const locale = useLocale();
@@ -98,7 +99,7 @@ export function Work() {
           return (
             <article
               key={project.id}
-              className={`grid grid-cols-[var(--L1)_1fr] border-t border-rule last:border-b lg:min-h-[440px] ${flip ? "lg:grid-cols-[var(--L3)_var(--L1)_1fr]" : "lg:grid-cols-[var(--L1)_calc(var(--L3)-var(--L1))_1fr]"}`}
+              className={`grid grid-cols-[var(--L1)_1fr] lg:min-h-[440px] ${flip ? "lg:grid-cols-[var(--L3)_var(--L1)_1fr]" : "lg:grid-cols-[var(--L1)_calc(var(--L3)-var(--L1))_1fr]"}`}
             >
               <p
                 className={`col-start-1 row-start-1 pt-9 text-[18px] leading-[1.15] font-medium tracking-[-0.02em] after:mt-5 after:block after:size-3 after:bg-signal sm:pt-10 sm:text-[26px] lg:pt-5 lg:text-[30px] lg:after:mt-7 lg:after:size-4 ${flip ? "lg:col-start-2 lg:pl-8" : ""}`}
@@ -150,7 +151,7 @@ export function Work() {
                 )}
               </div>
               <div
-                className={`col-span-full row-start-2 grid place-items-center gap-5 bg-well py-6 max-lg:-mx-(--g) max-lg:px-(--g) sm:py-10 lg:row-start-1 lg:p-10 ${flip ? "lg:col-[1] lg:-ml-(--g)" : "lg:col-[3] lg:-mr-(--g)"}`}
+                className={`col-span-full row-start-2 grid place-items-center bg-well p-4 sm:p-10 lg:row-start-1 ${flip ? "lg:col-[1]" : "lg:col-[3]"}`}
               >
                 <Screen object={!project.image}>
                   {project.image ? (
@@ -159,7 +160,7 @@ export function Work() {
                       alt={project.image.alt}
                       title={project.title}
                       cols={240}
-                      sizes="(min-width: 1024px) 800px, 100vw"
+                      sizes="(min-width: 1024px) 760px, 100vw"
                     />
                   ) : (
                     <AsciiScene scene={object} />

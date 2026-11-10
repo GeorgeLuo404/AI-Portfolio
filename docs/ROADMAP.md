@@ -148,7 +148,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - **Done when:** no placeholder content remains, apart from the résumé link, and the test set passes.
 - Built on 2026-11-09. Projects gained a start and end month, `featured`, `group`, `part`, and twin-only `notes`; the profile gained `location` and `languages`; education gained `details`; and `content/notes.ts` holds facts only the twin reads. `getContent` throws unless exactly three projects are featured. Selected work shows each project's part, Experience shows years and the twin gets months. The skills words became "AI apps" and "Motion & UI", solved again at `0.5268 f`. The screenshots are captures of the Starlink site and this site, and the final interface figure from CodeArmour's report. The Chinese text for the new content waits for T11, so `/zh` shows it in English until then.
 - Revised on 2026-11-10 after George's review. The employers read "Seasun Games" and "Starose AI", the intro is shorter, and the twin declines questions about the 2025 break as off topic. The project screens show pixel art instead of characters, fill the well, and show the real screenshot on hover or tap. Only desktop screenshots are shown, captured at 2× so the hover stays sharp. The Starlink capture is the site's still frame with the production cell assembled.
-- Revised again on 2026-11-10, after George compared Selected work with the concept. The heading is Archivo 500, re-solved at `0.7425 f`, and the project rows follow the concept's type scale: a 30px year and title, an 18px lead in ink, and large buttons placed below the chips. Screens have no frame or bar, the light well is the concept's `#D7D7D7`, and the muted chips are a little larger. Links to other sites open in a new tab. The prototype and the Figma frames were updated to match, and so were the prototype's skills words, which still had the T3 wording.
+- Revised again on 2026-11-10, after George compared Selected work with the concept. The heading is Archivo 500, re-solved at `0.7425 f`, and the project rows follow the concept's type scale: a 30px year and title, an 18px lead in ink, and large buttons placed below the chips. Screens have no frame or bar, the light well is the concept's `#D7D7D7`, and the muted chips are a little larger. As in the concept, the wells stay inside the frame's hairlines, with 40px around the screenshot, and no rules run between the rows. Links to other sites open in a new tab. The prototype and the Figma frames were updated to match, and so were the prototype's skills words, which still had the T3 wording.
 
 ### T10b: Projects page
 - Add `/en/projects` and `/zh/projects`, listing every project from `content/` in two groups: web, and AI and machine learning.
@@ -239,6 +239,8 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Decide whether the chat stays on for mainland visitors, given China's rules on public AI services | T13 | George |
 | Delete the Clerk app and remove its keys from `.env.local` | Now | George |
 | Delete the Sanity project and remove its values from `.env.local` | Now that T4 is done | George |
+| Capture Selected work into Figma again, from the prototype, once the Starter plan's MCP limit resets: the frames captured on 2026-11-10 still show the wells bleeding to the page edge and rules between the rows | Before T10b | Claude |
+| Delete the five empty text layers that the 2026-11-10 capture left beside the Figma frames | Any time | George |
 
 ## Baseline measurements
 

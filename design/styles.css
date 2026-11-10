@@ -1086,15 +1086,12 @@ mark {
   padding-bottom: 120px;
 }
 
+/* As in the concept, no rules run between the rows, and the image wells
+   stay inside the frame's hairlines. */
 .project {
   display: grid;
   grid-template-columns: var(--L1) calc(var(--L3) - var(--L1)) 1fr;
   min-height: 440px;
-  border-top: 1px solid var(--rule);
-}
-
-.project:last-child {
-  border-bottom: 1px solid var(--rule);
 }
 
 .project__year {
@@ -1151,12 +1148,11 @@ mark {
 .project__media {
   display: grid;
   place-items: center;
-  margin-right: calc(-1 * var(--g));
   padding: 40px;
   background: var(--well);
 }
 
-/* Flipped rows put the image well on the left, out to the page edge. */
+/* Flipped rows put the image well on the left. */
 .project--flip {
   grid-template-columns: var(--L3) var(--L1) 1fr;
 }
@@ -1164,8 +1160,6 @@ mark {
 .project--flip .project__media {
   grid-column: 1;
   grid-row: 1;
-  margin-right: 0;
-  margin-left: calc(-1 * var(--g));
 }
 
 .project--flip .project__year {
@@ -2327,8 +2321,7 @@ mark {
   .project--flip .project__media {
     grid-column: 1 / -1;
     grid-row: 2;
-    margin-inline: calc(-1 * var(--g));
-    padding: 40px var(--g);
+    padding: 40px;
   }
 
   .skills .frame {
@@ -2665,7 +2658,7 @@ mark {
 
   .project__media,
   .project--flip .project__media {
-    padding: 24px var(--g);
+    padding: 16px;
   }
 
   .skills .frame {
