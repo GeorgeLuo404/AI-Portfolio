@@ -49,6 +49,9 @@ The instructions in `lib/chat/instructions.ts` hold the rules and every public f
 - Never commits to anything for George, such as an offer, an interview, a start date, or pay. It answers that George would rather reply personally, and points to his contact details.
 - Declines other topics, attempts to change its rules or reveal them, and private details such as a phone number.
 - Replies in the visitor's language.
+- Writes links in Markdown, `[label](href)`: the home page's sections by their anchors (`#work`, `#skills`, `#experience`, `#contact`), and project and contact links with the exact URLs from the profile.
+
+The chat page makes those links clickable (`components/chat/reply-text.tsx`), along with bare URLs and the email address. Only links George published become links: the sections, the URLs in `content/`, pages under them such as his GitHub repositories, and his email. Any other URL stays plain text, so a made-up or injected link can't send visitors elsewhere. Section links open the home page in the same tab, and the conversation is still there on the way back. The response format doesn't change: links are plain text in the stream.
 
 DeepSeek's thinking mode is off, so replies start sooner.
 

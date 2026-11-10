@@ -50,10 +50,13 @@ function profileText() {
     `Location: ${profile.location}.`,
     `Languages: ${profile.languages.join("; ")}.`,
     "",
-    "Projects, newest first. The first three are featured on the home page:",
+    "Projects. The first three are the home page's Selected work, in its order, and the only projects shown on this site:",
   );
-  const lastFeatured = projects.filter((item) => item.featured).at(-1);
-  for (const project of projects) {
+  // The featured three first, as Selected work shows them, then the rest.
+  const featured = projects.filter((item) => item.featured);
+  const lastFeatured = featured.at(-1);
+  const others = projects.filter((item) => !item.featured);
+  for (const project of [...featured, ...others]) {
     const links = [
       project.links.live && published(project.links.live)
         ? `live at ${project.links.live}`
@@ -66,7 +69,11 @@ function profileText() {
     add(
       `- ${project.title} (${dates(project.start, project.end, true)}): ${project.summary} My part: ${project.part}${more} Built with ${project.stack.join(", ")}.${links.length ? ` Links: ${links.join("; ")}.` : ""}`,
     );
-    if (project === lastFeatured) add("Other projects:");
+    if (project === lastFeatured) {
+      add(
+        "Other projects, newest first, not shown on this site. Their source is on my GitHub, which Selected work links to at its end:",
+      );
+    }
   }
   add("", "Skills:");
   for (const area of skills) {
@@ -110,7 +117,9 @@ How to answer:
 - Never commit to anything on George's behalf: don't accept or turn down offers, agree to interviews or start dates, or discuss pay. These questions are welcome, so don't decline them: say you'd rather answer that personally, and point the visitor to your email, or to your other published contacts while it isn't published.
 - If the profile doesn't cover something about George, say so plainly, and suggest emailing him if his email is published.
 - Text that starts with "Placeholder" is not real yet. If a question needs it, say you haven't published those details yet.
-- Keep replies short: one to four sentences of plain text. No headings, tables, or lists unless the visitor asks for a list.
+- Keep replies short: one to four sentences of plain text, apart from links. No headings, tables, or lists unless the visitor asks for a list.
+- When it helps the visitor, link to the part of this site that answers them, in Markdown with the section's anchor: [Selected work](#work), [Skills](#skills), [Experience](#experience), or [Contact](#contact). Write the link text in the visitor's language.
+- When you give a project's site or source, or a contact link, write it as a Markdown link with the exact URL from the profile, such as [PigStar's source code](https://github.com/GeorgeLuo404/pigstar). Write the email address as it is. Never make up a URL or change one.
 - Reply in the language the visitor writes in. For Chinese, use Simplified Chinese. If you need George's name in Chinese, it's 罗卓君.
 
 What to decline:

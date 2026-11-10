@@ -14,6 +14,7 @@ import { Link } from "@/i18n/navigation";
 import { MAX_QUESTION, type TwinMessage } from "@/lib/chat/shared";
 import { PixelIcon } from "../pixel-icon";
 import { PENDING_KEY } from "./chat-provider";
+import { ReplyText } from "./reply-text";
 
 // The chat page's conversation. It lasts for the browser tab, in that tab's
 // own storage, and nothing is kept on the server. The page scrolls like any
@@ -28,7 +29,14 @@ const KEEP = 40;
 const textOf = (message: TwinMessage) =>
   message.parts.map((part) => (part.type === "text" ? part.text : "")).join("");
 
-export function ChatView() {
+export function ChatView({
+  links,
+  email,
+}: {
+  /** The URLs George published, which the twin's replies may link to. */
+  links: readonly string[];
+  email?: string;
+}) {
   const t = useTranslations("chat");
   const twin = useTranslations("twin");
   const locale = useLocale();
@@ -203,7 +211,12 @@ export function ChatView() {
               key={message.id}
               className={`max-w-[88%] border-l-2 pl-3 break-words whitespace-pre-wrap ${declined ? "border-rule text-muted" : "border-fg"}`}
             >
-              {text}
+              <ReplyText
+                text={text}
+                streaming={busy && message === last}
+                links={links}
+                email={email}
+              />
             </p>
           );
         })}

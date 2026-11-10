@@ -1,8 +1,8 @@
 import type { Project } from "./types";
 
 // Newest first, by start date. The three featured ones are the home page's
-// Selected work, in this order, and "More projects" below it lists the rest,
-// apart from archived ones.
+// Selected work, in this order. The rest are for the AI twin, and Selected
+// work links to GitHub for them.
 // Each part says plainly what George did, especially in team projects.
 export const projects: readonly Project[] = [
   {
@@ -174,7 +174,6 @@ export const projects: readonly Project[] = [
   },
   {
     id: "ai-gen-image",
-    archived: true,
     start: "2023-03",
     end: "2023-03",
     title: { en: "AI image generator" },

@@ -33,12 +33,23 @@ export default async function ChatPage({
   setRequestLocale(locale);
   const twin = await getTranslations("twin");
   const t = await getTranslations("chat");
-  const email = getContent(locale).contact.email;
+  const { contact, projects } = getContent(locale);
+  const email = contact.email;
+  // The twin's replies may link to these, and to the home page's sections.
+  const links = [
+    contact.github,
+    contact.linkedin,
+    contact.resume,
+    ...projects.flatMap((project) => [
+      project.links.live,
+      project.links.source,
+    ]),
+  ].filter((link): link is string => !!link && /^https?:\/\//.test(link));
   return (
     <main className="frame flex min-h-[calc(100svh-49px)] flex-col">
       <div className="flex w-full flex-1 flex-col lg:mx-auto lg:max-w-[760px] lg:border-x lg:border-rule">
         {chatEnabled() ? (
-          <ChatView />
+          <ChatView links={links} email={email} />
         ) : (
           <div className="flex flex-col gap-3 px-4 py-6">
             <p className="text-muted">{twin("resting")}</p>

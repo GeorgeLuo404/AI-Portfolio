@@ -21,7 +21,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T9 | DeepSeek chat | Merged | `feat/t9-chat` | `checkpoint/t9` |
 | T9b | Phone fixes and performance | Merged | `fix/t9b-phone-fixes` | `checkpoint/t9b` |
 | T10 | Real content | Merged | `feat/t10-real-content` | `checkpoint/t10` |
-| T10b | More projects list | In review | `feat/t10b-more-projects` | |
+| T10b | GitHub link and chat links | In review | `feat/t10b-github-links` | |
 | T11 | Chinese translation | Not started | | |
 | T12 | Clean public history | Not started | | |
 | T13 | Production launch | Not started | | |
@@ -150,14 +150,15 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Revised on 2026-11-10 after George's review. The employers read "Seasun Games" and "Starose AI", the intro is shorter, and the twin declines questions about the 2025 break as off topic. The project screens show pixel art instead of characters, fill the well, and show the real screenshot on hover or tap. Only desktop screenshots are shown, captured at 2× so the hover stays sharp. The Starlink capture is the site's still frame with the production cell assembled.
 - Revised again on 2026-11-10, after George compared Selected work with the concept. The heading is Archivo 500, re-solved at `0.7425 f`, and the project rows follow the concept's type scale: a 30px year and title, an 18px lead in ink, and large buttons placed below the chips. Screens have no frame or bar, the light well is the concept's `#D7D7D7`, and the muted chips are a little larger. As in the concept, the wells stay inside the frame's hairlines, with 40px around the screenshot, and no rules run between the rows. Links to other sites open in a new tab. The prototype and the Figma frames were updated to match, and so were the prototype's skills words, which still had the T3 wording.
 
-### T10b: More projects list
-- Replaced the planned projects page on 2026-11-10 (see Decisions).
-- Below Selected work on the home page, list the projects that aren't featured, newest first, apart from archived ones: Agents demo, PigStar, Few-shot image classification, and Penguin and turtle detection. The AI image generator is archived.
-- Use one compact row per project: year, title, one sentence, George's part, the stack, and the source link. No screenshots.
-- Build it from the existing row and chip styles, match the prototype, and document it in `docs/DESIGN.md`. Check it at 375, 768, and 1440 in both themes.
-- Replace the projects' unused `group` field with `archived`.
-- **Done when:** the list renders in both languages at all three widths, and the build, type check, lint, and `pnpm chat:test` pass.
-- Built on 2026-11-10. The list sits 120px below the last project row, with rules between its rows as in Experience, and the prototype matches the app at 1440. The Figma frames wait for the MCP limit (see Open items).
+### T10b: GitHub link and chat links
+- Replaced the planned projects page on 2026-11-10, and then the "More projects" list that replaced it (see Decisions).
+- Under Selected work's last row, add a button to George's GitHub for the other projects. The site shows only the three featured projects; the AI twin knows them all.
+- Make links in the twin's replies clickable and styled: the home page's sections, and the URLs George published. Any other URL stays plain text.
+- Have the twin link sections and projects in Markdown, and tell it which projects the site shows.
+- Remove the projects' unused `group` field.
+- Update the prototype and `docs/DESIGN.md`. Check at 375, 768, and 1440 in both themes.
+- **Done when:** the button and the chat links work in both languages, and the build, type check, lint, and `pnpm chat:test` pass.
+- Built on 2026-11-10. The link cases in the test set pass, and a planted reply showed that only George's links become links. Writing the tests also showed the twin's profile listed the projects newest first, not featured first, so it named the wrong three as featured; the featured three now come first. The Figma frames wait for the MCP limit (see Open items).
 
 ### T11: Chinese translation
 - Translate the UI and content. Claude drafts the Chinese, and George reviews the diff.
@@ -218,12 +219,13 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Drop the photo in characters (2026-11-07) | George's choice. It waited for the photo to load, which left the ring hanging on slow networks. The ring now fades with the fish and the photo fades in. |
 | No shadcn/ui for now (2026-11-07) | The phone bugs were iOS zoom, keyboard, and tiny-font quirks that a component library doesn't fix, and the chat page needs no dialog. |
 | Convert images to ASCII art while the site builds, with sharp (2026-11-06) | George's choice. The art ships in the HTML, so visitors download no converter and see it before any script runs. Next already installs sharp for its own image resizing, so it adds no new package to the install. |
-| Feature three projects on the home page, and list the rest on a projects page (2026-11-09) | Replaced on 2026-11-10 by the "More projects" list below. George's choice. Recruiters skim the home page, while engineers who want more open the list. Each project shows George's part, so the longer list doesn't read as padding. The AI twin knows every project either way. |
+| Feature three projects on the home page, and list the rest on a projects page (2026-11-09) | Replaced on 2026-11-10 by the GitHub link below. George's choice. Recruiters skim the home page, while engineers who want more open the list. Each project shows George's part, so the longer list doesn't read as padding. The AI twin knows every project either way. |
 | The consolidated profile is a source for the site, not a résumé (2026-11-09) | George will write a résumé for each role he applies for. The profile lists what he did and what the evidence supports. |
-| Feature Starlink, this site, and CodeArmour (2026-11-09) | George's choice. A client project, an AI product, and a team project with a different kind of build. PigStar moves to the projects page, which became the "More projects" list on 2026-11-10. |
+| Feature Starlink, this site, and CodeArmour (2026-11-09) | George's choice. A client project, an AI product, and a team project with a different kind of build. PigStar moves to the projects page, which became a link to GitHub on 2026-11-10. |
 | Restyle Selected work closer to the concept (2026-11-10) | George's request after comparing them. The structure was already the concept's; the heading weight, the row type scale, the plain screens, and the well's grey were not. The display typeface stays Archivo, because the grid is measured from it. |
 | Open links to other sites in a new tab (2026-11-10) | George's request. Visitors keep their place on the portfolio, and screen readers hear that a new tab opens. |
-| List the other projects on the home page instead of a projects page (2026-11-10) | George's choice. Beyond the three featured, the projects are coursework and learning work without screenshots, too few and too thin for a page of their own. A short list below Selected work keeps PigStar and the machine learning projects in view, with no new route. The archived AI image generator stays off it, and the twin knows every project either way. |
+| Link to GitHub for the other projects, instead of a projects page or a list (2026-11-10) | George's choice. Beyond the three featured, the projects are coursework and learning work without screenshots. A page was too much for them, and a list on the home page was still more than recruiters need. One button under Selected work points the curious to GitHub, and the twin knows every project. |
+| Make links in the twin's replies clickable, for George's links only (2026-11-10) | George's request. The twin can point visitors to a section or a project's site. Only links in `content/` and the home page's sections become links, so a made-up or injected URL can't send visitors elsewhere. |
 | Draw project screenshots as pixel art, with the real one on hover (2026-11-10) | George's choice. Characters were too rough at this size to show a screenshot. The pixel art keeps the site's look, and the real screenshot is a hover or a tap away. |
 | Show the independent AI support work in Experience (2026-11-09) | George's choice. It fills 2026, and it's described as past work that is paused, so it doesn't advertise a service. |
 | Replace the skills words "AI agents" and "Data & cloud" with "AI apps" and "Motion & UI" (2026-11-09) | The profile has no agent work beyond a learning notebook, and no cloud work. Motion is shown by the Meizu pages and this site's koi. |
@@ -242,7 +244,7 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Decide whether the chat stays on for mainland visitors, given China's rules on public AI services | T13 | George |
 | Delete the Clerk app and remove its keys from `.env.local` | Now | George |
 | Delete the Sanity project and remove its values from `.env.local` | Now that T4 is done | George |
-| Capture the hero and Selected work into Figma again, from the prototype, once the Starter plan's MCP limit resets: the frames captured on 2026-11-10 still show the wells bleeding to the page edge and rules between the rows, the hero's old placeholder statement, and no "More projects" list | Next Figma session | Claude |
+| Capture the hero and Selected work into Figma again, from the prototype, once the Starter plan's MCP limit resets: the frames captured on 2026-11-10 still show the wells bleeding to the page edge and rules between the rows, the hero's old placeholder statement, and no GitHub link under Selected work | Next Figma session | Claude |
 | Delete the five empty text layers that the 2026-11-10 capture left beside the Figma frames | Any time | George |
 
 ## Baseline measurements

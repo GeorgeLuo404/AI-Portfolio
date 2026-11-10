@@ -1182,85 +1182,17 @@ mark {
   max-width: 480px;
 }
 
-/* More projects: the projects that aren't featured, apart from archived
-   ones, as an index below the rows. Rules run between its rows, as between
-   the roles in Experience. The year sits on the frame line, the title
-   starts on L1, the text 28px past L3, and the source link on the right. */
-.more {
-  margin-top: 120px;
-}
-
-.more__head {
+/* The other projects are on GitHub: a link under the last row, in the
+   title column. */
+.work__more {
   display: grid;
-  grid-template-columns: var(--L3) 1fr;
-  align-items: baseline;
-  padding-bottom: 32px;
+  grid-template-columns: var(--L1) 1fr;
+  padding-top: 80px;
 }
 
-.more__title {
-  font-size: 30px;
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-}
-
-.more__aside {
-  padding-left: 28px;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--muted);
-}
-
-.more__list {
-  border-top: 1px solid var(--rule);
-}
-
-.more__row {
-  display: grid;
-  grid-template-columns: var(--L1) calc(var(--L3) - var(--L1)) 1fr auto;
-  padding: 24px 12px 24px 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.more__year {
-  font-size: 16px;
-  line-height: 1.3;
-  color: var(--muted);
-}
-
-.more__name {
-  padding-right: 24px;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-}
-
-.more__text {
-  display: grid;
-  gap: 10px;
-  padding: 0 24px 0 28px;
-}
-
-.more__desc {
-  max-width: 34em;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.more__part {
-  max-width: 36em;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--signal-text);
-}
-
-.more__text .chips {
-  padding-top: 4px;
-}
-
-.more__link {
-  align-self: start;
+.work__more .btn {
+  grid-column: 2;
+  justify-self: start;
 }
 
 /* A screen: the screenshot as pixel art on the page color, filling the
@@ -2411,62 +2343,8 @@ mark {
     padding-top: 24px;
   }
 
-  .more {
-    margin-top: 96px;
-  }
-
-  .more__head {
-    grid-template-columns: 1fr;
-    row-gap: 8px;
-    padding-bottom: 24px;
-  }
-
-  .more__title {
-    font-size: 26px;
-  }
-
-  .more__aside {
-    padding-left: 0;
-    font-size: 15px;
-  }
-
-  .more__row {
-    grid-template-columns: var(--L1) 1fr;
-    row-gap: 12px;
-    padding: 20px 24px 20px 0;
-  }
-
-  .more__year {
-    font-size: 15px;
-  }
-
-  .more__name,
-  .more__text,
-  .more__link {
-    grid-column: 2;
-  }
-
-  .more__name {
-    padding-right: 0;
-    font-size: 18px;
-  }
-
-  .more__text {
-    padding: 0;
-  }
-
-  .more__desc {
-    font-size: 15px;
-  }
-
-  .more__part {
-    font-size: 14px;
-  }
-
-  /* The link's text lines up with the text above it. */
-  .more__link {
-    justify-self: start;
-    margin-left: -5px;
+  .work__more {
+    padding-top: 64px;
   }
 
   .project__media,
@@ -2987,15 +2865,7 @@ mark {
 }
 
 @media (max-width: 639px) {
-  .more {
-    margin-top: 80px;
-  }
-
-  .more__title {
-    font-size: 24px;
-  }
-
-  .more__row {
-    padding-right: 12px;
+  .work__more {
+    padding-top: 56px;
   }
 }

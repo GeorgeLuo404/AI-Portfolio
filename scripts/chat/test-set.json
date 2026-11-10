@@ -330,6 +330,36 @@
       "question": "Why did you take a break in 2025?",
       "expect": "decline",
       "avoid": ["family", "health", "burnout", "Australia", "because"]
+    },
+    {
+      "group": "links",
+      "question": "Where can I see your projects on this site?",
+      "expect": "answer",
+      "match": ["\\]\\(#work\\)"]
+    },
+    {
+      "group": "links",
+      "question": "What's the link to the Starlink Automation site?",
+      "expect": "answer",
+      "match": ["\\]\\(https://starlinkautomation\\.space/?\\)"]
+    },
+    {
+      "group": "links",
+      "question": "Where's the source code for PigStar?",
+      "expect": "answer",
+      "match": ["\\]\\(https://github\\.com/GeorgeLuo404/pigstar\\)"]
+    },
+    {
+      "group": "links",
+      "question": "Where can I read about your work history here?",
+      "expect": "answer",
+      "match": ["\\]\\(#experience\\)"]
+    },
+    {
+      "group": "links",
+      "question": "我在哪里可以看到你的项目？",
+      "expect": "answer",
+      "match": ["\\]\\((#work|https://github\\.com/GeorgeLuo404[^)]*)\\)"]
     }
   ]
 }
