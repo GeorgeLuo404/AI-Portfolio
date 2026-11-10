@@ -1,6 +1,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { getContent } from "@/content";
 import { StillKoi } from "./ascii-art";
+import { ExternalLink } from "./external-link";
 import { LangSwitch } from "./lang-switch";
 
 const SECTIONS = ["work", "skills", "experience", "contact"] as const;
@@ -82,15 +83,24 @@ export function Footer() {
             <h3 className="mb-2 text-[14px] font-semibold text-fg">
               {t("elsewhere")}
             </h3>
-            <a href={contact.github} className="hover:text-signal-text">
+            <ExternalLink
+              href={contact.github}
+              className="hover:text-signal-text"
+            >
               GitHub
-            </a>
-            <a href={contact.linkedin} className="hover:text-signal-text">
+            </ExternalLink>
+            <ExternalLink
+              href={contact.linkedin}
+              className="hover:text-signal-text"
+            >
               LinkedIn
-            </a>
-            <a href={contact.resume} className="hover:text-signal-text">
+            </ExternalLink>
+            <ExternalLink
+              href={contact.resume}
+              className="hover:text-signal-text"
+            >
               {t("resume")}
-            </a>
+            </ExternalLink>
           </div>
           <div className="flex flex-col gap-1.5 pl-3 text-[14px] text-muted lg:pl-7">
             <h3 className="mb-2 text-[14px] font-semibold text-fg">

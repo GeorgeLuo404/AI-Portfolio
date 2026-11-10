@@ -103,5 +103,8 @@
     "copyright": "© {year} 罗卓君",
     "credit": "版式参考 Faza Dzikrulloh 的 Hegia 概念设计",
     "top": "回到顶部"
+  },
+  "common": {
+    "newTab": "（在新标签页中打开）"
   }
 }

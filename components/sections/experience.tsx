@@ -1,6 +1,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { getContent } from "@/content";
 import { AsciiScene } from "../ascii-art";
+import { ExternalLink } from "../external-link";
 import { PixelIcon } from "../pixel-icon";
 import { RoleList, type RoleRow } from "../role-list";
 
@@ -75,27 +76,27 @@ export function Experience() {
             </p>
           )}
           <div className="mt-5 flex flex-wrap gap-1.5 sm:mt-0 sm:block">
-            <a
+            <ExternalLink
               href={contact.resume}
               className={`${chip} sm:top-[46%] sm:left-(--L1)`}
             >
               {t("resume")}
               <PixelIcon name="download" size={10} />
-            </a>
-            <a
+            </ExternalLink>
+            <ExternalLink
               href={contact.linkedin}
               className={`${chip} sm:top-[78%] sm:left-(--L3)`}
             >
               LinkedIn
               <PixelIcon name="external" size={10} />
-            </a>
-            <a
+            </ExternalLink>
+            <ExternalLink
               href={contact.github}
               className={`${chip} sm:top-[12%] sm:left-[calc(var(--L3)+var(--L1))] lg:left-(--mid)`}
             >
               GitHub
               <PixelIcon name="external" size={10} />
-            </a>
+            </ExternalLink>
           </div>
         </div>
         <div className="mt-12 grid lg:grid-cols-[var(--L3)_1fr]">

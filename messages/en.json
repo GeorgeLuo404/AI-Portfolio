@@ -122,5 +122,8 @@
     "copyright": "© {year} George Luo",
     "credit": "Layout after Hegia, a concept by Faza Dzikrulloh",
     "top": "Back to top"
+  },
+  "common": {
+    "newTab": "(opens in a new tab)"
   }
 }

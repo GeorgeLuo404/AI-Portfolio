@@ -1,11 +1,11 @@
 # Design
 
-Status: approved by George on 2026-11-06 (T3). UI work from T5 on follows this file.
+Status: approved by George on 2026-11-06 (T3). UI work from T5 on follows this file. Selected work was restyled closer to the concept on 2026-11-10, after George's T10 review, and the Figma frames were captured again.
 
 - **Figma:** [George Luo portfolio design](https://www.figma.com/design/yOam3gCoyO0uew2262qVq9), with Foundations, English, and Chinese pages.
 - **Prototype:** `design/`, the source the Figma frames are captured from. Run it with the `design` entry in `.claude/launch.json`, or `python3 -m http.server 4321 --directory design`, then open `index.html`, `zh.html`, or `foundations.html`.
 
-The Figma frames are captured from the HTML, so they're editable layers but not linked components or variables. Change the HTML first, then capture again. Figma's Starter plan limits MCP reads to about 20 a month, so the file is meant for review and comments rather than as a component library.
+The Figma frames are captured from the HTML, so they're editable layers but not linked components or variables. Change the HTML first, then capture again. Figma's Starter plan limits MCP tool calls, captures and their status checks included, so the file is meant for review and comments rather than as a component library. Capture one page at a time in a browser tab that's in front: a tab in the background doesn't send its capture. The recapture on 2026-11-10 reached the limit before it could delete five empty text layers that the capture left beside the frames, so delete those by hand.
 
 ## Direction
 
@@ -36,8 +36,8 @@ In page order:
 |---|---|
 | Navigation | Logo mark and name, section links, EN/中文 switch, theme switch, "Ask my AI twin". Sticky. A menu on phones. |
 | Hero | "AI / Web Engineer" in giant type on the grid, three chips in a staircase, a short intro that highlights the role, the logo mark in the intro's bottom-right corner, two koi circling in a brushed ring on a dotted field with a button that trades them for George's photo, a statement box, and the AI twin window standing in a small room drawn in perspective |
-| Selected work | "Selected work" heading, an aside, and three project rows that alternate sides: year, title, a line or two, stack chips, links, and an image well that bleeds to the page edge |
-| Skills | A word stack in black: "AI apps", "Full-stack ( ▢ ) web", "Motion & UI", with blue pixel decorations, faint ASCII objects, and a legend of tools |
+| Selected work | "Selected work" heading, an aside, and three project rows that alternate sides: year, title, a lead and George's part, stack chips, links, and an image well that bleeds to the page edge, holding the screenshot as pixel art |
+| Skills | A word stack in black: "AI apps", "Full-stack ( ▢ ) web", "Motion & UI", with blue pixel decorations, faint ASCII objects, and a legend of what each covers |
 | Experience (dark) | Giant "Experience" with résumé, LinkedIn, and GitHub chips over it, an aside, and roles in an accordion |
 | Contact (dark panel) | "Hiring an AI & web engineer?" in braces, with email, WeChat ID, and AI twin buttons, over faint pond ripples |
 | Footer (dark) | The name in giant type with the chips over it, a faint, still pair of koi, page links, other profiles, contact details, the credit, and the language switch |
@@ -73,7 +73,7 @@ Other display headings are solved against these lines:
 
 | Heading | Size | Letters on the lines |
 |---|---|---|
-| Selected work | `0.7302 f` | The D ends on L3, "Work" hangs from the stem of the T, and its R starts on L3. Phones: full width, "Work" hangs from the second E. |
+| Selected work | `0.7425 f`, Archivo 500 | The D ends on L3 and "Work" hangs from the stem of the T. Phones: `C / 4.986`, full width, and "Work" hangs from the second E. Re-solved on 2026-11-10 from Archivo 800 (`0.7302 f`) |
 | Skills stack | `0.5268 f`, Archivo 500 | "AI apps" starts on L2 and its second P stands on L3, "Full-stack" starts on L0, "Motion & UI" on L1. Phones: `C / 8`, with L3 hidden. Re-solved in T10 from "AI agents" and "Data & cloud" (`0.5029 f`) |
 | Experience | `1.4288 f` | The R stands on L3. Tablets: `1.2446 f`, with the second E on L2. Phones: full width. |
 | Footer name | `1.1207 f` | "Luo" starts on the stem of the R in "George", on L2 |
@@ -90,7 +90,7 @@ If a heading's words change, measure the new letters and solve its size again. T
 | Signal text | `#1B2BFF` | `#6874FF` | Small blue text. 7.4:1 on white, 5.5:1 on black. |
 | Ink and paper | `#000000` on `#FFFFFF` | `#FFFFFF` on `#000000` | Text and background |
 | Panel | `#F4F4F4` | `#121212` | Chips, the statement box, the header button, the contact panel |
-| Well | `#E9E9E9` | `#161616` | Project image wells |
+| Well | `#D7D7D7` | `#161616` | Project image wells. Light was `#E9E9E9` until 2026-11-10, now the concept's grey. |
 | Rule | `#E6E6E6` | `#242424` | Grid lines and borders |
 | Muted | `#6E6E6E` | `#8F8F8F` | Secondary text. 5.1:1 and 6.5:1. |
 | Dot | `#D2D2D2` | `#2E2E2E` | The dotted field behind the koi |
@@ -104,14 +104,19 @@ All fonts are OFL. Production self-hosts them with `next/font/local` from `app/f
 | Style | Font | Size | Line height | Tracking | Notes |
 |---|---|---|---|---|---|
 | Display | Archivo 800 | From the grid table | 0.73 | −6% | Uppercase |
+| Section heading | Archivo 500 | From the grid table | 1 | −3% | Uppercase, "Selected work", as in the concept |
 | Slash | Archivo 200 | Same as its headline | | | Joins the halves of the hero headline |
 | Word stack | Archivo 500 | `0.5268 f` | 0.82 | −4% | Uppercase, skills |
 | Statement | Archivo 500 | 26px | 1.3 | −1.5% | Hero statement box |
 | Intro | Archivo 400 | 19px | 1.45 | 0 | Hero intro |
-| Title | Archivo 600 | 22px | 1.2 | −1% | Project titles |
+| Aside | Archivo 500 | 24px, 20px on tablets, 18px on phones | 1.3 | 0 | Beside a section heading. Chinese at 1.6 |
+| Title and year | Archivo 500 | 30px, 26px on tablets, 24px on phones (the year 18px) | 1.15 | −2% | Project rows |
+| Lead | Archivo 400 | 18px, 17px below desktop | 1.45 | 0 | A project's summary, in ink |
+| Part | Archivo 400 | 16px, 15px below desktop | 1.5 | 0 | What George did, in signal text |
 | Body | Archivo 400 | 15px to 17px | 1.55 | 0 | |
-| Chip | Archivo 500 | 15px in the hero, 13px elsewhere | 1 | +3% | Uppercase |
+| Chip | Archivo 500 | 15px in the hero, 13px elsewhere | 1 | +3% | Uppercase. Muted chips are Archivo 400, 12px, 26px tall |
 | Button | Archivo 600 | 12px | 1 | +5% | Uppercase, 36px tall, 44px on phones |
+| Large button | Archivo 500 | 14px | 1 | +2% | Uppercase, 40px tall. A project's links |
 | Terminal | JetBrains Mono 500 | 14px | 1.4 | 0 | AI twin and chat only |
 | ASCII | JetBrains Mono 500, 800 for the koi | Box width ÷ columns ÷ 0.6 | 1 | 0 | Sized to fill its box |
 | Chinese heading | Noto Sans SC 900 | `clamp(26px, 2.5vw, 36px)` | 1.25 | +2% | |
@@ -139,15 +144,16 @@ The page is at most 1440px wide. Content sits between two hairlines inset by the
 
 All corners are square, borders are 1px, and nothing has a shadow. `design/foundations.html` shows each one.
 
-- **Chips:** panel (blue text on panel), solid (white on signal), and muted (small grey).
+- **Chips:** panel (blue text on panel), solid (white on signal), and muted (small grey, for a project's stack and a role's tools).
 - **Logo mark:** the pixel G on a signal square, 98px on desktop, 64px on tablets, and 52px on phones, on both pages. In the hero it sits in the intro's bottom-right corner, on the frame line and the art's top rule, however long the intro runs.
 - **Highlight:** a `mark` on the panel color with 0.1em padding. It reaches 0.1em into the space before it, so a phrase that starts a line keeps the line's edge. The role in the hero never breaks across lines.
 - **Art button:** a signal button, 30px tall, in the art's top-right corner, and on phones in its bottom-right corner, just above the caption. Beside the caption, as first drawn, it covered the caption's end on a 375px phone. It says what it will do: a smiling face with "Show my face" or 我长啥样, then a fish with "Bring the fish back" or 把鱼叫回来. Hover darkens it, because the pixel icons bake in their color.
-- **Buttons:** signal, line, light, and ghost. Pixel icons only where they add meaning: external link, download, copy, mail, chat.
+- **Buttons:** signal, line, light, and ghost, and a large size for a project's links. Pixel icons only where they add meaning: external link, download, copy, mail, chat.
+- **Links to other sites:** a project's links, the profile chips in Experience, and the footer's profiles open in a new tab, so visitors keep their place, and screen readers hear "opens in a new tab". Links within the site and email links open in place.
 - **AI twin window:** title and status, a terminal prompt with a blinking caret, three suggested questions, a note that answers can be wrong, and an Ask button. In the hero it stands in a room: lines from the stage corners to the window, a center line, a horizon, a grey panel and a signal panel behind it. `site.js` draws the lines from the window's position.
 - **Chat panel:** a 440px side panel on desktop and a full-width sheet on phones. Visitor messages are signal blocks, twin replies have an ink rule, and declined questions use a grey rule and text. Esc closes it.
-- **Project row:** year with a signal square, title, description, chips, and links on one side, and an image well on the other, alternating.
-- **Project screen:** in the well, a screen with a bar holds the screenshot as pixel art, 240 pixels wide, so about 3.3px per pixel at 1440. The screen fills the well, up to 800px wide; a project without a screenshot gets a 480px screen. Ink is the art color in three steps (blank, half, full) mixed by a 4×4 ordered dither, and colored parts of the screenshot turn signal. The background stays blank, so a dark screenshot draws its light parts. Hovering a screen fades in the real screenshot; on touch screens and from the keyboard, a button over the screen toggles it. A project without a screenshot shows an object in characters instead. Only desktop screenshots are shown.
+- **Project row:** as in the concept, the year sits on the frame line with a 16px signal square below it, and the title starts on L1. Then come the lead in ink, George's part in signal text, the stack in muted chips, and, 48px further down, the links as large buttons. The image well is on the other side, with 40px of padding, and the rows alternate.
+- **Project screen:** in the well, a plain screen on the page color, with no frame or bar, as in the concept, holds the screenshot as pixel art, 240 pixels wide, so about 3.3px per pixel at 1440. The screen fills the well, up to 800px wide; a project without a screenshot gets a 480px screen. Ink is the art color in three steps (blank, half, full) mixed by a 4×4 ordered dither, and colored parts of the screenshot turn signal. The background stays blank, so a dark screenshot draws its light parts. Hovering a screen fades in the real screenshot; on touch screens and from the keyboard, a button over the screen toggles it. A project without a screenshot shows an object in characters instead. Only desktop screenshots are shown.
 - **Experience row:** dates, title, and company in one line. Opening a row shows result bullets and stack chips.
 - **Pixel icons:** drawn on 4 to 15 pixel grids in `design/site.js`: mark, chat, send, external, download, mail, copy, plus, minus, down, menu, close, cross, spark, sun, moon, carets, brace, face, fish.
 - **ASCII art:** `design/koi.js` draws the koi every frame: a spine that follows each fish's track and spirals out while it circles, a side-on body of tapered capsules whose belly is fuller than its back, small fins along the back and belly, a forked tail fan with streaks, and the turning ring with dry-brush streaks. It also turns the photo into characters with the photo's own crop, and draws the footer's still pair. `design/scripts/render-ascii.mjs` renders the fixed art: pond ripples for the contact panel and small objects for the project wells.
@@ -167,6 +173,7 @@ All corners are square, borders are 1px, and nothing has a shadow. `design/found
 - Focus is visible: a 2px signal outline, and white on the dark sections.
 - ASCII art, display graphics on the Chinese page, and decorative glyphs are hidden from screen readers. The photo has alt text, and screen readers reach it only while it shows.
 - Experience rows are buttons with `aria-expanded`. The theme switch's label says what it switches to.
+- Links that open a new tab say so in visually hidden text.
 
 ## Placeholders for T10
 
