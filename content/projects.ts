@@ -1,7 +1,8 @@
 import type { Project } from "./types";
 
 // Newest first, by start date. The three featured ones are the home page's
-// Selected work, in this order, and the projects page (T10b) lists them all.
+// Selected work, in this order, and "More projects" below it lists the rest,
+// apart from archived ones.
 // Each part says plainly what George did, especially in team projects.
 export const projects: readonly Project[] = [
   {
@@ -9,7 +10,6 @@ export const projects: readonly Project[] = [
     start: "2026-07",
     end: "2026-08",
     featured: true,
-    group: "web",
     title: { en: "Starlink Automation website" },
     summary: {
       en: "A company website and admin system for a Shenzhen industrial-automation firm, covering its services, case studies, news, downloads, and enquiries.",
@@ -40,7 +40,6 @@ export const projects: readonly Project[] = [
     id: "ai-twin",
     start: "2026-03",
     featured: true,
-    group: "ai",
     title: { en: "This portfolio and its AI twin" },
     summary: {
       en: "This site, in English and Chinese, with a chat that answers as me from my public profile. It's tested against on-topic, off-topic, and jailbreak questions, and it loads in mainland China without a VPN.",
@@ -76,7 +75,6 @@ export const projects: readonly Project[] = [
     id: "agents-demo",
     start: "2025-05",
     end: "2025-06",
-    group: "ai",
     title: { en: "Agents demo" },
     summary: {
       en: "Notebooks that try out tool-using LLM agents: OpenAI function calling, LangChain agents with memory, and several agents working together in LangGraph.",
@@ -89,7 +87,6 @@ export const projects: readonly Project[] = [
     id: "pigstar",
     start: "2025-03",
     end: "2025-07",
-    group: "web",
     title: { en: "PigStar" },
     summary: {
       en: "A social site for photo posts, with sign-in, comments, likes, and follows, multi-image uploads that run in parallel, and a feed that loads more as you scroll.",
@@ -118,7 +115,6 @@ export const projects: readonly Project[] = [
     start: "2024-05",
     end: "2024-08",
     featured: true,
-    group: "ai",
     title: { en: "CodeArmour" },
     summary: {
       en: "A VS Code extension that flags likely security flaws in code and explains them, using models that run on the developer's own machine.",
@@ -150,7 +146,6 @@ export const projects: readonly Project[] = [
     id: "squad404",
     start: "2024-02",
     end: "2024-05",
-    group: "ai",
     title: { en: "Few-shot image classification" },
     summary: {
       en: "Image classifiers that learn from 5 to 10 examples per class, across three yes-or-no tasks, comparing prototypical networks on MobileNetV2 and ResNet18.",
@@ -165,7 +160,6 @@ export const projects: readonly Project[] = [
     id: "visionary-unicorns",
     start: "2023-05",
     end: "2023-08",
-    group: "ai",
     title: { en: "Penguin and turtle detection" },
     summary: {
       en: "Detecting and classifying penguins and turtles in photos, comparing eight detector setups on original and augmented data.",
@@ -180,9 +174,9 @@ export const projects: readonly Project[] = [
   },
   {
     id: "ai-gen-image",
+    archived: true,
     start: "2023-03",
     end: "2023-03",
-    group: "ai",
     title: { en: "AI image generator" },
     summary: {
       en: "A full-stack web app I built to try DALL·E 2's text-to-image generation.",

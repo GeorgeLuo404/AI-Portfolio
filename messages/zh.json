@@ -63,7 +63,9 @@
     "builtWith": "技术",
     "view": "查看项目",
     "source": "源代码",
-    "showShot": "显示「{title}」的截图"
+    "showShot": "显示「{title}」的截图",
+    "more": "更多项目",
+    "moreAside": "个人作品和大学团队项目，按时间从新到旧。"
   },
   "skills": {
     "heading": "技能"

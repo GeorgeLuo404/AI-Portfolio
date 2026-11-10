@@ -71,7 +71,9 @@
     "builtWith": "Built with",
     "view": "View project",
     "source": "Source code",
-    "showShot": "Show the screenshot of {title}"
+    "showShot": "Show the screenshot of {title}",
+    "more": "More projects",
+    "moreAside": "Personal builds and university team projects, newest first."
   },
   "skills": {
     "heading": "Skills",

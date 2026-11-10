@@ -40,8 +40,11 @@ export type Project = {
   end?: YearMonth;
   /** Exactly three projects are featured on the home page. */
   featured?: boolean;
-  /** The projects page lists web work and AI work apart (T10b). */
-  group: "web" | "ai";
+  /**
+   * Left out of the home page's "More projects" list, for old work that's no
+   * longer maintained. The AI twin still knows it.
+   */
+  archived?: boolean;
   title: Localized;
   /** One sentence on what the project is and does. */
   summary: Localized;

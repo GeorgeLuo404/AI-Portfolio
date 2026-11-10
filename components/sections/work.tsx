@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
-import { getContent } from "@/content";
+import { getContent, type Project, type Resolved } from "@/content";
 import type { SceneName } from "@/lib/ascii/scenes";
 import { AsciiScene } from "../ascii-art";
 import { ExternalLink } from "../external-link";
@@ -79,6 +79,72 @@ function Head() {
   );
 }
 
+// The projects that aren't featured, apart from archived ones, as a compact
+// list below the rows: one line each, with no screenshot. Rules between the
+// rows make it read as an index, as the roles do in Experience. On desktop
+// the year sits on the frame line, the title starts on L1, the text on L3,
+// and the source link on the right.
+function MoreProjects({
+  projects,
+}: {
+  projects: readonly Resolved<Project>[];
+}) {
+  const t = useTranslations("work");
+  return (
+    <div className="mt-20 sm:mt-24 lg:mt-[120px]">
+      <div className="grid gap-y-2 pb-6 lg:grid-cols-[var(--L3)_1fr] lg:items-baseline lg:pb-8">
+        <h3 className="text-[24px] leading-[1.15] font-medium tracking-[-0.02em] sm:text-[26px] lg:text-[30px]">
+          {t("more")}
+        </h3>
+        <p className="text-[15px] leading-[1.5] text-muted lg:pl-7 lg:text-[16px]">
+          {t("moreAside")}
+        </p>
+      </div>
+      <ul className="border-t border-rule">
+        {projects.map((project) => (
+          <li
+            key={project.id}
+            className="grid grid-cols-[var(--L1)_1fr] gap-y-3 border-b border-rule py-5 pr-3 sm:pr-6 lg:grid-cols-[var(--L1)_calc(var(--L3)-var(--L1))_1fr_auto] lg:py-6 lg:pr-3"
+          >
+            <p className="text-[15px] leading-[1.3] text-muted lg:text-[16px]">
+              {project.start.slice(0, 4)}
+            </p>
+            <h4 className="col-start-2 text-[18px] leading-[1.3] font-medium tracking-[-0.01em] lg:pr-6 lg:text-[20px]">
+              {project.title}
+            </h4>
+            <div className="col-start-2 grid gap-2.5 lg:col-start-3 lg:row-start-1 lg:pr-6 lg:pl-7">
+              <p className="max-w-[34em] text-[15px] leading-[1.5] lg:text-[16px]">
+                {project.summary}
+              </p>
+              <p className="max-w-[36em] text-[14px] leading-[1.5] text-signal-text lg:text-[15px]">
+                {project.part}
+              </p>
+              <ul
+                aria-label={t("builtWith")}
+                className="flex flex-wrap gap-1.5 pt-1"
+              >
+                {project.stack.map((tool) => (
+                  <li key={tool} className="chip chip-muted">
+                    {tool}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {project.links.source && (
+              <ExternalLink
+                href={project.links.source}
+                className="btn btn-ghost col-start-2 -ml-[5px] justify-self-start lg:col-start-4 lg:ml-0 lg:row-start-1 lg:self-start"
+              >
+                {t("source")}
+              </ExternalLink>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 // Selected work: the heading and its aside, then a row per project that
 // alternates sides. As in the concept, the image wells stay inside the
 // frame's hairlines and hug their screens from the top of the row, and no
@@ -90,9 +156,9 @@ function Head() {
 export function Work() {
   const t = useTranslations("work");
   const locale = useLocale();
-  const projects = getContent(locale).projects.filter(
-    (project) => project.featured,
-  );
+  const all = getContent(locale).projects;
+  const projects = all.filter((project) => project.featured);
+  const more = all.filter((project) => !project.featured && !project.archived);
   return (
     <section id="work" aria-labelledby="work-title">
       <div className="frame pb-[120px]">
@@ -175,6 +241,7 @@ export function Work() {
             </article>
           );
         })}
+        {more.length > 0 && <MoreProjects projects={more} />}
       </div>
     </section>
   );
