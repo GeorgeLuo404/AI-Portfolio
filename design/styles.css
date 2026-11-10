@@ -1087,11 +1087,15 @@ mark {
 }
 
 /* As in the concept, no rules run between the rows, and the image wells
-   stay inside the frame's hairlines. */
+   stay inside the frame's hairlines. A row is as tall as its well, with
+   40px between rows, so the gaps between wells match. */
 .project {
   display: grid;
   grid-template-columns: var(--L1) calc(var(--L3) - var(--L1)) 1fr;
-  min-height: 440px;
+}
+
+.project + .project {
+  margin-top: 40px;
 }
 
 .project__year {
@@ -1111,11 +1115,14 @@ mark {
   background: var(--signal);
 }
 
+/* The text may run up to 16px into the gap below its row, so a line more
+   doesn't throw the gaps off. */
 .project__text {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px 16px 56px 0;
+  margin-bottom: -16px;
+  padding: 20px 16px 0 0;
 }
 
 .project__title {
@@ -1142,7 +1149,7 @@ mark {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding-top: 48px;
+  padding-top: 24px;
 }
 
 .project__media {
@@ -2294,11 +2301,16 @@ mark {
     font-size: 26px;
   }
 
+  .project + .project {
+    margin-top: 0;
+  }
+
   .project__text,
   .project--flip .project__text {
     grid-column: 2;
     grid-row: 1;
     max-width: 560px;
+    margin-bottom: 0;
     padding: 40px 24px 40px 0;
   }
 

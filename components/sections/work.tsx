@@ -82,7 +82,10 @@ function Head() {
 // Selected work: the heading and its aside, then a row per project that
 // alternates sides. As in the concept, the image wells stay inside the
 // frame's hairlines and hug their screens from the top of the row, and no
-// rules run between the rows. In flipped rows the year starts 40px in from
+// rules run between the rows. On desktop a row is as tall as its well, with
+// 40px between rows, so the gaps between wells match. The text may run up
+// to 16px into that gap (its negative bottom margin), so a line more of text
+// doesn't throw the gaps off. In flipped rows the year starts 40px in from
 // L3, in line with the screenshots above and below it.
 export function Work() {
   const t = useTranslations("work");
@@ -101,7 +104,7 @@ export function Work() {
           return (
             <article
               key={project.id}
-              className={`grid grid-cols-[var(--L1)_1fr] lg:min-h-[440px] ${flip ? "lg:grid-cols-[var(--L3)_var(--L1)_1fr]" : "lg:grid-cols-[var(--L1)_calc(var(--L3)-var(--L1))_1fr]"}`}
+              className={`grid grid-cols-[var(--L1)_1fr] ${n > 0 ? "lg:mt-10" : ""} ${flip ? "lg:grid-cols-[var(--L3)_var(--L1)_1fr]" : "lg:grid-cols-[var(--L1)_calc(var(--L3)-var(--L1))_1fr]"}`}
             >
               <p
                 className={`col-start-1 row-start-1 pt-9 text-[18px] leading-[1.15] font-medium tracking-[-0.02em] after:mt-5 after:block after:size-3 after:bg-signal sm:pt-10 sm:text-[26px] lg:pt-5 lg:text-[30px] lg:after:mt-7 lg:after:size-4 ${flip ? "lg:col-start-2 lg:pl-10" : ""}`}
@@ -109,7 +112,7 @@ export function Work() {
                 {project.start.slice(0, 4)}
               </p>
               <div
-                className={`col-start-2 row-start-1 flex max-w-[560px] flex-col gap-4 py-8 pr-1 pl-2 sm:gap-5 sm:py-10 sm:pr-6 sm:pl-0 lg:pt-5 lg:pr-4 lg:pb-14 ${flip ? "lg:col-start-3 lg:max-w-[480px]" : "lg:max-w-none"}`}
+                className={`col-start-2 row-start-1 flex max-w-[560px] flex-col gap-4 py-8 pr-1 pl-2 sm:gap-5 sm:py-10 sm:pr-6 sm:pl-0 lg:-mb-4 lg:pt-5 lg:pr-4 lg:pb-0 ${flip ? "lg:col-start-3 lg:max-w-[480px]" : "lg:max-w-none"}`}
               >
                 <h3 className="text-[24px] leading-[1.15] font-medium tracking-[-0.02em] sm:text-[26px] lg:text-[30px]">
                   {project.title}
@@ -131,7 +134,7 @@ export function Work() {
                   ))}
                 </ul>
                 {(project.links.live || project.links.source) && (
-                  <div className="flex flex-wrap gap-2 pt-6 lg:pt-12">
+                  <div className="flex flex-wrap gap-2 pt-6">
                     {project.links.live && (
                       <ExternalLink
                         href={project.links.live}
