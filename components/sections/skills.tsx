@@ -44,7 +44,7 @@ export function Skills() {
             className="vline left-(--L3) max-sm:hidden"
           />
           {/* Each line starts on a grid line: the A on L2, the F on the left
-              edge, and the D on L1. The E of "Agents" lands on L3. */}
+              edge, and the M on L1. The second P of "Apps" lands on L3. */}
           <ul
             aria-hidden={en ? undefined : true}
             lang="en"
@@ -78,7 +78,9 @@ export function Skills() {
                 <PixelIcon name="mark" size={22} />
               </span>
             </li>
-            <li className="pl-[calc(var(--L1)-0.081em)]">{t("lines.data")}</li>
+            <li className="pl-[calc(var(--L1)-0.081em)]">
+              {t("lines.motion")}
+            </li>
           </ul>
           <PixelIcon
             name="carets"

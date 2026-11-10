@@ -90,7 +90,9 @@ function Head() {
 export function Work() {
   const t = useTranslations("work");
   const locale = useLocale();
-  const { projects } = getContent(locale);
+  const projects = getContent(locale).projects.filter(
+    (project) => project.featured,
+  );
   return (
     <section id="work" aria-labelledby="work-title">
       <div className="frame pb-[120px]">
@@ -108,7 +110,7 @@ export function Work() {
               <p
                 className={`col-start-1 row-start-1 pt-8 pl-3 text-base font-medium tracking-[-0.01em] after:mt-6 after:block after:size-3 after:bg-signal sm:pt-10 sm:text-[22px] ${flip ? "lg:col-start-2 lg:pl-8" : ""}`}
               >
-                {project.year}
+                {project.start.slice(0, 4)}
               </p>
               <div
                 className={`col-start-2 row-start-1 flex max-w-[520px] flex-col gap-4 py-8 pr-1 pl-2 sm:py-10 sm:pr-8 sm:pl-0 ${flip ? "lg:col-start-3 lg:max-w-[460px]" : "lg:max-w-none"}`}
@@ -118,6 +120,9 @@ export function Work() {
                 </h3>
                 <p className="max-w-[30em] text-[15px] leading-[1.55] text-muted">
                   {project.summary}
+                </p>
+                <p className="max-w-[30em] text-[14px] leading-[1.55] text-signal-text">
+                  {project.part}
                 </p>
                 <ul
                   aria-label={t("builtWith")}

@@ -67,7 +67,7 @@
   "work": {
     "display": "Selected Work",
     "heading": "Selected work",
-    "aside": "Three projects, each with what I built and what changed because of it.",
+    "aside": "Three projects, each with what it does and what my part was.",
     "builtWith": "Built with",
     "view": "View project",
     "source": "Source code"
@@ -75,10 +75,10 @@
   "skills": {
     "heading": "Skills",
     "lines": {
-      "ai": "AI agents",
+      "ai": "AI apps",
       "full": "Full-stack",
       "web": "web",
-      "data": "Data & cloud"
+      "motion": "Motion & UI"
     }
   },
   "experience": {

@@ -1,22 +1,21 @@
 import type { Profile } from "./types";
 
-// Placeholder until T10, apart from the names.
+// From George's consolidated profile (2026-11-09). English first: the
+// Chinese comes in T11, and falls back to English until then.
 export const profile: Profile = {
   name: "George Luo",
   chineseName: "罗卓君",
   role: { en: "AI and web engineer", zh: "AI 与前端开发工程师" },
   chips: [
-    { en: "AI products", zh: "AI 产品" },
-    { en: "Frontend", zh: "前端开发" },
+    { en: "AI integration", zh: "AI 应用集成" },
+    { en: "Full-stack", zh: "全栈开发" },
     { en: "Open to roles", zh: "正在求职" },
   ],
   intro: {
-    en: "I'm George Luo, an {role}. I work across the stack, from model calls and data to the interface people use every day.",
-    zh: "我是罗卓君，一名 {role}。从模型调用、数据到每天被使用的界面，整条链路我都能做。",
+    en: "I'm George Luo, an {role} in Shenzhen. I've built product pages at Meizu, admin systems and APIs at Seasun, and a client's company site, and I connect language models to web apps.",
   },
   statement: {
-    en: "From the first prompt to the last pixel, I build AI products that hold up in front of real users.",
-    zh: "从第一句提示词到最后一个像素，我做经得起真实用户检验的 AI 产品。",
+    en: "I build web products end to end, from the database to the scroll animation, and I bring language models into them.",
   },
   photo: {
     src: "/george.jpg",
@@ -26,6 +25,14 @@ export const profile: Profile = {
     },
   },
   availability: {
-    en: "Placeholder: when George can start, and whether he wants full-time, remote, or on-site work.",
+    en: "Open to full-time roles: on-site in Shenzhen, remote, or overseas. I can start within a week of accepting an offer.",
   },
+  location: { en: "Shenzhen, China", zh: "中国深圳" },
+  languages: [
+    { en: "Mandarin, my first language", zh: "普通话（母语）" },
+    { en: "Cantonese, spoken", zh: "粤语（可交流）" },
+    {
+      en: "English, fluent: I did my master's in Sydney and worked in Australia",
+    },
+  ],
 };

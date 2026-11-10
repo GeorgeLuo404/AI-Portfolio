@@ -12,8 +12,12 @@ export function Experience() {
   const locale = useLocale();
   const { roles, education, contact } = getContent(locale);
   const en = locale === "en";
-  const dates = (start: string, end?: string) =>
-    end ? t("range", { start, end }) : t("current", { start });
+  // The page shows years, and the AI twin gets the months.
+  const dates = (start: string, end?: string) => {
+    const [from, to] = [start.slice(0, 4), end?.slice(0, 4)];
+    if (!to) return t("current", { start: from });
+    return from === to ? from : t("range", { start: from, end: to });
+  };
   const rows: RoleRow[] = [
     ...roles.map((role) => ({
       dates: dates(role.start, role.end),
@@ -26,7 +30,7 @@ export function Experience() {
       dates: dates(school.start, school.end),
       title: school.degree,
       org: school.school,
-      results: school.detail ? [school.detail] : [],
+      results: school.details ?? [],
       stack: [],
     })),
   ];

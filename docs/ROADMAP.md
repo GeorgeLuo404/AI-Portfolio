@@ -20,7 +20,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T8 | Sections | Merged | `feat/t8-sections` | `checkpoint/t8` |
 | T9 | DeepSeek chat | Merged | `feat/t9-chat` | `checkpoint/t9` |
 | T9b | Phone fixes and performance | Merged | `fix/t9b-phone-fixes` | `checkpoint/t9b` |
-| T10 | Real content | Not started | | |
+| T10 | Real content | In review | `feat/t10-real-content` | |
 | T10b | Projects page | Not started | | |
 | T11 | Chinese translation | Not started | | |
 | T12 | Clean public history | Not started | | |
@@ -146,6 +146,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Leave the résumé chip until George's PDFs exist (see Later).
 - Run `pnpm chat:test`, and add cases for the new facts.
 - **Done when:** no placeholder content remains, apart from the résumé link, and the test set passes.
+- Built on 2026-11-09. Projects gained a start and end month, `featured`, `group`, `part`, and twin-only `notes`; the profile gained `location` and `languages`; education gained `details`; and `content/notes.ts` holds facts only the twin reads. `getContent` throws unless exactly three projects are featured. Selected work shows each project's part, Experience shows years and the twin gets months. The skills words became "AI apps" and "Motion & UI", solved again at `0.5268 f`. The screenshots are captures of the Starlink site and this site, and the final interface figure from CodeArmour's report. The Chinese text for the new content waits for T11, so `/zh` shows it in English until then.
 
 ### T10b: Projects page
 - Add `/en/projects` and `/zh/projects`, listing every project from `content/` in two groups: web, and AI and machine learning.
@@ -215,6 +216,11 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Convert images to ASCII art while the site builds, with sharp (2026-11-06) | George's choice. The art ships in the HTML, so visitors download no converter and see it before any script runs. Next already installs sharp for its own image resizing, so it adds no new package to the install. |
 | Feature three projects on the home page, and list the rest on a projects page (2026-11-09) | George's choice. Recruiters skim the home page, while engineers who want more open the list. Each project shows George's part, so the longer list doesn't read as padding. The AI twin knows every project either way. |
 | The consolidated profile is a source for the site, not a résumé (2026-11-09) | George will write a résumé for each role he applies for. The profile lists what he did and what the evidence supports. |
+| Feature Starlink, this site, and CodeArmour (2026-11-09) | George's choice. A client project, an AI product, and a team project with a different kind of build. PigStar moves to the projects page. |
+| Show the independent AI support work in Experience (2026-11-09) | George's choice. It fills 2026, and it's described as past work that is paused, so it doesn't advertise a service. |
+| Replace the skills words "AI agents" and "Data & cloud" with "AI apps" and "Motion & UI" (2026-11-09) | The profile has no agent work beyond a learning notebook, and no cloud work. Motion is shown by the Meizu pages and this site's koi. |
+| Open to remote and overseas roles as well as on-site in Shenzhen (2026-11-09) | George's answer. The profile and the twin say so. |
+| Link PigStar's source only (2026-11-09) | George's choice. Its demo sits behind a Vercel login. |
 | Leave the résumé chip until the PDFs exist (2026-11-09) | George's choice. He'll provide an English and a Chinese résumé later, and an admin may generate them from content. |
 | Use `georgeluo.dev` as the domain (2026-11-06) | George's choice, after `georgeluo.com` turned out to be taken. Hosting in Hong Kong needs no ICP filing, so the missing ICP route only matters if the site ever moves into the mainland. Replaces the plan to buy a `.com`. |
 
@@ -223,11 +229,6 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Item | Needed by | Owner |
 |---|---|---|
 | Find testers on China Telecom and Unicom, without a VPN | T13 | George |
-| Choose the third featured project: CodeArmour or PigStar | T10 | George |
-| Decide whether the independent AI support work (2026) shows in Experience or only in the AI twin | T10 | George |
-| Approve replacing the skills words "AI agents" and "Data & cloud", which the profile doesn't support | T10 | George |
-| Say whether he's open to remote or overseas roles, as well as on-site in Shenzhen | T10 | George |
-| Make PigStar's demo public, or link its source only (the demo asks for a Vercel login) | T10 | George |
 | Provide an English and a Chinese résumé PDF for the download chip | Later | George |
 | Keep the upstream credit in `README.md` while upstream-derived code remains | Until T12 | Everyone |
 | Decide whether the chat stays on for mainland visitors, given China's rules on public AI services | T13 | George |
@@ -380,3 +381,16 @@ Taken on 2026-11-07 on `fix/t9b-phone-fixes`, in a desktop browser at phone and 
 | Decline marker | Removed from replies wherever it appears, in six chunked test cases. A reply that starts with it is still marked as declined, and a mixed reply isn't |
 | Test set (`pnpm chat:test`) | 38 of 38 on the dev server, plus a new mixed-question case |
 | Photo | Requested at 640px wide on a 375px phone, as AVIF where the browser takes it |
+
+## After T10
+
+Taken on 2026-11-09 on `feat/t10-real-content`.
+
+| Check | Result |
+|---|---|
+| Build, type check, and Biome | Pass, 0 errors, 0 warnings |
+| Test set (`pnpm chat:test`) | 49 of 49 on the dev server, with 10 new cases: location, remote work, Meizu, George's part in CodeArmour, Starlink built solo, languages, education, the 2025 break, an invented speed-up it must not give, and Starlink in Chinese |
+| Skills stack | At 1440 and 768, the A of "Apps" is on L2, its second P on L3, and the M of "Motion" on L1, each within 0.03px. No sideways scroll at 375 |
+| Selected work | The three featured projects with their parts and screenshots, at 1440 and 375, in both languages |
+| Experience | Four roles and two degrees, newest first, with years |
+| Third-party hosts contacted by the page | None |

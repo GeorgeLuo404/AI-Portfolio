@@ -239,7 +239,7 @@
     --f-head: calc(var(--f) * 0.7302);
     --f-exp: calc(var(--f) * 1.4288);
     --f-name: calc(var(--f) * 1.1207);
-    --f-skill: calc(var(--f) * 0.5029);
+    --f-skill: calc(var(--f) * 0.5268);
   }
 
   @media (width < 64rem) {

@@ -37,7 +37,7 @@ In page order:
 | Navigation | Logo mark and name, section links, EN/中文 switch, theme switch, "Ask my AI twin". Sticky. A menu on phones. |
 | Hero | "AI / Web Engineer" in giant type on the grid, three chips in a staircase, a short intro that highlights the role, the logo mark in the intro's bottom-right corner, two koi circling in a brushed ring on a dotted field with a button that trades them for George's photo, a statement box, and the AI twin window standing in a small room drawn in perspective |
 | Selected work | "Selected work" heading, an aside, and three project rows that alternate sides: year, title, a line or two, stack chips, links, and an image well that bleeds to the page edge |
-| Skills | A word stack in black: "AI agents", "Full-stack ( ▢ ) web", "Data & cloud", with blue pixel decorations, faint ASCII objects, and a legend of tools |
+| Skills | A word stack in black: "AI apps", "Full-stack ( ▢ ) web", "Motion & UI", with blue pixel decorations, faint ASCII objects, and a legend of tools |
 | Experience (dark) | Giant "Experience" with résumé, LinkedIn, and GitHub chips over it, an aside, and roles in an accordion |
 | Contact (dark panel) | "Hiring an AI & web engineer?" in braces, with email, WeChat ID, and AI twin buttons, over faint pond ripples |
 | Footer (dark) | The name in giant type with the chips over it, a faint, still pair of koi, page links, other profiles, contact details, the credit, and the language switch |
@@ -74,7 +74,7 @@ Other display headings are solved against these lines:
 | Heading | Size | Letters on the lines |
 |---|---|---|
 | Selected work | `0.7302 f` | The D ends on L3, "Work" hangs from the stem of the T, and its R starts on L3. Phones: full width, "Work" hangs from the second E. |
-| Skills stack | `0.5029 f`, Archivo 500 | "AI agents" starts on L2 and its E stands on L3, "Full-stack" starts on L0, "Data & cloud" on L1 |
+| Skills stack | `0.5268 f`, Archivo 500 | "AI apps" starts on L2 and its second P stands on L3, "Full-stack" starts on L0, "Motion & UI" on L1. Phones: `C / 8`, with L3 hidden. Re-solved in T10 from "AI agents" and "Data & cloud" (`0.5029 f`) |
 | Experience | `1.4288 f` | The R stands on L3. Tablets: `1.2446 f`, with the second E on L2. Phones: full width. |
 | Footer name | `1.1207 f` | "Luo" starts on the stem of the R in "George", on L2 |
 
@@ -105,7 +105,7 @@ All fonts are OFL. Production self-hosts them with `next/font/local` from `app/f
 |---|---|---|---|---|---|
 | Display | Archivo 800 | From the grid table | 0.73 | −6% | Uppercase |
 | Slash | Archivo 200 | Same as its headline | | | Joins the halves of the hero headline |
-| Word stack | Archivo 500 | `0.5029 f` | 0.82 | −4% | Uppercase, skills |
+| Word stack | Archivo 500 | `0.5268 f` | 0.82 | −4% | Uppercase, skills |
 | Statement | Archivo 500 | 26px | 1.3 | −1.5% | Hero statement box |
 | Intro | Archivo 400 | 19px | 1.45 | 0 | Hero intro |
 | Title | Archivo 600 | 22px | 1.2 | −1% | Project titles |
