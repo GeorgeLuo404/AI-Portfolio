@@ -20,7 +20,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T8 | Sections | Merged | `feat/t8-sections` | `checkpoint/t8` |
 | T9 | DeepSeek chat | Merged | `feat/t9-chat` | `checkpoint/t9` |
 | T9b | Phone fixes and performance | Merged | `fix/t9b-phone-fixes` | `checkpoint/t9b` |
-| T10 | Real content | In review | `feat/t10-real-content` | |
+| T10 | Real content | Merged | `feat/t10-real-content` | `checkpoint/t10` |
 | T10b | Projects page | Not started | | |
 | T11 | Chinese translation | Not started | | |
 | T12 | Clean public history | Not started | | |
