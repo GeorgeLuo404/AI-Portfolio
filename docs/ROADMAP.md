@@ -147,6 +147,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Run `pnpm chat:test`, and add cases for the new facts.
 - **Done when:** no placeholder content remains, apart from the résumé link, and the test set passes.
 - Built on 2026-11-09. Projects gained a start and end month, `featured`, `group`, `part`, and twin-only `notes`; the profile gained `location` and `languages`; education gained `details`; and `content/notes.ts` holds facts only the twin reads. `getContent` throws unless exactly three projects are featured. Selected work shows each project's part, Experience shows years and the twin gets months. The skills words became "AI apps" and "Motion & UI", solved again at `0.5268 f`. The screenshots are captures of the Starlink site and this site, and the final interface figure from CodeArmour's report. The Chinese text for the new content waits for T11, so `/zh` shows it in English until then.
+- Revised on 2026-11-10 after George's review. The employers read "Seasun Games" and "Starose AI", the intro is shorter, and the twin doesn't give a reason for the 2025 break. The project screens show pixel art instead of characters, with the real screenshot on hover or tap. The Starlink capture is the site's still frame with the production cell assembled.
 
 ### T10b: Projects page
 - Add `/en/projects` and `/zh/projects`, listing every project from `content/` in two groups: web, and AI and machine learning.
@@ -217,6 +218,7 @@ Decided on 2026-11-03 unless marked otherwise. Where a decision replaces an earl
 | Feature three projects on the home page, and list the rest on a projects page (2026-11-09) | George's choice. Recruiters skim the home page, while engineers who want more open the list. Each project shows George's part, so the longer list doesn't read as padding. The AI twin knows every project either way. |
 | The consolidated profile is a source for the site, not a résumé (2026-11-09) | George will write a résumé for each role he applies for. The profile lists what he did and what the evidence supports. |
 | Feature Starlink, this site, and CodeArmour (2026-11-09) | George's choice. A client project, an AI product, and a team project with a different kind of build. PigStar moves to the projects page. |
+| Draw project screenshots as pixel art, with the real one on hover (2026-11-10) | George's choice. Characters were too rough at this size to show a screenshot. The pixel art keeps the site's look, and the real screenshot is a hover or a tap away. |
 | Show the independent AI support work in Experience (2026-11-09) | George's choice. It fills 2026, and it's described as past work that is paused, so it doesn't advertise a service. |
 | Replace the skills words "AI agents" and "Data & cloud" with "AI apps" and "Motion & UI" (2026-11-09) | The profile has no agent work beyond a learning notebook, and no cloud work. Motion is shown by the Meizu pages and this site's koi. |
 | Open to remote and overseas roles as well as on-site in Shenzhen (2026-11-09) | George's answer. The profile and the twin say so. |
@@ -384,7 +386,7 @@ Taken on 2026-11-07 on `fix/t9b-phone-fixes`, in a desktop browser at phone and 
 
 ## After T10
 
-Taken on 2026-11-09 on `feat/t10-real-content`.
+Taken on 2026-11-09 on `feat/t10-real-content`, and again on 2026-11-10 after the review changes.
 
 | Check | Result |
 |---|---|

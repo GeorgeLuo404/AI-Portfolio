@@ -62,7 +62,9 @@
     "aside": "三个项目，每个都写清楚它做什么、我负责哪部分。",
     "builtWith": "技术",
     "view": "查看项目",
-    "source": "源代码"
+    "source": "源代码",
+    "showShot": "显示「{title}」的截图",
+    "showPhoneShot": "显示「{title}」的手机截图"
   },
   "skills": {
     "heading": "技能"

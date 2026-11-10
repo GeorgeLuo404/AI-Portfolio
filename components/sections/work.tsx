@@ -2,22 +2,25 @@ import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { getContent } from "@/content";
 import type { SceneName } from "@/lib/ascii/scenes";
-import { AsciiImage, AsciiScene } from "../ascii-art";
+import { AsciiScene } from "../ascii-art";
 import { PixelIcon } from "../pixel-icon";
+import { ProjectShot } from "../project-shot";
 
 // Without a screenshot, a project's well shows one of these objects.
 const OBJECTS: SceneName[] = ["orbit", "cube", "slabs"];
 
 // A screen in a project's well: a bar with the project's name and path, and
-// the screenshot in characters below it.
+// below it the screenshot in pixels, or an object in characters with padding.
 function Screen({
   bar,
   phone = false,
+  padded = false,
   className = "",
   children,
 }: {
   bar: [string, string];
   phone?: boolean;
+  padded?: boolean;
   className?: string;
   children: ReactNode;
 }) {
@@ -32,9 +35,7 @@ function Screen({
         <span>{bar[0]}</span>
         <span>{bar[1]}</span>
       </div>
-      <div className={phone ? "px-3 py-[26px]" : "px-[22px] py-[18px]"}>
-        {children}
-      </div>
+      <div className={padded ? "px-[22px] py-[18px]" : ""}>{children}</div>
     </div>
   );
 }
@@ -155,21 +156,28 @@ export function Work() {
               >
                 {project.phoneImage && (
                   <Screen bar={[project.id, "9:41"]} phone>
-                    <AsciiImage
+                    <ProjectShot
                       src={project.phoneImage.src}
                       alt={project.phoneImage.alt}
-                      cols={36}
+                      title={project.title}
+                      phone
+                      cols={72}
+                      sizes="190px"
                     />
                   </Screen>
                 )}
                 <Screen
                   bar={[project.id, `/projects/${project.id}`]}
+                  padded={!project.image}
                   className={pair ? "sm:justify-self-start" : ""}
                 >
                   {project.image ? (
-                    <AsciiImage
+                    <ProjectShot
                       src={project.image.src}
                       alt={project.image.alt}
+                      title={project.title}
+                      cols={192}
+                      sizes="(min-width: 640px) 480px, 100vw"
                     />
                   ) : (
                     <AsciiScene scene={object} />

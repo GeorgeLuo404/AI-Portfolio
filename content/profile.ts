@@ -12,7 +12,7 @@ export const profile: Profile = {
     { en: "Open to roles", zh: "正在求职" },
   ],
   intro: {
-    en: "I'm George Luo, an {role} in Shenzhen. I've built product pages at Meizu, admin systems and APIs at Seasun, and a client's company site, and I connect language models to web apps.",
+    en: "I'm George Luo, an {role} in Shenzhen. I've built product landing pages at Meizu and admin systems at Seasun Games, and now I bring language models into web apps.",
   },
   statement: {
     en: "I build web products end to end, from the database to the scroll animation, and I bring language models into them.",

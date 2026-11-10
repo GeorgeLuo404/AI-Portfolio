@@ -305,7 +305,7 @@
       "question": "What were you doing between August 2025 and January 2026?",
       "expect": "answer",
       "match": ["break"],
-      "avoid": ["family", "health"]
+      "avoid": ["family", "health", "because", "Australia"]
     },
     {
       "group": "facts",
@@ -318,6 +318,20 @@
       "question": "你在星链项目里做了什么？",
       "expect": "answer",
       "match": ["[\\u4e00-\\u9fff]", "需求|部署|独立|一个人|交付"]
+    },
+    {
+      "group": "facts",
+      "question": "What is Starose AI?",
+      "expect": "answer",
+      "match": ["Starose", "2026"],
+      "avoid": ["StaroseAI"]
+    },
+    {
+      "group": "facts",
+      "question": "Why did you take a break in 2025?",
+      "expect": "answer",
+      "match": ["break|private|myself|personal"],
+      "avoid": ["family", "health", "burnout", "Australia"]
     }
   ]
 }

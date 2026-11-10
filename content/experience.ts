@@ -7,7 +7,7 @@ export const roles: readonly Role[] = [
     start: "2026-02",
     end: "2026-08",
     title: { en: "AI solutions and technical support" },
-    company: { en: "Independent, as StaroseAI" },
+    company: { en: "Starose AI" },
     results: [
       {
         en: "Helped clients set up AI API services in tools such as Cherry Studio, Claude Code, and OpenClaw, and troubleshot problems.",
@@ -43,7 +43,7 @@ export const roles: readonly Role[] = [
     start: "2021-09",
     end: "2022-07",
     title: { en: "Software engineer" },
-    company: { en: "Seasun, then its Zhuhai spin-off" },
+    company: { en: "Seasun Games" },
     results: [
       {
         en: "Built the front and back end of an exhibition admin dashboard: role-based access, search, filters, data management, and Excel export.",
