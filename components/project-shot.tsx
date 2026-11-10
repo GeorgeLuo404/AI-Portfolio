@@ -9,14 +9,12 @@ export async function ProjectShot({
   src,
   alt,
   title,
-  phone,
   cols,
   sizes,
 }: {
   src: string;
   alt: string;
   title: string;
-  phone?: boolean;
   cols: number;
   sizes: string;
 }) {
@@ -26,7 +24,6 @@ export async function ProjectShot({
       src={src}
       alt={alt}
       title={title}
-      phone={phone}
       ratio={art.cols / art.rows}
       sizes={sizes}
       light={art.light}

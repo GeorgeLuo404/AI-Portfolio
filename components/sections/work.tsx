@@ -10,23 +10,20 @@ import { ProjectShot } from "../project-shot";
 const OBJECTS: SceneName[] = ["orbit", "cube", "slabs"];
 
 // A screen in a project's well: a bar with the project's name and path, and
-// below it the screenshot in pixels, or an object in characters with padding.
+// below it the screenshot in pixels, filling the well, or a smaller one with
+// an object in characters.
 function Screen({
   bar,
-  phone = false,
-  padded = false,
-  className = "",
+  object = false,
   children,
 }: {
   bar: [string, string];
-  phone?: boolean;
-  padded?: boolean;
-  className?: string;
+  object?: boolean;
   children: ReactNode;
 }) {
   return (
     <div
-      className={`w-full border border-rule bg-bg ${phone ? "max-w-[190px] justify-self-end max-sm:hidden" : "max-w-[480px]"} ${className}`}
+      className={`w-full border border-rule bg-bg ${object ? "max-w-[480px]" : "max-w-[800px]"}`}
     >
       <div
         aria-hidden="true"
@@ -35,7 +32,7 @@ function Screen({
         <span>{bar[0]}</span>
         <span>{bar[1]}</span>
       </div>
-      <div className={padded ? "px-[22px] py-[18px]" : ""}>{children}</div>
+      <div className={object ? "px-[22px] py-[18px]" : ""}>{children}</div>
     </div>
   );
 }
@@ -101,7 +98,6 @@ export function Work() {
         <Head />
         {projects.map((project, n) => {
           const flip = n % 2 === 1;
-          const pair = !!project.phoneImage;
           const object = OBJECTS[n % OBJECTS.length];
           return (
             <article
@@ -152,32 +148,19 @@ export function Work() {
                 )}
               </div>
               <div
-                className={`col-span-full row-start-2 grid place-items-center gap-5 bg-well py-6 max-lg:-mx-(--g) max-lg:px-(--g) sm:py-10 lg:row-start-1 lg:p-12 ${pair ? "sm:grid-cols-[minmax(0,190px)_minmax(0,480px)] sm:justify-center" : ""} ${flip ? "lg:col-[1] lg:-ml-(--g)" : "lg:col-[3] lg:-mr-(--g)"}`}
+                className={`col-span-full row-start-2 grid place-items-center gap-5 bg-well py-6 max-lg:-mx-(--g) max-lg:px-(--g) sm:py-10 lg:row-start-1 lg:p-12 ${flip ? "lg:col-[1] lg:-ml-(--g)" : "lg:col-[3] lg:-mr-(--g)"}`}
               >
-                {project.phoneImage && (
-                  <Screen bar={[project.id, "9:41"]} phone>
-                    <ProjectShot
-                      src={project.phoneImage.src}
-                      alt={project.phoneImage.alt}
-                      title={project.title}
-                      phone
-                      cols={72}
-                      sizes="190px"
-                    />
-                  </Screen>
-                )}
                 <Screen
                   bar={[project.id, `/projects/${project.id}`]}
-                  padded={!project.image}
-                  className={pair ? "sm:justify-self-start" : ""}
+                  object={!project.image}
                 >
                   {project.image ? (
                     <ProjectShot
                       src={project.image.src}
                       alt={project.image.alt}
                       title={project.title}
-                      cols={192}
-                      sizes="(min-width: 640px) 480px, 100vw"
+                      cols={240}
+                      sizes="(min-width: 1024px) 800px, 100vw"
                     />
                   ) : (
                     <AsciiScene scene={object} />

@@ -147,7 +147,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Run `pnpm chat:test`, and add cases for the new facts.
 - **Done when:** no placeholder content remains, apart from the résumé link, and the test set passes.
 - Built on 2026-11-09. Projects gained a start and end month, `featured`, `group`, `part`, and twin-only `notes`; the profile gained `location` and `languages`; education gained `details`; and `content/notes.ts` holds facts only the twin reads. `getContent` throws unless exactly three projects are featured. Selected work shows each project's part, Experience shows years and the twin gets months. The skills words became "AI apps" and "Motion & UI", solved again at `0.5268 f`. The screenshots are captures of the Starlink site and this site, and the final interface figure from CodeArmour's report. The Chinese text for the new content waits for T11, so `/zh` shows it in English until then.
-- Revised on 2026-11-10 after George's review. The employers read "Seasun Games" and "Starose AI", the intro is shorter, and the twin doesn't give a reason for the 2025 break. The project screens show pixel art instead of characters, with the real screenshot on hover or tap. The Starlink capture is the site's still frame with the production cell assembled.
+- Revised on 2026-11-10 after George's review. The employers read "Seasun Games" and "Starose AI", the intro is shorter, and the twin declines questions about the 2025 break as off topic. The project screens show pixel art instead of characters, fill the well, and show the real screenshot on hover or tap. Only desktop screenshots are shown, captured at 2× so the hover stays sharp. The Starlink capture is the site's still frame with the production cell assembled.
 
 ### T10b: Projects page
 - Add `/en/projects` and `/zh/projects`, listing every project from `content/` in two groups: web, and AI and machine learning.
@@ -391,7 +391,7 @@ Taken on 2026-11-09 on `feat/t10-real-content`, and again on 2026-11-10 after th
 | Check | Result |
 |---|---|
 | Build, type check, and Biome | Pass, 0 errors, 0 warnings |
-| Test set (`pnpm chat:test`) | 49 of 49 on the dev server, with 10 new cases: location, remote work, Meizu, George's part in CodeArmour, Starlink built solo, languages, education, the 2025 break, an invented speed-up it must not give, and Starlink in Chinese |
+| Test set (`pnpm chat:test`) | 51 of 51 on the dev server, with 12 new cases: location, remote work, Meizu, George's part in CodeArmour, Starlink built solo, languages, education, two on the 2025 break (declined), Starose AI, an invented speed-up it must not give, and Starlink in Chinese. In 4 of 5 runs after the review; the fifth declined the speed-up question instead of answering it |
 | Skills stack | At 1440 and 768, the A of "Apps" is on L2, its second P on L3, and the M of "Motion" on L1, each within 0.03px. No sideways scroll at 375 |
 | Selected work | The three featured projects with their parts and screenshots, at 1440 and 375, in both languages |
 | Experience | Four roles and two degrees, newest first, with years |

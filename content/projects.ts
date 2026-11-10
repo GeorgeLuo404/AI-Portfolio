@@ -35,10 +35,6 @@ export const projects: readonly Project[] = [
         en: "The Starlink Automation home page: the company's slogan over a dark network of points, with its services listed below",
       },
     },
-    phoneImage: {
-      src: "/projects/starlink-phone.png",
-      alt: { en: "The Starlink Automation home page on a phone" },
-    },
   },
   {
     id: "ai-twin",
@@ -73,12 +69,6 @@ export const projects: readonly Project[] = [
       src: "/projects/ai-twin.png",
       alt: {
         en: "This site's hero: the AI / Web Engineer headline on its grid, the intro, and the two koi in characters",
-      },
-    },
-    phoneImage: {
-      src: "/projects/ai-twin-phone.png",
-      alt: {
-        en: "The AI twin's chat page on a phone, with suggested questions above the Send button",
       },
     },
   },

@@ -52,12 +52,11 @@ export type Project = {
   stack: readonly string[];
   links: { live?: string; source?: string };
   /**
-   * Screenshots in `public/`, shown in characters in the project's well: a
-   * wide one, and optionally a phone one beside it. Without a screenshot,
-   * the well shows an ASCII object. Strip a screenshot's metadata first.
+   * A desktop screenshot in `public/`, shown as pixel art in the project's
+   * well, with the real one on hover. Without a screenshot, the well shows
+   * an ASCII object. Strip a screenshot's metadata first.
    */
   image?: { src: string; alt: Localized };
-  phoneImage?: { src: string; alt: Localized };
 };
 
 export type SkillArea = {

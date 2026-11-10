@@ -71,8 +71,7 @@
     "builtWith": "Built with",
     "view": "View project",
     "source": "Source code",
-    "showShot": "Show the screenshot of {title}",
-    "showPhoneShot": "Show the phone screenshot of {title}"
+    "showShot": "Show the screenshot of {title}"
   },
   "skills": {
     "heading": "Skills",

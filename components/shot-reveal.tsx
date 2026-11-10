@@ -11,7 +11,6 @@ export function ShotReveal({
   src,
   alt,
   title,
-  phone = false,
   ratio,
   sizes,
   light,
@@ -20,7 +19,6 @@ export function ShotReveal({
   src: string;
   alt: string;
   title: string;
-  phone?: boolean;
   ratio: number;
   sizes: string;
   light: string;
@@ -57,7 +55,7 @@ export function ShotReveal({
       <button
         type="button"
         aria-pressed={shown}
-        aria-label={t(phone ? "showPhoneShot" : "showShot", { title })}
+        aria-label={t("showShot", { title })}
         onClick={() => setShown((value) => !value)}
         className="absolute inset-0 cursor-pointer"
       />
