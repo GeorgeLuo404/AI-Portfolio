@@ -63,6 +63,7 @@
     "builtWith": "技术",
     "view": "查看项目",
     "source": "源代码",
+    "github": "在 GitHub 上看更多项目",
     "showShot": "显示「{title}」的截图"
   },
   "skills": {

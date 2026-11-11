@@ -71,6 +71,7 @@
     "builtWith": "Built with",
     "view": "View project",
     "source": "Source code",
+    "github": "More projects on GitHub",
     "showShot": "Show the screenshot of {title}"
   },
   "skills": {

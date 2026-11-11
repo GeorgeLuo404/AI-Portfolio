@@ -1161,8 +1161,11 @@ mark {
 }
 
 /* Flipped rows put the image well on the left. */
+/* The flipped row's year starts 40px in from L3, in line with the
+   screenshots, and its title moves with it, so the title starts L1 after
+   the year, as in the other rows. */
 .project--flip {
-  grid-template-columns: var(--L3) var(--L1) 1fr;
+  grid-template-columns: var(--L3) calc(var(--L1) + 40px) 1fr;
 }
 
 .project--flip .project__media {
@@ -1180,6 +1183,25 @@ mark {
   grid-column: 3;
   grid-row: 1;
   max-width: 480px;
+}
+
+/* The other projects are on GitHub: a link under the last row, in the
+   title column. */
+.work__more {
+  display: grid;
+  grid-template-columns: var(--L1) 1fr;
+  padding-top: 80px;
+}
+
+.work__more .btn {
+  grid-column: 2;
+  justify-self: start;
+}
+
+/* GitHub's mark, from Octicons, in the text color. */
+.gh-mark {
+  display: block;
+  flex-shrink: 0;
 }
 
 /* A screen: the screenshot as pixel art on the page color, filling the
@@ -2330,6 +2352,10 @@ mark {
     padding-top: 24px;
   }
 
+  .work__more {
+    padding-top: 64px;
+  }
+
   .project__media,
   .project--flip .project__media {
     grid-column: 1 / -1;
@@ -2844,5 +2870,11 @@ mark {
 @media (prefers-reduced-motion: reduce) {
   .caret {
     animation: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .work__more {
+    padding-top: 56px;
   }
 }

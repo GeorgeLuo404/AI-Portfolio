@@ -40,8 +40,6 @@ export type Project = {
   end?: YearMonth;
   /** Exactly three projects are featured on the home page. */
   featured?: boolean;
-  /** The projects page lists web work and AI work apart (T10b). */
-  group: "web" | "ai";
   title: Localized;
   /** One sentence on what the project is and does. */
   summary: Localized;
