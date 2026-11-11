@@ -21,7 +21,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T9 | DeepSeek chat | Merged | `feat/t9-chat` | `checkpoint/t9` |
 | T9b | Phone fixes and performance | Merged | `fix/t9b-phone-fixes` | `checkpoint/t9b` |
 | T10 | Real content | Merged | `feat/t10-real-content` | `checkpoint/t10` |
-| T10b | GitHub link and chat links | In review | `feat/t10b-github-links` | |
+| T10b | GitHub link and chat links | Merged | `feat/t10b-github-links` | `checkpoint/t10b` |
 | T11 | Chinese translation | Not started | | |
 | T12 | Clean public history | Not started | | |
 | T13 | Production launch | Not started | | |
@@ -159,6 +159,7 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - Update the prototype and `docs/DESIGN.md`. Check at 375, 768, and 1440 in both themes.
 - **Done when:** the button and the chat links work in both languages, and the build, type check, lint, and `pnpm chat:test` pass.
 - Built on 2026-11-10. The link cases in the test set pass, and a planted reply showed that only George's links become links. Writing the tests also showed the twin's profile listed the projects newest first, not featured first, so it named the wrong three as featured; the featured three now come first. The Figma frames wait for the MCP limit (see Open items).
+- Verified on 2026-11-11. The GitHub button fits at 375, 768, and 1440 px in both languages and themes. The browser rendered a Chinese link back to Selected work and an English link to the CodeArmour source. Chat checks resolved URLs against the allowlist. All 56 chat cases passed. The site serves a pixel G as its favicon and Apple touch icon.
 
 ### T11: Chinese translation
 - Translate the UI and content. Claude drafts the Chinese, and George reviews the diff.

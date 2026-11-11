@@ -52,10 +52,22 @@ export function ReplyText({
 
   // A link to one of George's URLs, or to a page under one of them, such as
   // a repository under his GitHub profile.
-  const published = (url: string) =>
-    allowed.some(
-      (link) => trim(url) === link || trim(url).startsWith(`${link}/`),
-    );
+  function publishedUrl(href: string) {
+    if (!/^https?:\/\//.test(href)) return;
+    let url: string;
+    try {
+      // Compare the destination the browser will actually open.
+      url = new URL(href).href;
+    } catch {
+      return;
+    }
+    if (
+      allowed.some(
+        (link) => trim(url) === link || trim(url).startsWith(`${link}/`),
+      )
+    )
+      return url;
+  }
 
   function link(label: string, href: string, key: number): ReactNode {
     const section = href.match(/^(?:\/(?:en|zh))?\/?#([\w-]+)$/)?.[1];
@@ -74,9 +86,10 @@ export function ReplyText({
         </a>
       );
     }
-    if (/^https?:\/\//.test(href) && published(href)) {
+    const url = publishedUrl(href);
+    if (url) {
       return (
-        <ExternalLink key={key} href={href} className={linkClass}>
+        <ExternalLink key={key} href={url} className={linkClass}>
           {label}
         </ExternalLink>
       );
