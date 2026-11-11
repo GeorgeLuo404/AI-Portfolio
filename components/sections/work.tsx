@@ -4,6 +4,7 @@ import { getContent } from "@/content";
 import type { SceneName } from "@/lib/ascii/scenes";
 import { AsciiScene } from "../ascii-art";
 import { ExternalLink } from "../external-link";
+import { GitHubMark } from "../github-mark";
 import { PixelIcon } from "../pixel-icon";
 import { ProjectShot } from "../project-shot";
 
@@ -86,7 +87,8 @@ function Head() {
 // 40px between rows, so the gaps between wells match. The text may run up
 // to 16px into that gap (its negative bottom margin), so a line more of text
 // doesn't throw the gaps off. In flipped rows the year starts 40px in from
-// L3, in line with the screenshots above and below it.
+// L3, in line with the screenshots above and below it, and the title moves
+// with it, so the title starts L1 after the year in every row.
 export function Work() {
   const t = useTranslations("work");
   const locale = useLocale();
@@ -103,7 +105,7 @@ export function Work() {
           return (
             <article
               key={project.id}
-              className={`grid grid-cols-[var(--L1)_1fr] ${n > 0 ? "lg:mt-10" : ""} ${flip ? "lg:grid-cols-[var(--L3)_var(--L1)_1fr]" : "lg:grid-cols-[var(--L1)_calc(var(--L3)-var(--L1))_1fr]"}`}
+              className={`grid grid-cols-[var(--L1)_1fr] ${n > 0 ? "lg:mt-10" : ""} ${flip ? "lg:grid-cols-[var(--L3)_calc(var(--L1)+40px)_1fr]" : "lg:grid-cols-[var(--L1)_calc(var(--L3)-var(--L1))_1fr]"}`}
             >
               <p
                 className={`col-start-1 row-start-1 pt-9 text-[18px] leading-[1.15] font-medium tracking-[-0.02em] after:mt-5 after:block after:size-3 after:bg-signal sm:pt-10 sm:text-[26px] lg:pt-5 lg:text-[30px] lg:after:mt-7 lg:after:size-4 ${flip ? "lg:col-start-2 lg:pl-10" : ""}`}
@@ -181,6 +183,7 @@ export function Work() {
             href={contact.github}
             className="btn btn-lg btn-line col-start-2 justify-self-start"
           >
+            <GitHubMark size={16} />
             {t("github")}
             <PixelIcon name="external" size={10} />
           </ExternalLink>
