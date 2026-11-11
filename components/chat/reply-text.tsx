@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { ExternalLink } from "../external-link";
 
@@ -28,7 +28,7 @@ const PATTERN = new RegExp(
 // an unfinished one at the end, so "[Selected work](#wo" never flashes up.
 const UNFINISHED = /\[[^\]\n]*(?:\]\([^)\s]*)?$/;
 
-const trim = (url: string) => url.replace(/\/+$/, "");
+const withoutTrailingSlash = (url: string) => url.replace(/\/$/, "");
 
 const linkClass =
   "text-signal-text underline decoration-1 underline-offset-2 hover:decoration-2";
@@ -48,10 +48,8 @@ export function ReplyText({
   email?: string;
 }) {
   const shown = streaming ? text.replace(UNFINISHED, "") : text;
-  const allowed = links.map(trim);
+  const allowed = new Set(links.map(withoutTrailingSlash));
 
-  // A link to one of George's URLs, or to a page under one of them, such as
-  // a repository under his GitHub profile.
   function publishedUrl(href: string) {
     if (!/^https?:\/\//.test(href)) return;
     let url: string;
@@ -61,15 +59,10 @@ export function ReplyText({
     } catch {
       return;
     }
-    if (
-      allowed.some(
-        (link) => trim(url) === link || trim(url).startsWith(`${link}/`),
-      )
-    )
-      return url;
+    if (allowed.has(withoutTrailingSlash(url))) return url;
   }
 
-  function link(label: string, href: string, key: number): ReactNode {
+  function link(label: string, href: string, key: number) {
     const section = href.match(/^(?:\/(?:en|zh))?\/?#([\w-]+)$/)?.[1];
     if (section && SECTIONS.has(section)) {
       return (
@@ -94,7 +87,6 @@ export function ReplyText({
         </ExternalLink>
       );
     }
-    return <Fragment key={key}>{label}</Fragment>;
   }
 
   const parts: ReactNode[] = [];
@@ -103,9 +95,9 @@ export function ReplyText({
     const [whole, label, href, url, address] = match;
     const start = match.index ?? 0;
     if (start > at) parts.push(shown.slice(at, start));
-    if (label && href) parts.push(link(label, href, start));
-    else if (url) parts.push(link(url, url, start));
-    else if (address) parts.push(link(address, address, start));
+    if (label && href) parts.push(link(label, href, start) ?? whole);
+    else if (url) parts.push(link(url, url, start) ?? whole);
+    else if (address) parts.push(link(address, address, start) ?? whole);
     else parts.push(whole);
     at = start + whole.length;
   }

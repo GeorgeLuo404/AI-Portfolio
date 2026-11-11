@@ -51,7 +51,7 @@ The instructions in `lib/chat/instructions.ts` hold the rules and every public f
 - Replies in the visitor's language.
 - Writes links in Markdown, `[label](href)`: the home page's sections by their anchors (`#work`, `#skills`, `#experience`, `#contact`), and project and contact links with the exact URLs from the profile.
 
-The chat page makes those links clickable (`components/chat/reply-text.tsx`), along with bare URLs and the email address. Only links George published become links: the sections, the URLs in `content/`, pages under them such as his GitHub repositories, and his email. Any other URL stays plain text, so a made-up or injected link can't send visitors elsewhere. Section links open the home page in the same tab, and the conversation is still there on the way back. The response format doesn't change: links are plain text in the stream.
+The chat page makes links clickable (`components/chat/reply-text.tsx`) for the home page's sections, the URLs in `content/`, and George's email. It also recognizes these destinations as bare URLs or an email address. A published homepage or GitHub profile does not approve other paths under it. Unapproved links keep their original text, including the URL. Section links open the home page in the same tab, and the conversation is still there on the way back. Links travel as plain text in the stream.
 
 DeepSeek's thinking mode is off, so replies start sooner.
 
