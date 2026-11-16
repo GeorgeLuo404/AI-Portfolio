@@ -397,13 +397,17 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
+    .chat-shortcut [data-chat-dot] {
+      animation: chat-dot-hop 5s ease-in-out var(--chat-dot-delay, 0ms) infinite;
+    }
+
     .chat-shortcut:focus-visible [data-chat-dot] {
-      animation: chat-dot-hop 320ms ease-in-out var(--chat-dot-delay, 0ms);
+      animation-play-state: paused;
     }
 
     @media (hover: hover) {
       .chat-shortcut:hover [data-chat-dot] {
-        animation: chat-dot-hop 320ms ease-in-out var(--chat-dot-delay, 0ms);
+        animation-play-state: paused;
       }
     }
 
@@ -593,7 +597,13 @@
 }
 
 @keyframes chat-dot-hop {
-  50% {
+  0%,
+  6%,
+  100% {
+    transform: translateY(0);
+  }
+
+  3% {
     transform: translateY(-1px);
   }
 }
