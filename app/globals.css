@@ -385,6 +385,17 @@
     background: var(--signal);
   }
 
+  /* Align the floating chat link with the frame, including on wide screens. */
+  .chat-shortcut {
+    position: fixed;
+    z-index: 10;
+    right: max(
+      calc((100% - 100cqw) / 2 + var(--g)),
+      calc(env(safe-area-inset-right) + 8px)
+    );
+    bottom: max(16px, calc(env(safe-area-inset-bottom) + 8px));
+  }
+
   .btn-line {
     border-color: var(--fg);
   }
