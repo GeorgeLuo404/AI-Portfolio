@@ -38,7 +38,6 @@ export function Header() {
                   {chunks}
                 </b>
               ),
-              en: (chunks) => <span lang="en">{chunks}</span>,
             })}
           </span>
         </Link>
