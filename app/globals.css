@@ -385,6 +385,41 @@
     background: var(--signal);
   }
 
+  /* Align the floating chat link with the frame, including on wide screens. */
+  .chat-shortcut {
+    position: fixed;
+    z-index: 10;
+    right: max(
+      calc((100% - 100cqw) / 2 + var(--g)),
+      calc(env(safe-area-inset-right) + 8px)
+    );
+    bottom: max(16px, calc(env(safe-area-inset-bottom) + 8px));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .chat-shortcut [data-chat-dot] {
+      animation: chat-dot-hop 2s ease-in-out var(--chat-dot-delay, 0ms) infinite;
+    }
+
+    .chat-shortcut:focus-visible [data-chat-dot] {
+      animation-play-state: paused;
+    }
+
+    @media (hover: hover) {
+      .chat-shortcut:hover [data-chat-dot] {
+        animation-play-state: paused;
+      }
+    }
+
+    .chat-shortcut [data-chat-dot="2"] {
+      --chat-dot-delay: 80ms;
+    }
+
+    .chat-shortcut [data-chat-dot="3"] {
+      --chat-dot-delay: 160ms;
+    }
+  }
+
   .btn-line {
     border-color: var(--fg);
   }
@@ -558,6 +593,18 @@
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes chat-dot-hop {
+  0%,
+  15%,
+  100% {
+    transform: translateY(0);
+  }
+
+  7.5% {
+    transform: translateY(-1px);
   }
 }
 

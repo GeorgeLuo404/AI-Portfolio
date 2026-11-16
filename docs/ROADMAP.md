@@ -22,6 +22,7 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T9b | Phone fixes and performance | Merged | `fix/t9b-phone-fixes` | `checkpoint/t9b` |
 | T10 | Real content | Merged | `feat/t10-real-content` | `checkpoint/t10` |
 | T10b | GitHub link and chat links | Merged | `feat/t10b-github-links` | `checkpoint/t10b` |
+| T10c | Floating chat shortcut | In review | `feat/t10c-chat-shortcut` | |
 | T11 | Chinese translation | In progress | `fix/t11-chinese-name` | |
 | T12 | Clean public history | Not started | | |
 | T13 | Production launch | Not started | | |
@@ -160,6 +161,10 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 - **Done when:** the button and the chat links work in both languages, and the build, type check, lint, and `pnpm chat:test` pass.
 - Built on 2026-11-10. The link cases in the test set pass, and a planted reply showed that only George's links become links. Writing the tests also showed the twin's profile listed the projects newest first, not featured first, so it named the wrong three as featured; the featured three now come first. The Figma frames wait for the MCP limit (see Open items).
 - Verified on 2026-11-11. The GitHub button fits at 375, 768, and 1440 px in both languages and themes. The browser rendered a Chinese link back to Selected work and an English link to the CodeArmour source. Chat checks resolved URLs against the allowlist. All 56 chat cases passed. The site serves a pixel G as its favicon and Apple touch icon.
+
+### T10c: Floating chat shortcut
+- Add a bottom-right pixel chat icon on the home page that opens the chat page in the current language. Show it only when chat is on.
+- **Done when:** the shortcut works in both languages and keeps the footer links clear at phone and desktop widths.
 
 ### T11: Chinese translation
 - The Chinese header uses only 罗卓君, including in the design prototype.

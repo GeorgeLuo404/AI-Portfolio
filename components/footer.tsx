@@ -9,7 +9,7 @@ const SECTIONS = ["work", "skills", "experience", "contact"] as const;
 // The footer stays dark in both themes: the name in giant type with chips
 // over it and a faint, still pair of koi behind, links, contact details, the
 // credit, and the language switch.
-export function Footer() {
+export function Footer({ hasChatShortcut }: { hasChatShortcut: boolean }) {
   const t = useTranslations("footer");
   const header = useTranslations("header");
   const chip =
@@ -116,7 +116,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="relative flex flex-col justify-between gap-x-8 gap-y-3 border-t border-rule px-3 pt-[18px] pb-7 text-[11px] tracking-[0.06em] text-muted uppercase sm:flex-row sm:flex-wrap [&:lang(zh)]:tracking-[0.02em]">
+        <div
+          className={`relative flex flex-col justify-between gap-x-8 gap-y-3 border-t border-rule px-3 pt-[18px] pb-7 text-[11px] tracking-[0.06em] text-muted uppercase sm:flex-row sm:flex-wrap [&:lang(zh)]:tracking-[0.02em] ${hasChatShortcut ? "pr-16" : ""}`}
+        >
           <span>{t("copyright", { year: new Date().getFullYear() })}</span>
           <span>{t("credit")}</span>
           <LangSwitch className="flex gap-6" />
