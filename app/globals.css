@@ -398,21 +398,21 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .chat-shortcut:focus-visible [data-chat-dot] {
-      animation: chat-dot-hop 320ms ease-in-out;
+      animation: chat-dot-hop 320ms ease-in-out var(--chat-dot-delay, 0ms);
     }
 
     @media (hover: hover) {
       .chat-shortcut:hover [data-chat-dot] {
-        animation: chat-dot-hop 320ms ease-in-out;
+        animation: chat-dot-hop 320ms ease-in-out var(--chat-dot-delay, 0ms);
       }
     }
 
     .chat-shortcut [data-chat-dot="2"] {
-      animation-delay: 80ms;
+      --chat-dot-delay: 80ms;
     }
 
     .chat-shortcut [data-chat-dot="3"] {
-      animation-delay: 160ms;
+      --chat-dot-delay: 160ms;
     }
   }
 
