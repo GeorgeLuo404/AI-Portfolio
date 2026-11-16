@@ -233,7 +233,18 @@ export function PixelIcon({
       className={`block shrink-0 ${className ?? ""}`}
     >
       {rects.map(({ x, y, w }) => (
-        <rect key={`${x}-${y}`} x={x} y={y} width={w} height={1} />
+        <rect
+          key={`${x}-${y}`}
+          x={x}
+          y={y}
+          width={w}
+          height={1}
+          data-chat-dot={
+            name === "chat" && y === 2 && x > 0 && x < width - 1
+              ? x / 2
+              : undefined
+          }
+        />
       ))}
     </svg>
   );

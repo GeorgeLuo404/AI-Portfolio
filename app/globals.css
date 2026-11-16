@@ -396,6 +396,26 @@
     bottom: max(16px, calc(env(safe-area-inset-bottom) + 8px));
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    .chat-shortcut:focus-visible [data-chat-dot] {
+      animation: chat-dot-hop 320ms ease-in-out;
+    }
+
+    @media (hover: hover) {
+      .chat-shortcut:hover [data-chat-dot] {
+        animation: chat-dot-hop 320ms ease-in-out;
+      }
+    }
+
+    .chat-shortcut [data-chat-dot="2"] {
+      animation-delay: 80ms;
+    }
+
+    .chat-shortcut [data-chat-dot="3"] {
+      animation-delay: 160ms;
+    }
+  }
+
   .btn-line {
     border-color: var(--fg);
   }
@@ -569,6 +589,12 @@
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes chat-dot-hop {
+  50% {
+    transform: translateY(-1px);
   }
 }
 
