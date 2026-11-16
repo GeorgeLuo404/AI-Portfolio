@@ -398,7 +398,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .chat-shortcut [data-chat-dot] {
-      animation: chat-dot-hop 5s ease-in-out var(--chat-dot-delay, 0ms) infinite;
+      animation: chat-dot-hop 2s ease-in-out var(--chat-dot-delay, 0ms) infinite;
     }
 
     .chat-shortcut:focus-visible [data-chat-dot] {
@@ -598,12 +598,12 @@
 
 @keyframes chat-dot-hop {
   0%,
-  6%,
+  15%,
   100% {
     transform: translateY(0);
   }
 
-  3% {
+  7.5% {
     transform: translateY(-1px);
   }
 }
