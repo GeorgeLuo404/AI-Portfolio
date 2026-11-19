@@ -22,8 +22,8 @@ Tasks are listed in the planned order. T2b keeps its number from an earlier plan
 | T9b | Phone fixes and performance | Merged | `fix/t9b-phone-fixes` | `checkpoint/t9b` |
 | T10 | Real content | Merged | `feat/t10-real-content` | `checkpoint/t10` |
 | T10b | GitHub link and chat links | Merged | `feat/t10b-github-links` | `checkpoint/t10b` |
-| T10c | Floating chat shortcut | In review | `feat/t10c-chat-shortcut` | |
-| T1b | Next.js security patch | In review | `fix/t1b-next-security` | |
+| T10c | Floating chat shortcut | Merged | `feat/t10c-chat-shortcut` | `checkpoint/t10c` |
+| T1b | Next.js security patch | Merged | `fix/t1b-next-security` | `checkpoint/t1b` |
 | T11 | Chinese translation | In progress | `fix/t11-chinese-name` | |
 | T12 | Clean public history | Not started | | |
 | T13 | Production launch | Not started | | |
@@ -166,12 +166,14 @@ The `checkpoint/baseline` tag marks the project as it was before this work start
 ### T10c: Floating chat shortcut
 - Add a bottom-right pixel chat icon on the home page that opens the chat page in the current language. Show it only when chat is on.
 - **Done when:** the shortcut works in both languages and keeps the footer links clear at phone and desktop widths.
+- Merged into `main` on 2026-11-16 in [PR #2](https://github.com/GeorgeLuo404/AI-Portfolio/pull/2).
 
 ### T1b: Next.js security patch
 - Added on 2026-11-17 after `pnpm dev` flagged Next.js 16.4.4 as vulnerable. Upgrade to 16.4.6, which includes the [16.4.5 security fixes](https://github.com/vercel/next.js/releases/tag/v16.4.5) and [16.4.6 bug fixes](https://github.com/vercel/next.js/releases/tag/v16.4.6).
 - Keep the change to Next.js and its matching dependencies in the lockfile.
 - **Done when:** build, type check, lint, production dependency audit, and browser checks pass, and the patch is reviewed and deployed.
-- Local validation: build, `pnpm exec tsc --noEmit`, and lint passed; `pnpm audit --prod` reported no known vulnerabilities. The restarted dev server reports 16.4.6 without the security warning. `/zh` and `/en` render, language navigation works, and `/en/chat` renders a reply with a Skills link and no browser warnings or errors. A Chinese API smoke test returned HTTP 200 and completed its event stream with 52 text deltas across 59 chunks. George approved pushing the branch and opening a PR on 2026-11-18; merge and production deployment are pending.
+- Local validation: build, `pnpm exec tsc --noEmit`, and lint passed; `pnpm audit --prod` reported no known vulnerabilities. The restarted dev server reports 16.4.6 without the security warning. `/zh` and `/en` render, language navigation works, and `/en/chat` renders a reply with a Skills link and no browser warnings or errors. A Chinese API smoke test returned HTTP 200 and completed its event stream with 52 text deltas across 59 chunks.
+- Merged into `main` on 2026-11-18 in [PR #4](https://github.com/GeorgeLuo404/AI-Portfolio/pull/4). After deployment, both language home pages and the English chat page returned HTTP 200, and a production chat reply streamed to completion.
 
 ### T11: Chinese translation
 - The Chinese header uses only 罗卓君, including in the design prototype.
